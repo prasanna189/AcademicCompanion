@@ -23,11 +23,11 @@
         app:menu="@menu/activity_main_drawer" />
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.adavi.intro.MainActivity">
+        tools:context="com.adavi.academiccompanion.MainActivity">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
