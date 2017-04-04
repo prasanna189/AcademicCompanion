@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity
 
     private IntroActivity one;
 
+    private int[] layouts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
         setContentView(R.layout.activity_main);
+        layouts= new int[]{R.layout.activity_screen1,R.layout.activity_screen2,R.layout.activity_screen3};
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public abstract class ViewPageAdapter extends PagerAdapter
+    public class ViewPageAdapter extends PagerAdapter
     {
         private LayoutInflater lif;
 
