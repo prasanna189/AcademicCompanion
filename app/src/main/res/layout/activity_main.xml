@@ -22,60 +22,10 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="home page"/>
 
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.adavi.academiccompanion.MainActivity">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-
-        </android.support.v4.view.ViewPager>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/layoutDots"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"></LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha=".5"
-            android:layout_above="@id/layoutDots"
-            android:background="@android:color/holo_blue_bright"
-            />
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:text="next"
-            android:textColor="@android:color/holo_red_dark"
-
-            />
-
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentleft="true"
-            android:background="@null"
-            android:text="skip"
-            android:textColor="@android:color/holo_red_dark"
-            android:visibility="visible" />
-
-    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>
