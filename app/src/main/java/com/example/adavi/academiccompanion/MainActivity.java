@@ -1,5 +1,6 @@
 package com.example.adavi.academiccompanion;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,6 +65,22 @@ public class MainActivity extends AppCompatActivity
     {
         private LayoutInflater lif;
 
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            lif=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v=LayoutInflater.inflate();
+            return super.instantiateItem(container, position);
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return false;
+        }
     }
 
     @Override
