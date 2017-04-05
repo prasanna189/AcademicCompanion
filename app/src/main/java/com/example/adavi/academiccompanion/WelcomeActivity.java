@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -36,8 +37,8 @@ public class WelcomeActivity extends AppCompatActivity {
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch())
         {
-//            prefManager.setFirstTimeLaunch(false);
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            Toast.makeText(WelcomeActivity.this, "home screen", Toast.LENGTH_SHORT).show();
+            launchHomeScreen();
             finish();
         }
 
@@ -62,7 +63,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_screen3,
                 R.layout.activity_screen4,
                 R.layout.activity_screen5,
-                R.layout.activity_screen6};
+                R.layout.activity_screen6,
+                R.layout.activity_screen7};
 
         // adding bottom dots
         addBottomDots(0);
@@ -94,11 +96,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 else
                 {
 //                    launchHomeScreen();
-//                    Toast.makeText(Welc omeActivity.this, "a", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(WelcomeActivity.this, "a", Toast.LENGTH_SHORT).show();
                     prefManager.setFirstTimeLaunch(false);
-//                    Toast.makeText(WelcomeActivity.this, "b", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WelcomeActivity.this, "b", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-//                    Toast.makeText(WelcomeActivity.this, "c", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WelcomeActivity.this, "c", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -130,7 +132,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class );
+        startActivity(intent);
         finish();
     }
 
@@ -187,10 +190,8 @@ public class WelcomeActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
-
             return view;
         }
 
