@@ -13,44 +13,55 @@
         android:orientation="vertical"
         android:gravity="center"
         >
-
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Enter Your Name"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="30sp"
-            android:paddingTop="16dp"
-            android:textStyle="bold"/>
+            android:layout_height="200dp"
+            android:src="@drawable/main_app_icon_dark"
+
+            />
+
 
         <EditText
             android:id="@+id/name_id"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:shadowDx="2"
             android:shadowColor="@android:color/black"
             android:shadowDy="2"
+            android:hint="Enter Your Name"
+            android:paddingTop="16dp"
+            android:tag="Enter Your Name"
+            android:backgroundTint="@android:color/holo_red_light"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Semester"
-            android:textSize="30sp"
-            android:textColor="@android:color/secondary_text_light"
-            android:paddingTop="20dp"
-            android:textStyle="bold"
-            />
+
 
         <EditText
-            android:id="@+id/sem_id"
+            android:id= "@+id/sem_not_entered_id"
             android:layout_width="300dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:shadowDx="2"
             android:shadowColor="@android:color/black"
             android:shadowDy="2"
+            android:hint="Enter Semester"
+            android:inputType="number"
+            android:paddingTop="16dp"
             />
+
+
+
+        <EditText
+            android:id="@+id/email_not_entered_id"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:shadowDx="2"
+            android:shadowColor="@android:color/black"
+            android:shadowDy="2"
+            android:hint="Enter Email_id"
+            android:paddingTop="16dp"
+            />
+
+
 
     </LinearLayout>
 </RelativeLayout>
