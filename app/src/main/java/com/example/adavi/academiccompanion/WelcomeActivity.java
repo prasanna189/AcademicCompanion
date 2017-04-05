@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -37,7 +36,6 @@ public class WelcomeActivity extends AppCompatActivity {
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch())
         {
-            Toast.makeText(WelcomeActivity.this, "home screen", Toast.LENGTH_SHORT).show();
             launchHomeScreen();
             finish();
         }
@@ -95,12 +93,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
                 else
                 {
-//                    launchHomeScreen();
-//                    Toast.makeText(WelcomeActivity.this, "a", Toast.LENGTH_SHORT).show();
-                    prefManager.setFirstTimeLaunch(false);
-                    Toast.makeText(WelcomeActivity.this, "b", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                    Toast.makeText(WelcomeActivity.this, "c", Toast.LENGTH_SHORT).show();
+                    launchHomeScreen();
                     finish();
                 }
             }
