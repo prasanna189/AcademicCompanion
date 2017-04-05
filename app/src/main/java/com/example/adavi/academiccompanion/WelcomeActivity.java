@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -91,10 +92,36 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 }
+
                 else
                 {
-                    launchHomeScreen();
-                    finish();
+                    boolean flag=true;
+
+                    EditText nameId = (EditText) findViewById(R.id.name_id);
+                    EditText semId = (EditText) findViewById(R.id.sem_id);
+                    EditText emailId = (EditText) findViewById(R.id.email_id);
+                    if(nameId.getText().toString().length()==0)
+                    {
+                        nameId.setError("Please Enter Your Name");
+                        flag=false;
+                    }
+                    if(semId.getText().toString().length()==0)
+                    {
+                        semId.setError("Please Enter Your Semester");
+                        flag=false;
+                    }
+                    if(emailId.getText().toString().length()==0)
+                    {
+                        emailId.setError("Please Enter Your Email ID");
+                        flag=false;
+                    }
+                    if(flag)
+                    {
+                        launchHomeScreen();
+                        finish();
+                    }
+
+
                 }
             }
         });
