@@ -12,23 +12,23 @@
     <string name="skip">SKIP</string>
     <string name="start">PROCEED</string>
 
-    <string name="slide_1_title">Hello Food!</string>
-    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+    <string name="slide_1_title">Welcome to </string>
+    <string name="slide_1_desc">Academic Companion</string>
 
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_2_title">Subjects</string>
+    <string name="slide_2_desc">Here you can add and organise all your Subjects</string>
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+    <string name="slide_3_title">Events</string>
+    <string name="slide_3_desc">Here you can organise your Events and Reminders</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_4_title">Time Table</string>
+    <string name="slide_4_desc">You can create and manage your own TimeTable</string>
 
-    <string name="slide_5_title">World Travel</string>
-    <string name="slide_5_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_5_title">Statistics</string>
+    <string name="slide_5_desc">You can find your details about Marks and GPA</string>
 
-    <string name="slide_6_title">World Travel</string>
-    <string name="slide_6_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_6_title">Attendance</string>
+    <string name="slide_6_desc">You can find your details about Attendance in entire Semester</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
