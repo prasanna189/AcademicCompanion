@@ -21,11 +21,11 @@
     <string name="slide_3_title">Events</string>
     <string name="slide_3_desc">Here you can organise your Events and Reminders</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_4_title">Time Table</string>
+    <string name="slide_4_desc">You can create and manage your own TimeTable</string>
 
-    <string name="slide_5_title">World Travel</string>
-    <string name="slide_5_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_5_title">Statistics</string>
+    <string name="slide_5_desc">You can find your details about Attendance,Marks and Results</string>
 
     <string name="slide_6_title">World Travel</string>
     <string name="slide_6_desc">Book tickets of any transportation and travel the world!</string>
