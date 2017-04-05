@@ -15,11 +15,11 @@
     <string name="slide_1_title">Welcome to </string>
     <string name="slide_1_desc">Academic Companion</string>
 
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_2_title">Subjects</string>
+    <string name="slide_2_desc">Here you can add and organise all your Subjects</string>
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+    <string name="slide_3_title">Events</string>
+    <string name="slide_3_desc">Here you can organise your Events and Reminders</string>
 
     <string name="slide_4_title">World Travel</string>
     <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
