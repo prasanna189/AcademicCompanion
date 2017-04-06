@@ -53,6 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    //what
+
     public boolean insertDataSemester(int sem) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
