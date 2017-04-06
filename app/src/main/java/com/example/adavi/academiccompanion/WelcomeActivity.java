@@ -160,6 +160,7 @@ public class WelcomeActivity extends AppCompatActivity {
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.start));
+                btnNext.setTextColor(Color.BLACK);
                 btnSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left
