@@ -23,10 +23,13 @@
             android:name=".MainActivity"
             android:label="HOME"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".IntroUserInputActivity"
-            android:theme="@style/AppTheme.CustomStatusBar"></activity>
+            android:theme="@style/AppTheme.CustomStatusBar" />
+        <activity
+            android:name=".DisplayEventsActivity"
+            android:label="@string/title_activity_display_events"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
