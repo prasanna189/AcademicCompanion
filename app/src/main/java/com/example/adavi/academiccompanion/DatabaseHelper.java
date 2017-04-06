@@ -85,6 +85,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean insertDataSubjectDetails(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status, int credits, String grade, int lab,String description ) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem_id);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("prof_name",prof_name);
+        contentValues.put("prof_email",prof_email);
+        contentValues.put("min_attendance",min_attendance);
+        contentValues.put("status",status);
+        contentValues.put("credits",credits);
+        contentValues.put("grade",grade);
+        contentValues.put("lab",lab);
+        contentValues.put("description", description);
+        long result = db.insert("subject_details",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+
     public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
