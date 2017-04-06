@@ -13,8 +13,6 @@ public class IntroUserInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_user_input);
-
-
     }
 
     void submit(View view) {
@@ -35,13 +33,14 @@ public class IntroUserInputActivity extends AppCompatActivity {
             emailId.setError("Please Enter Your Email ID");
             flag = false;
         }
-        if (flag) {
+        if (flag)
+        {
+            //setting firsttimelaunch as false, so from next time directly home screen is opened.
             com.example.adavi.academiccompanion.WelcomeActivity.prefManager.setFirstTimeLaunch(false);
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
     }
-
 
 }
