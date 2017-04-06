@@ -115,8 +115,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+    public boolean insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select ifnull(max(event_id), 0) from event",null);
+        int event_id = Integer.parseInt( res.getString(0) );
+        event_id = event_id + 1;
         ContentValues contentValues = new ContentValues();
         contentValues.put("event_id",event_id);
         contentValues.put("event_name",event_name);
