@@ -183,6 +183,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getRecentEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from event order by date and startTime DESC",null);
+        return res;
+    }
+
+    public boolean updateDataSemester(int sem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem);
+        long result=db.update("semester",contentValues,"sem_id="+sem,null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
 
     public boolean updateDataUserDetails(String name,String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -191,17 +208,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email",email);
         contentValues.put("phone",phone);
         long result=db.update("user_details",contentValues,"name="+name,null);
-        if(result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public boolean updateDataSemester(int sem) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem);
-        long result=db.update("semester",contentValues,"sem_id="+sem,null);
         if(result == -1)
             return false;
         else
@@ -315,4 +321,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
 //    }
 
+    public Integer deleteDataSemester (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("semester", "sem_id = "+id+"",null);
+    }
+
+    public Integer deleteDataSubject (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+id+"",null);
+    }
+
+    public Integer deleteDataSubjectDetails (int sub_id,int sem_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject_details", "subject_id = "+sub_id+" and sem_id = "+sem_id+"",null);
+    }
+
+    public Integer deleteDataMarks (int sub_id,int sem_id,String type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and exam_type = "+type+"",null);
+    }
+
+    public Integer deleteDataAttendance (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("attendance", "attendance_id = "+id+"",null);
+    }
+
+    public Integer deleteDataTimetable (int sub_id,int sem_id,String day,String stime,String etime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and day = "+day+" and startTime = "+stime+"and endTime = "+etime+"",null);
+    }
+
+    public Integer deleteDataEvent (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("event", "event_id = "+id+"",null);
+    }
 }
