@@ -36,33 +36,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name,String surname,String marks) {
+    public boolean insertDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2,name);
-        contentValues.put(COL_3,surname);
-        contentValues.put(COL_4,marks);
-        long result = db.insert(TABLE_NAME,null ,contentValues);
+        contentValues.put("sem_id",semid);
+        contentValues.put("subject_id",subid);
+        contentValues.put("exam_type",exam_type);
+        contentValues.put("marks",marks);
+        contentValues.put("max_marks",max_marks);
+
+        long result = db.insert("marks",null ,contentValues);
         if(result == -1)
             return false;
         else
             return true;
     }
 
-    public Cursor getAllData() {
+    public Cursor getAllData(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
     }
 
-    public boolean updateData(String id,String name,String surname,String marks) {
+    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,id);
-        contentValues.put(COL_2,name);
-        contentValues.put(COL_3,surname);
-        contentValues.put(COL_4,marks);
-        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
+        contentValues.put("sem_id",semid);
+        contentValues.put("subject_id",subid);
+        contentValues.put("exam_type",exam_type);
+        contentValues.put("marks",marks);
+        contentValues.put("max_marks",max_marks);
+        db.update("marks", contentValues, "semid="+semid +"and"+ "subid="+subid+"exam_type="+exam_type ,null);
+
         return true;
     }
 
