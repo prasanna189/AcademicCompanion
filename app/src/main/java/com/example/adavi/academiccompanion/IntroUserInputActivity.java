@@ -1,6 +1,7 @@
 package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,6 +18,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
     void submit(View view) {
         boolean flag = true;
+
+
 
         EditText nameId = (EditText) findViewById(R.id.name_id);
         EditText semId = (EditText) findViewById(R.id.sem_id);
@@ -35,6 +38,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
         }
         if (flag)
         {
+
             //setting firsttimelaunch as false, so from next time directly home screen is opened.
             com.example.adavi.academiccompanion.WelcomeActivity.prefManager.setFirstTimeLaunch(false);
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);
