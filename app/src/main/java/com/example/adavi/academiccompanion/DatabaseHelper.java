@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static android.R.attr.description;
-import static android.R.attr.id;
-import static android.R.attr.name;
-
 /**
  * Created by pk on 4/6/2017.
  */
@@ -24,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table user( name text not null, email text not null, phone text)");
+        db.execSQL("create table user_details( name text not null, email text not null, phone text)");
         db.execSQL("create table semester(sem_id integer primary key)");
         db.execSQL("create table subject(subject_id integer primary key,subject_name text)");
         db.execSQL("create table subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) )");
@@ -36,52 +32,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS user_details");
+        db.execSQL("DROP TABLE IF EXISTS semester");
+        db.execSQL("DROP TABLE IF EXISTS subject");
+        db.execSQL("DROP TABLE IF EXISTS subject_details");
+        db.execSQL("DROP TABLE IF EXISTS marks");
+        db.execSQL("DROP TABLE IF EXISTS attendance");
+        db.execSQL("DROP TABLE IF EXISTS timetable");
+        db.execSQL("DROP TABLE IF EXISTS event");
+
         onCreate(db);
     }
 
-    public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
+    public boolean insertDataUserDetails(String name,String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("date",date);
-        contentValues.put("status",status);
-        contentValues.put("isExtraClass",is_extra_class);
-        long result = db.insert("attendance",null ,contentValues);
+        contentValues.put("name",name);
+        contentValues.put("email",email);
+        contentValues.put("phone",phone);
+        long result = db.insert("user_details",null ,contentValues);
         if(result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean insertDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+    public boolean insertDataSemester(int sem) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("day",day);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        long result = db.insert("timetable",null ,contentValues);
-        if(result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public boolean insertDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("event_id",event_id);
-        contentValues.put("event_name",event_name);
-        contentValues.put("date",date);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("description",description);
-        contentValues.put("remainderTime",remainderTime);
-        long result = db.insert("event",null ,contentValues);
+        contentValues.put("sem_id",sem);
+        long result = db.insert("semester",null ,contentValues);
         if(result == -1)
             return false;
         else
@@ -89,36 +69,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getAllData() {
+    public boolean insertDataSubject(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select ifnull(max(subject_id), 0) from subject",null);
+        int subject_id = Integer.parseInt( res.getString(0) );
+        subject_id = subject_id + 1;
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("subject_name",name);
+        contentValues.put("subject_id",subject_id);
+        long result = db.insert("semester",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean insertDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",semid);
+        contentValues.put("subject_id",subid);
+        contentValues.put("exam_type",exam_type);
+        contentValues.put("marks",marks);
+        contentValues.put("max_marks",max_marks);
+
+        long result = db.insert("marks",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public Cursor getAllData(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
     }
 
-    public boolean updateDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("event_id",event_id);
-        contentValues.put("event_name",event_name);
-        contentValues.put("date",date);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("description",description);
-        contentValues.put("remainderTime",remainderTime);
-        db.update("event", contentValues, "event_id = "+event_id+"",null);
-        return true;
-    }
+        contentValues.put("sem_id",semid);
+        contentValues.put("subject_id",subid);
+        contentValues.put("exam_type",exam_type);
+        contentValues.put("marks",marks);
+        contentValues.put("max_marks",max_marks);
+        db.update("marks", contentValues, "semid="+semid +"and"+ "subid="+subid+"exam_type="+exam_type ,null);
 
-    public boolean updatetDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("day",day);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        db.update("timetable", contentValues, "subject_id = "+subject_id+" and sem_id = "+sem_id+" ",null);
         return true;
     }
 
