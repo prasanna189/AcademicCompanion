@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.adavi.academiccompanion.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    android:layout_marginTop="100dp" >
 
     <LinearLayout
         android:layout_width="368dp"
@@ -21,44 +22,144 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:orientation="horizontal"
-            android:weightSum="1">
-
-            <ImageButton
-                android:layout_width="131dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.92"
-                android:background="@android:color/white"
-                android:scaleType="fitStart"
-                android:src="@drawable/subjects_icon1" />
+            android:layout_margin="8dp">
 
 
-            <ImageButton
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
-                android:background="@android:color/white"
-                android:scaleType="fitStart"
-                android:src="@drawable/event3_icon" />
+
+            <RelativeLayout
+                android:id="@+id/subjects_ll_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_default"
+
+                android:clickable="true"
+                android:layout_margin="16dp">
+
+                <ImageView
+                    android:id="@+id/home_subjects_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/subjects_icon1"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/home_subjects_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:text="Subjects"
+                    android:layout_below="@id/home_subjects_iv"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/events_ll_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_default"
+                android:clickable="true"
+                android:layout_margin="16dp">
+
+                <ImageView
+                    android:id="@+id/home_events_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/event3_icon"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/home_events_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:text="Events"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/home_events_iv"/>
+            </RelativeLayout>
 
         </LinearLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_margin="8dp">
 
-            <ImageButton
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
-                android:background="@android:color/white"
-                android:scaleType="fitStart"
-                android:src="@drawable/timetable1" />
 
-            <ImageButton
-                android:layout_width="@dimen/img_width_height"
-                android:layout_height="@dimen/img_width_height"
-                android:background="@android:color/white"
-                android:scaleType="fitStart"
-                android:src="@drawable/exam_icon_2" />
+            <RelativeLayout
+                android:id="@+id/timetable_ll_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_default"
+                android:clickable="true"
+
+                android:layout_margin="16dp">
+
+                <ImageView
+                    android:id="@+id/home_timetable_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/timetable1"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/home_timetable_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:text="Time Table"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/home_timetable_iv"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/examstats_ll_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:drawable/btn_default"
+                android:clickable="true"
+
+                android:layout_margin="16dp">
+
+                <ImageView
+                    android:id="@+id/home_examstats_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/exam_stats1"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/home_examstats_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:text="Exam Stats"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/home_examstats_iv"/>
+            </RelativeLayout>
 
 
         </LinearLayout>
