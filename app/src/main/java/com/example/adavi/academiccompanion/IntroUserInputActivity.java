@@ -46,5 +46,4 @@ public class IntroUserInputActivity extends AppCompatActivity {
             finish();
         }
     }
-
 }

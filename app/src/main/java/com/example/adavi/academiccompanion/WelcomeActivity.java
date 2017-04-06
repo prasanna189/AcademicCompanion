@@ -60,7 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_screen3,
                 R.layout.activity_screen4,
                 R.layout.activity_screen5,
-                R.layout.activity_screen6};
+                R.layout.activity_screen6 };
 
         // adding bottom dots
         addBottomDots(0);
