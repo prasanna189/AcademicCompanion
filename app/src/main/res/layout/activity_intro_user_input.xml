@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/intro_userinput_bg">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textAlignment="center"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/main_app_icon_dark" />
+
+        <EditText
+            android:id="@+id/name_id"
+            style="@style/EditTextCustomHolo"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:hint="Enter Your Name"
+            android:paddingTop="16dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:tag="Enter Your Name" />
+
+
+        <EditText
+            android:id="@+id/sem_id"
+            style="@style/EditTextCustomHolo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Semester"
+            android:paddingTop="16dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
+
+
+        <EditText
+            android:id="@+id/email_id"
+            style="@style/EditTextCustomHolo"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:hint="Enter Email_id"
+            android:paddingTop="16dp"
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:onClick="submit"
+        android:text="PROCEED"
+        />
+</RelativeLayout>

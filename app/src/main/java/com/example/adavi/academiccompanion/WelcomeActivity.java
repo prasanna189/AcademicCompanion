@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private PrefManager prefManager;
+    public static PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_screen3,
                 R.layout.activity_screen4,
                 R.layout.activity_screen5,
-                R.layout.activity_screen6,
-                R.layout.activity_screen7};
+                R.layout.activity_screen6};
 
         // adding bottom dots
         addBottomDots(0);
@@ -77,7 +75,9 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                Intent intent = new Intent(WelcomeActivity.this, IntroUserInputActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -87,33 +87,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 // checking for last page
                 // if last page home screen will be launched
                 int current = getItem(+1);
+
                 if (current < layouts.length) {
-                    // move to next screen
+//                     move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    boolean flag = true;
 
-                    EditText nameId = (EditText) findViewById(R.id.name_id);
-                    EditText semId = (EditText) findViewById(R.id.sem_id);
-                    EditText emailId = (EditText) findViewById(R.id.email_id);
-                    if (nameId.getText().toString().length() == 0) {
-                        nameId.setError("Please Enter Your Name");
-                        flag = false;
-                    }
-                    if (semId.getText().toString().length() == 0) {
-                        semId.setError("Please Enter Your Semester");
-                        flag = false;
-                    }
-                    if (emailId.getText().toString().length() == 0) {
-                        emailId.setError("Please Enter Your Email ID");
-                        flag = false;
-                    }
-                    if (flag) {
-                        launchHomeScreen();
-                        finish();
-                    }
-
-
+                    Intent intent = new Intent(WelcomeActivity.this, IntroUserInputActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -157,11 +139,9 @@ public class WelcomeActivity extends AppCompatActivity {
             addBottomDots(position);
 
             // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length - 1) {
+            if (position == layouts.length) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.start));
-                btnNext.setTextColor(Color.BLACK);
-                btnSkip.setVisibility(View.GONE);
+                btnNext.setText("NEXT");
             } else {
                 // still pages are left
                 btnNext.setText(getString(R.string.next));
