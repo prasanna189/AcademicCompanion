@@ -85,6 +85,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem_id);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("date",date);
+        contentValues.put("status",status);
+        contentValues.put("isExtraClass",is_extra_class);
+        long result = db.insert("attendance",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean insertDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem_id);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("day",day);
+        contentValues.put("startTime",startTime);
+        contentValues.put("endTime",endTime);
+        long result = db.insert("timetable",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean insertDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("event_id",event_id);
+        contentValues.put("event_name",event_name);
+        contentValues.put("date",date);
+        contentValues.put("startTime",startTime);
+        contentValues.put("endTime",endTime);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("description",description);
+        contentValues.put("remainderTime",remainderTime);
+        long result = db.insert("event",null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+
+
+
     public boolean insertDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -108,6 +159,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public boolean updateDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("event_id",event_id);
+        contentValues.put("event_name",event_name);
+        contentValues.put("date",date);
+        contentValues.put("startTime",startTime);
+        contentValues.put("endTime",endTime);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("description",description);
+        contentValues.put("remainderTime",remainderTime);
+        db.update("event", contentValues, "event_id = "+event_id+"",null);
+        return true;
+    }
+
+    public boolean updatetDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem_id);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("day",day);
+        contentValues.put("startTime",startTime);
+        contentValues.put("endTime",endTime);
+        db.update("timetable", contentValues, "subject_id = "+subject_id+" and sem_id = "+sem_id+" ",null);
+        return true;
+    }
+
+
     public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -116,10 +195,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("exam_type",exam_type);
         contentValues.put("marks",marks);
         contentValues.put("max_marks",max_marks);
-        db.update("marks", contentValues, "semid="+semid +"and"+ "subid="+subid+"exam_type="+exam_type ,null);
+        db.update("marks", contentValues, "sem_id="+semid +"and"+ "subid="+subid+"exam_type="+exam_type ,null);
 
         return true;
     }
+
+    public boolean updatetDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem_id);
+        contentValues.put("subject_id",subject_id);
+        contentValues.put("date",date);
+        contentValues.put("status",status);
+        contentValues.put("isExtraClass",is_extra_class);
+        db.update("attendance", contentValues, "sem_id="+semid +"and"+ "subject_id="+subid+"exam_type="+exam_type ,null);
+
+        return true;
+    }
+
 
     public Integer deleteData (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
