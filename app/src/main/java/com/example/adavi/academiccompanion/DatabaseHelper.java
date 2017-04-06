@@ -190,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("name",name);
         contentValues.put("email",email);
         contentValues.put("phone",phone);
-        long result=db.update("user_details",contentValues,"name="+name,null)
+        long result=db.update("user_details",contentValues,"name="+name,null);
         if(result == -1)
             return false;
         else
@@ -309,10 +309,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-
-    public Integer deleteData (String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
-    }
+//
+//    public Integer deleteData (String id) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+//    }
 
 }
