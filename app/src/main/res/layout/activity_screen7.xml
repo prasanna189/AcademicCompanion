@@ -10,68 +10,57 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
         android:gravity="center"
-        >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="Welcome!"
-            android:textStyle="bold"
+            android:textAlignment="center"
             android:textSize="40sp"
-
-            />
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/main_app_icon_dark"
-
-            />
+            android:src="@drawable/main_app_icon_dark" />
 
         <EditText
             android:id="@+id/name_id"
+            style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:shadowDx="2"
-            android:shadowColor="@android:color/black"
-            android:shadowDy="2"
             android:hint="Enter Your Name"
             android:paddingTop="16dp"
-            android:tag="Enter Your Name"
-            style="@style/EditTextCustomHolo"
-            />
-
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:tag="Enter Your Name" />
 
 
         <EditText
-            android:id= "@+id/sem_id"
+            android:id="@+id/sem_id"
+            style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:shadowDx="2"
-            android:shadowColor="@android:color/black"
-            android:shadowDy="2"
             android:hint="Enter Semester"
             android:paddingTop="16dp"
-            style="@style/EditTextCustomHolo"
-            />
-
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
 
 
         <EditText
             android:id="@+id/email_id"
+            style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:shadowDx="2"
-            android:shadowColor="@android:color/black"
-            android:shadowDy="2"
             android:hint="Enter Email_id"
             android:paddingTop="16dp"
-            style="@style/EditTextCustomHolo"
-            />
-
+            android:shadowColor="@android:color/black"
+            android:shadowDx="2"
+            android:shadowDy="2" />
 
 
     </LinearLayout>

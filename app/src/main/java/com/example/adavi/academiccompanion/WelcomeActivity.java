@@ -35,8 +35,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch())
-        {
+        if (!prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }
@@ -63,7 +62,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_screen4,
                 R.layout.activity_screen5,
                 R.layout.activity_screen6,
-                R.layout.activity_screen7 };
+                R.layout.activity_screen7};
 
         // adding bottom dots
         addBottomDots(0);
@@ -91,32 +90,25 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (current < layouts.length) {
                     // move to next screen
                     viewPager.setCurrentItem(current);
-                }
-
-                else
-                {
-                    boolean flag=true;
+                } else {
+                    boolean flag = true;
 
                     EditText nameId = (EditText) findViewById(R.id.name_id);
                     EditText semId = (EditText) findViewById(R.id.sem_id);
                     EditText emailId = (EditText) findViewById(R.id.email_id);
-                    if(nameId.getText().toString().length()==0)
-                    {
+                    if (nameId.getText().toString().length() == 0) {
                         nameId.setError("Please Enter Your Name");
-                        flag=false;
+                        flag = false;
                     }
-                    if(semId.getText().toString().length()==0)
-                    {
+                    if (semId.getText().toString().length() == 0) {
                         semId.setError("Please Enter Your Semester");
-                        flag=false;
+                        flag = false;
                     }
-                    if(emailId.getText().toString().length()==0)
-                    {
+                    if (emailId.getText().toString().length() == 0) {
                         emailId.setError("Please Enter Your Email ID");
-                        flag=false;
+                        flag = false;
                     }
-                    if(flag)
-                    {
+                    if (flag) {
                         launchHomeScreen();
                         finish();
                     }
@@ -152,7 +144,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class );
+        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

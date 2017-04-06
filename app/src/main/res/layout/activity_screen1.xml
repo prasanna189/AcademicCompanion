@@ -14,8 +14,7 @@
         <ImageView
             android:layout_width="@dimen/img_width_height"
             android:layout_height="@dimen/img_width_height"
-            android:src="@drawable/main_app_icon_dark"
-            />
+            android:src="@drawable/main_app_icon_dark" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,8 +23,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_title"
-            android:textStyle="bold"
-             />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +35,7 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 </RelativeLayout>
