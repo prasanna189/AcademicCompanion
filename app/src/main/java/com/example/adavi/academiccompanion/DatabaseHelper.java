@@ -43,7 +43,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
-
+    public int getcurrentsem()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select current_sem from user_details",null);
+        return res.getInt(0);
+    }
     public boolean insertDataUserDetails(String name,String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -69,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertDataSubject(String name) {
+    public int insertDataSubject(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select ifnull(max(subject_id), 0) from subject",null);
         int subject_id = Integer.parseInt( res.getString(0) );
@@ -80,9 +85,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("subject_id",subject_id);
         long result = db.insert("subject",null ,contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
-            return true;
+            return subject_id;
     }
 
     public boolean insertDataSubjectDetails(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status, int credits, String grade, int lab,String description ) {

@@ -33,23 +33,23 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
     }
 
     public void displaySubjectsHelper() {
-//        Cursor res = myDB.getAllData();
-//        if (res.getCount() == 0) {
-//            subjectAlert("No Subjects", "Go and Add a subject!");
-//            return;
-//        }
-//
-////        StringBuffer buffer = new StringBuffer();
-//        while (res.moveToNext()) {
-////            buffer.append("Subject: "+res.getString(0)+"\n");
-////            buffer.append("Teacher: "+res.getString(1)+"\n");
-////            buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-//            displaySubjects(res.getString(0), res.getString(1), res.getString(2));
-////            buffer.replace(0,buffer.length(),"");
-//        }
+        Cursor res = myDB.getAllData("subject_details");
+        if (res.getCount() == 0) {
+            subjectAlert("No Subjects", "Go and Add a subject!");
+            return;
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        while (res.moveToNext()) {
+            buffer.append("Subject: "+res.getString(0)+"\n");
+            buffer.append("Status: "+res.getString(5)+"\n");
+         //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
+            displaySubjects(res.getString(0), res.getString(5));
+            buffer.replace(0,buffer.length(),"");
+        }
     }
 
-    public void displaySubjects(String sname, String tname, String temail) {
+    public void displaySubjects(String sname, String status) {
 
         //layout to which children are added
         RelativeLayout subjectLL = (RelativeLayout) findViewById(R.id.subjects_ll_button);
@@ -96,7 +96,7 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         rowButton.setTextSize(20);
         rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
 
-        tv.setText(tname);
+        tv.setText(status);
         tv.setTextSize(12);
 
 
