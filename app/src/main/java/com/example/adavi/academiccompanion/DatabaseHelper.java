@@ -20,12 +20,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table user_details( name text not null, email text not null, phone text, current_sem integer not null)");
+        db.execSQL("create table user_details( name text not null, email text not null, phone text)");
         db.execSQL("create table semester(sem_id integer primary key)");
         db.execSQL("create table subject(subject_id integer primary key,subject_name text)");
         db.execSQL("create table subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) )");
         db.execSQL("create table marks (sem_id integer, subject_id integer, exam_type text, marks integer, max_marks integer, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
-        db.execSQL("create table attendance (attendance_id integer primary key, sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
+        db.execSQL("create table attendance (sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
         db.execSQL("create table timetable (sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id) )");
         db.execSQL("create table event ( event_id integer primary key, event_name text,date text, startTime text, endTime text, subject_id integer, description text, remainderTime text , foreign key (subject_id) references subject(subject_id))");
     }
@@ -43,7 +43,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         onCreate(db);
     }
-
+    public int getcurrentsem()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select current_sem from user_details",null);
+        return res.getInt(0);
+    }
     public boolean insertDataUserDetails(String name,String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -69,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertDataSubject(String name) {
+    public int insertDataSubject(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select ifnull(max(subject_id), 0) from subject",null);
         int subject_id = Integer.parseInt( res.getString(0) );
@@ -80,9 +85,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("subject_id",subject_id);
         long result = db.insert("subject",null ,contentValues);
         if(result == -1)
-            return false;
+            return -1;
         else
-            return true;
+            return subject_id;
     }
 
     public boolean insertDataSubjectDetails(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status, int credits, String grade, int lab,String description ) {
@@ -109,11 +114,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Cursor res = db.rawQuery("select ifnull(max(attendance_id), 0) from attendance",null);
-        int attendance_id = Integer.parseInt( res.getString(0) );
-        attendance_id = attendance_id + 1;
-
-        contentValues.put("attendance_id",attendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
@@ -181,21 +181,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-
-    public boolean setCurrentSem(int sem)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem);
-        long result=db.update("user",contentValues,"",null);
-        if(result == -1)
-            return false;
-        else
-            return true;
-
-    }
-
-
 
     public Cursor getAllData(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -319,16 +304,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean updatetDataAttendance(int attendance_id,int sem_id,int subject_id,String date,String status,int is_extra_class) {
+    public boolean updatetDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("attendance_id",attendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
         contentValues.put("status",status);
         contentValues.put("isExtraClass",is_extra_class);
-       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
+       long result= db.update("attendance", contentValues, "sem_id="+sem_id +"and"+ "subject_id="+subject_id+"date="+date ,null);
 
         if(result == -1)
             return false;
