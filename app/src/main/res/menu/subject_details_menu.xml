@@ -4,8 +4,8 @@
         android:icon="@drawable/ic_action_name"
         android:title="edit"
         android:showAsAction="ifRoom"/>
-    <item android:id="@+id/help"
-        android:icon="@drawable/ic_help"
-        android:title="@string/help" />
+    <!--<item android:id="@+id/help"-->
+        <!--android:icon="@drawable/ic_help"-->
+        <!--android:title="@string/help" />-->
 
 </menu>

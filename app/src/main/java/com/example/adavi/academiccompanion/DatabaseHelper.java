@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -163,8 +164,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ifnull(max(event_id), 0) from event",null);
-        int event_id = Integer.parseInt( res.getString(0) );
+        int event_id=0;
+        Cursor res = db.rawQuery("SELECT ifnull(max(event_id),0) FROM event", null);
+//        Cursor res = db.query("event","event_id",null,null,null,null,null)
+        while(res.moveToNext())
+        {
+            if(res.getInt(0)> event_id)
+            {
+                event_id=res.getInt(0);
+            }
+        }
+//        event_id=res.getInt(0);
         event_id = event_id + 1;
         ContentValues contentValues = new ContentValues();
         contentValues.put("event_id",event_id);
@@ -225,7 +235,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
 
     }
+    public String getUserPhone()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from user_details",null);
+        boolean i=res.moveToNext();
+        if(i)
+        {
+            return res.getString(2);
+        }
+        else
+            return null;
 
+
+    }
     public String getUserName()
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -240,19 +263,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     }
-    public String getSubjectName(int sub_id)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from subject",null);
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)==sub_id)
-            {
-                return res.getString(1);
-            }
-        }
-        return null;
-    }
+
     public String getUserEmail()
     {
 

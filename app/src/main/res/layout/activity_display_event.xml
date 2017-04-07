@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.adavi.academiccompanion.DisplayEventsActivity">
+    tools:context="com.example.adavi.academiccompanion.DisplayEventActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_display_events" />
+    <include layout="@layout/content_display_event" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -28,8 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/AliceBlue"
+        android:onClick="openAddEvent"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="normal"
+        app:rippleColor="?android:attr/detailsElementBackground"
         app:srcCompat="@drawable/ic_action_name" />
 
 </android.support.design.widget.CoordinatorLayout>
