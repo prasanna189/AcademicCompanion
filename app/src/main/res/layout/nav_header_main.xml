@@ -21,16 +21,16 @@
 
     <TextView
         android:id="@+id/navbar_username_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pk" />
+        android:text="adavi" />
         <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
     <TextView
         android:id="@+id/navbar_useremail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="spk261096@gmail.com" />
+        android:text="adavi@gmail.com" />
         <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
 </LinearLayout>
