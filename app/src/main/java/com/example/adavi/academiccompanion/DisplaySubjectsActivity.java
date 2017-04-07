@@ -41,18 +41,18 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
 
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()) {
-            buffer.append("Subject: "+res.getString(0)+"\n");
+            buffer.append("Subject: "+myDB.getSubjectName(res.getInt(1))+"\n");
             buffer.append("Status: "+res.getString(5)+"\n");
          //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-            displaySubjects(res.getString(0), res.getString(5));
+            displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5),res.getInt(1));
             buffer.replace(0,buffer.length(),"");
         }
     }
 
-    public void displaySubjects(String sname, String status) {
+    public void displaySubjects(String sname, String status,int sub_id) {
 
         //layout to which children are added
-        RelativeLayout subjectLL = (RelativeLayout) findViewById(R.id.subjects_ll_button);
+        LinearLayout subjectLL = (LinearLayout) findViewById(R.id.subjects_linearlayout);
 
 
         //child layouts
@@ -91,10 +91,20 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         ll.setLayoutParams(ll_params);
         rowButton.setLayoutParams(rb_params);
 
+        rowButton.setId(sub_id);
 
         rowButton.setText(sname);
         rowButton.setTextSize(20);
         rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+        rowButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                viewSubjectDetails(view);
+
+            }
+        });
+
 
         tv.setText(status);
         tv.setTextSize(12);
@@ -105,6 +115,11 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         ll.addView(tv);
 
         subjectLL.addView(ll);
+    }
+    public void viewSubjectDetails(View v)
+    {
+        Intent intent = new Intent(this, DisplaySubjectDetails.class);
+        startActivity(intent);
     }
 
     public void subjectAlert(String title, String message) {
