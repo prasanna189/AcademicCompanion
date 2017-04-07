@@ -15,7 +15,7 @@ import android.view.View;
 //just testing
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
 
     @Override
@@ -82,6 +82,22 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+//    Button button = (Button)findViewById(R.id.dbmanager_id);
+//
+//    button.setOnClickListener(new OnClickListener() {
+//        public void onClick(View v) {
+//
+//            Intent dbmanager = new Intent(getActivity(),AndroidDatabaseManager.class);
+//            startActivity(dbmanager);
+//        }
+//    });
+
+    public void databasemanager(View view)
+    {
+        Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
+        startActivity(dbmanager);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
