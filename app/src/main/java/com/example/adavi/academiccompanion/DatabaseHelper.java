@@ -81,18 +81,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int insertDataSubject(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ifnull(max(subject_id), 0) from subject",null);
-        int subject_id = Integer.parseInt( res.getString(0) );
-        subject_id = subject_id + 1;
-
+        int maxid=-1;
+        Cursor res = db.rawQuery("select * from subject",null);
+        while (res.moveToNext()) {
+            if(res.getInt(0)>maxid)
+            {
+                maxid=res.getInt(0);
+            }
+        }
+        maxid=maxid+1;
+//        int subject_id = Integer.parseInt( res.getString(0) );
+//        subject_id = subject_id + 1;
         ContentValues contentValues = new ContentValues();
+        contentValues.put("subject_id",maxid);
         contentValues.put("subject_name",name);
-        contentValues.put("subject_id",subject_id);
         long result = db.insert("subject",null ,contentValues);
         if(result == -1)
             return -1;
         else
-            return subject_id;
+            return maxid;
+//        String ROW1 = "INSERT INTO " + "subject" + " ("
+//                + "subject_id"+ ", " + "subject_name" + ") Values ( "+subject_id+","+name+");";
+//        db.execSQL(ROW1);
+//        return  subject_id;
     }
 
     public boolean insertDataSubjectDetails(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status, int credits, String grade, int lab,String description ) {
@@ -165,7 +176,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 //        event_id=res.getInt(0);
         event_id = event_id + 1;
-//        int event_id=100;
         ContentValues contentValues = new ContentValues();
         contentValues.put("event_id",event_id);
         contentValues.put("event_name",event_name);
@@ -176,7 +186,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("description",description);
         contentValues.put("remainderTime",remainderTime);
         long result = db.insert("event",null ,contentValues);
-        //db.execSQL("insert into event values ("+event_id+",'"+event_name+"','"+date+"','"+startTime+"','"+endTime+"',"+subject_id+",'"+description+"','"+remainderTime+"')");
         if(result == -1)
             return false;
         else
@@ -227,11 +236,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public String getUserName()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from user_details",null);
+        boolean i=res.moveToNext();
+        if(i)
+        {
+            return res.getString(0);
+        }
+        else
+            return null;
+
+
+    }
+
+    public String getUserEmail()
+    {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from user_details",null);
+        boolean i=res.moveToNext();
+        if(i)
+        {
+            return res.getString(1);
+        }
+        else
+            return null;
+
+
+    }
+
     public int getcurrentsem()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select current_sem from user_details",null);
-        return res.getInt(0);
+        Cursor res = db.rawQuery("select * from user_details",null);
+        boolean i=res.moveToNext();
+        if(i)
+        {
+            return res.getInt(3);
+        }
+        else
+            return -1;
+
+
     }
 
 
