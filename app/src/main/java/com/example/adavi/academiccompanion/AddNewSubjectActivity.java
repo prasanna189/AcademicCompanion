@@ -33,6 +33,7 @@ public class AddNewSubjectActivity extends AppCompatActivity {
         description = (EditText) findViewById(R.id.Description_edittext);
         buttonSaveSubject = (Button) findViewById(R.id.savesubject_button);
         lab=(CheckBox) findViewById(R.id.lab);
+
     }
 
     public void saveSubject(View view) {
