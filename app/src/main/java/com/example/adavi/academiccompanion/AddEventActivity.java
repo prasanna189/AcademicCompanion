@@ -10,18 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddNewEvent extends AppCompatActivity {
-
-
+public class AddEventActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
     TextView eventType;
     EditText eventName, eventDate, eventStime, eventEtime, eventSubject, eventDescription, eventRemainder;
     Button saveEvent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_event);
+        setContentView(R.layout.activity_add_event);
+
         myDB= new DatabaseHelper(this);
 
         eventType=(TextView) findViewById(R.id.event_type_text_view);
@@ -33,10 +33,7 @@ public class AddNewEvent extends AppCompatActivity {
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
         eventRemainder=(EditText)findViewById(R.id.event_remainder_edit_text);
         saveEvent=(Button)findViewById(R.id.save_event_button);
-
-
     }
-
     void saveEvent(View view)
     {
         int subject_id=0;
@@ -44,28 +41,31 @@ public class AddNewEvent extends AppCompatActivity {
         Cursor c = myDB.getAllData("subject");
         while(c.moveToNext())
         {
-            sub_name=c.getString(2);
+            sub_name=c.getString(1);
             if(sub_name.equals(eventSubject.getText().toString()))
             {
-                subject_id = c.getInt(1);
+                subject_id = c.getInt(0);
             }
         }
         if(subject_id==0)
         {
-            Toast.makeText(AddNewEvent.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
         }
         else
         {
-            boolean isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
+            boolean isInserted ;
+            isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
                     subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
 
+//            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
+//                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
             if (isInserted == true) {
-                Toast.makeText(AddNewEvent.this, "Event Saved", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, DisplayEvents.class);
+                Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, DisplayEventActivity.class);
                 startActivity(intent);
             }
             else {
-                Toast.makeText(AddNewEvent.this, "Event not Saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
             }
 
         }
@@ -83,8 +83,9 @@ public class AddNewEvent extends AppCompatActivity {
 
 
     public void reset(View view) {
-        Intent intent = new Intent(this, AddNewEvent.class);
+        Intent intent = new Intent(this, AddEventActivity.class);
         startActivity(intent);
     }
+
 
 }

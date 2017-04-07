@@ -34,5 +34,6 @@
     <string name="play_again">Play Again</string>
     <string name="title_activity_display_subjects">DisplaySubjectsActivity</string>
     <string name="title_activity_display_events">DisplayEvents</string>
+    <string name="title_activity_display_event">DisplayEventActivity</string>
 
 </resources>

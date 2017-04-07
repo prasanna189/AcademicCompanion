@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static android.R.attr.y;
+
 public class AddNewSubjectActivity extends AppCompatActivity {
 
 
@@ -37,18 +39,28 @@ public class AddNewSubjectActivity extends AppCompatActivity {
     }
 
     public void saveSubject(View view) {
-     //   int sem=myDB.getcurrentsem();
 
-//        boolean isInserted = myDB.insertData(editSname.getText().toString(), editTname.getText().toString(),
-//                editTemail.getText().toString());
+        int sem=myDB.getcurrentsem();
+        int flag=0;
+        String cre=credits.getText().toString();
+        int c=Integer.parseInt(cre);
 
-//        if (isInserted == true) {
-//            Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(this, DisplaySubjectsActivity.class);
-//            startActivity(intent);
-//        } else {
-//            Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_LONG).show();
-//        }
+        String minat=minattendance.getText().toString();
+        int minatt=Integer.parseInt(minat);
+        if(lab.isChecked())
+        {
+            flag=1;
+        }
+        int sub_id = myDB.insertDataSubject( editsname.getText().toString());
+         boolean isInserted = myDB.insertDataSubjectDetails(sem,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
+
+        if (isInserted == true) {
+            Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, DisplaySubjectsActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_LONG).show();
+        }
     }
 
 

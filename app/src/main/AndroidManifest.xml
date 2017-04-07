@@ -30,13 +30,15 @@
             android:name=".DisplaySubjectsActivity"
             android:label="@string/title_activity_display_subjects"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddNewSubjectsActivity" />
         <activity android:name=".AddNewSubjectActivity" />
-        <activity android:name=".AddNewEvent" />
         <activity
-            android:name=".DisplayEvents"
-            android:label="@string/title_activity_display_events"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".AndroidDatabaseManager"
+            android:label="database manager" />
+        <activity
+            android:name=".DisplayEventActivity"
+            android:label="@string/title_activity_display_event"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddEventActivity"></activity>
     </application>
 
 </manifest>
