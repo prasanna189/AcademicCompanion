@@ -30,6 +30,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/AliceBlue"
         app:fabSize="normal"
-        app:srcCompat="@drawable/plus_icon" />
+        app:srcCompat="@drawable/ic_action_name" />
 
 </android.support.design.widget.CoordinatorLayout>

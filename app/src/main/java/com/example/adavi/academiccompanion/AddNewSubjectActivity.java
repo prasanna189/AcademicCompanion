@@ -39,7 +39,8 @@ public class AddNewSubjectActivity extends AppCompatActivity {
     }
 
     public void saveSubject(View view) {
-        //int sem=myDB.getcurrentsem();
+
+        int sem=myDB.getcurrentsem();
         int flag=0;
         String cre=credits.getText().toString();
         int c=Integer.parseInt(cre);
@@ -51,7 +52,7 @@ public class AddNewSubjectActivity extends AppCompatActivity {
             flag=1;
         }
         int sub_id = myDB.insertDataSubject( editsname.getText().toString());
-         boolean isInserted = myDB.insertDataSubjectDetails(1,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
+         boolean isInserted = myDB.insertDataSubjectDetails(sem,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
 
         if (isInserted == true) {
             Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_LONG).show();
