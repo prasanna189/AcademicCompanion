@@ -228,32 +228,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public int getusername()
+    public String getUserName()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
         if(i)
         {
-            return res.getInt(0);
+            return res.getString(0);
         }
         else
-            return -1;
+            return null;
 
 
     }
 
-    public int getemail()
+    public String getUserEmail()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
         if(i)
         {
-            return res.getInt(1);
+            return res.getString(1);
         }
         else
-            return -1;
+            return null;
 
 
     }
