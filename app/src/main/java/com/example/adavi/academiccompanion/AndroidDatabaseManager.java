@@ -1297,7 +1297,7 @@ public class AndroidDatabaseManager extends Activity implements OnItemClickListe
     }
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        //  Auto-generated method stub
+        // TODO Auto-generated method stub
 
     }
 

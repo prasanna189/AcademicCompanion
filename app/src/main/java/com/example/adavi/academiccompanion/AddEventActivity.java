@@ -1,5 +1,6 @@
 package com.example.adavi.academiccompanion;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +34,18 @@ public class AddEventActivity extends AppCompatActivity {
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
         eventRemainder=(EditText)findViewById(R.id.event_remainder_edit_text);
         saveEvent=(Button)findViewById(R.id.save_event_button);
+
+        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            public void onFocusChange(View view, boolean hasfocus){
+                if(hasfocus){
+                    DateDialog dialog=new DateDialog(view);
+                    FragmentTransaction ft =getFragmentManager().beginTransaction();
+                    dialog.show(ft, "DatePicker");
+
+                }
+            }
+
+        });
     }
     void saveEvent(View view)
     {

@@ -14,23 +14,22 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:paddingTop="8dp"
-        app:srcCompat="@drawable/main_app_icon_dark" />
-
-    <TextView
-        android:id="@+id/navbar_username_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="pk" />
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
-
-    <TextView
-        android:id="@+id/navbar_useremail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="spk261096@gmail.com" />
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="Android Studio"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="android.studio@android.com" />
 
 </LinearLayout>

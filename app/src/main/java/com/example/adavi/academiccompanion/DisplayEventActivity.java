@@ -36,8 +36,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     }
 
     public void displayEventHelper() {
-        Cursor res = myDB.getAllData("event");
-//        Cursor res = myDB.getRecentEvents();
+        Cursor res = myDB.getRecentEvents();
         if (res.getCount() == 0) {
             eventAlert("No Events", "Go and Add a Event!");
             return;
