@@ -11,8 +11,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import static android.R.attr.id;
-
 /**
  * Created by pk on 4/6/2017.
  */
