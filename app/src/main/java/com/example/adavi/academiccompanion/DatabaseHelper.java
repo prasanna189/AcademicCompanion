@@ -225,7 +225,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
 
     }
+    public String getUserPhone()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from user_details",null);
+        boolean i=res.moveToNext();
+        if(i)
+        {
+            return res.getString(2);
+        }
+        else
+            return null;
 
+
+    }
     public String getUserName()
     {
         SQLiteDatabase db = this.getWritableDatabase();
