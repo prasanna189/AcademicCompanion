@@ -25,7 +25,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
         EditText semId = (EditText) findViewById(R.id.sem_id);
         EditText emailId = (EditText) findViewById(R.id.email_id);
 
-        /*
+
         if (nameId.getText().toString().length() == 0) {
             nameId.setError("Please Enter Your Name");
             flag = false;
@@ -38,7 +38,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
             emailId.setError("Please Enter Your Email ID");
             flag = false;
         }
-        */
+
 
         if (flag)
         {
