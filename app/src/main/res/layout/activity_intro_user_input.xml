@@ -37,7 +37,9 @@
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            android:tag="Enter Your Name" />
+            android:tag="Enter Your Name"
+            android:maxLines="1"
+            />
 
 
         <EditText

@@ -20,12 +20,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table user_details( name text not null, email text not null, phone text)");
+        db.execSQL("create table user_details( name text not null, email text not null, phone text, current_sem integer not null)");
         db.execSQL("create table semester(sem_id integer primary key)");
         db.execSQL("create table subject(subject_id integer primary key,subject_name text)");
         db.execSQL("create table subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) )");
         db.execSQL("create table marks (sem_id integer, subject_id integer, exam_type text, marks integer, max_marks integer, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
-        db.execSQL("create table attendance (sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
+        db.execSQL("create table attendance (attendance_id integer primary key, sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id))");
         db.execSQL("create table timetable (sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id) )");
         db.execSQL("create table event ( event_id integer primary key, event_name text,date text, startTime text, endTime text, subject_id integer, description text, remainderTime text , foreign key (subject_id) references subject(subject_id))");
     }
@@ -109,6 +109,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        Cursor res = db.rawQuery("select ifnull(max(attendance_id), 0) from attendance",null);
+        int attendance_id = Integer.parseInt( res.getString(0) );
+        attendance_id = attendance_id + 1;
+
+        contentValues.put("attendance_id",attendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
@@ -177,10 +182,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean setCurrentSem(int sem)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem);
+        long result=db.update("user",contentValues,"",null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+
+    }
+
+
+
     public Cursor getAllData(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
+    }
+
+    public Cursor getRecentEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from event order by date and startTime DESC",null);
+        return res;
+    }
+
+    public boolean updateDataSemester(int sem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sem_id",sem);
+        long result=db.update("semester",contentValues,"sem_id="+sem,null);
+        if(result == -1)
+            return false;
+        else
+            return true;
     }
 
 
@@ -190,18 +227,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("name",name);
         contentValues.put("email",email);
         contentValues.put("phone",phone);
-        long result=db.update("user_details",contentValues,"name="+name,null)
-        if(result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public boolean updateDataSemester(int sem) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem);
-        long result=db.update("semester",contentValues,"sem_id="+sem,null);
+        long result=db.update("user_details",contentValues,"name="+name,null);
         if(result == -1)
             return false;
         else
@@ -293,15 +319,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean updatetDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
+    public boolean updatetDataAttendance(int attendance_id,int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put("attendance_id",attendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
         contentValues.put("status",status);
         contentValues.put("isExtraClass",is_extra_class);
-       long result= db.update("attendance", contentValues, "sem_id="+sem_id +"and"+ "subject_id="+subject_id+"date="+date ,null);
+       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
 
         if(result == -1)
             return false;
@@ -309,10 +336,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+//
+//    public Integer deleteData (String id) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+//    }
 
-    public Integer deleteData (String id) {
+    public Integer deleteDataSemester (int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+        return db.delete("semester", "sem_id = "+id+"",null);
     }
 
+    public Integer deleteDataSubject (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+id+"",null);
+    }
+
+    public Integer deleteDataSubjectDetails (int sub_id,int sem_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject_details", "subject_id = "+sub_id+" and sem_id = "+sem_id+"",null);
+    }
+
+    public Integer deleteDataMarks (int sub_id,int sem_id,String type) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and exam_type = "+type+"",null);
+    }
+
+    public Integer deleteDataAttendance (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("attendance", "attendance_id = "+id+"",null);
+    }
+
+    public Integer deleteDataTimetable (int sub_id,int sem_id,String day,String stime,String etime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and day = "+day+" and startTime = "+stime+"and endTime = "+etime+"",null);
+    }
+
+    public Integer deleteDataEvent (int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("event", "event_id = "+id+"",null);
+    }
 }

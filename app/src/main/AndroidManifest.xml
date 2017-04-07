@@ -27,9 +27,11 @@
             android:name=".IntroUserInputActivity"
             android:theme="@style/AppTheme.CustomStatusBar" />
         <activity
-            android:name=".DisplayEventsActivity"
-            android:label="@string/title_activity_display_events"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".DisplaySubjectsActivity"
+            android:label="@string/title_activity_display_subjects"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddNewSubjectsActivity" />
+        <activity android:name=".AddNewSubjectActivity"></activity>
     </application>
 
 </manifest>
