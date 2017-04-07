@@ -37,7 +37,7 @@ public class AddNewSubjectActivity extends AppCompatActivity {
     }
 
     public void saveSubject(View view) {
-        int sem=myDB.getcurrentsem();
+     //   int sem=myDB.getcurrentsem();
 
 //        boolean isInserted = myDB.insertData(editSname.getText().toString(), editTname.getText().toString(),
 //                editTemail.getText().toString());
