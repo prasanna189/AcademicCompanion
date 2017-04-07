@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table user_details( name text not null, email text not null, phone text,current_sem integer)");
+        db.execSQL("create table user_details( name text not null, email text not null, phone text)");
         db.execSQL("create table semester(sem_id integer primary key)");
         db.execSQL("create table subject(subject_id integer primary key,subject_name text)");
         db.execSQL("create table subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) )");
@@ -44,25 +44,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertDataUserDetails(String name,String email, String phone,int curr_sem) {
+    public boolean insertDataUserDetails(String name,String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name",name);
         contentValues.put("email",email);
         contentValues.put("phone",phone);
-        contentValues.put("current_sem",curr_sem);
         long result = db.insert("user_details",null ,contentValues);
         if(result == -1)
             return false;
         else
             return true;
-    }
-
-    public int getcurrentsem()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select current_sem from user_details",null);
-        return res.getInt(0);
     }
 
     public boolean insertDataSemester(int sem) {
@@ -363,6 +355,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("event", "event_id = "+id+"",null);
     }
-
-
 }
