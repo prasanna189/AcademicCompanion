@@ -21,7 +21,7 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
 
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
-        userphone.setText(myDB.);
+        userphone.setText(myDB.getUserPhone());
 
 
     }

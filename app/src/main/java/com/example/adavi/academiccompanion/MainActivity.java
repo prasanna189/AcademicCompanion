@@ -11,11 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 //just testing
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
+
+    DatabaseHelper myDB;
 
 
     @Override
@@ -23,6 +26,11 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myDB = new DatabaseHelper(this);
+
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -44,8 +52,19 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //code for setting user's name and email in the nav bar
+
+        TextView username;
+        TextView useremail;
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+        username = (TextView)header.findViewById(R.id.navbar_username_tv);
+        useremail = (TextView)header.findViewById(R.id.navbar_useremail_tv);
+        username.setText(myDB.getUserName());
+        useremail.setText(myDB.getUserEmail());
+
     }
 
 
@@ -67,11 +86,6 @@ public class MainActivity extends AppCompatActivity
     }
     public void subject(View view) {
         Intent intent = new Intent(this, DisplaySubjectsActivity.class);
-        startActivity(intent);
-    }
-
-    public void openEvents(View view) {
-        Intent intent = new Intent(this, DisplayEventActivity.class);
         startActivity(intent);
     }
     @Override

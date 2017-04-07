@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="Name"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textColor="@color/Black" />
 
             <TextView
@@ -40,14 +40,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="adavi"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="Email"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textColor="@color/Black" />
 
             <TextView
@@ -55,14 +56,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="adavi@gmail.coom"
-                android:layout_margin="16dp"/>
+                android:layout_margin="16dp"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="Phone"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 android:textColor="@color/Black" />
 
             <TextView
@@ -71,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Semester"
                 android:text="8712359888"
+                android:textSize="16sp"
                 android:layout_margin="16dp"/>
 
         </LinearLayout>
