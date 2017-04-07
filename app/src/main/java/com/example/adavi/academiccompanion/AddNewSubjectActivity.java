@@ -15,8 +15,8 @@ public class AddNewSubjectActivity extends AppCompatActivity {
 
 
     DatabaseHelper myDB;
-    EditText editSname, editTname, editTemail;
-    CheckBox check;
+    EditText editsname, editpname, editpemail,credits,minattendance,description;
+    CheckBox lab;
     Button buttonSaveSubject;
 
     @Override
@@ -25,11 +25,14 @@ public class AddNewSubjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_subject);
         myDB = new DatabaseHelper(this);
 
-        editSname = (EditText) findViewById(R.id.sname_edittext);
-        editTname = (EditText) findViewById(R.id.tname_edittext);
-        editTemail = (EditText) findViewById(R.id.temail_edittext);
+        editsname = (EditText) findViewById(R.id.sname_edittext);
+        editpname = (EditText) findViewById(R.id.pname_edittext);
+        editpemail = (EditText) findViewById(R.id.pemail_edittext);
+        credits = (EditText) findViewById(R.id.credits_edittext);
+        minattendance = (EditText) findViewById(R.id.MinimumAttendance_edittext);
+        description = (EditText) findViewById(R.id.Description_edittext);
         buttonSaveSubject = (Button) findViewById(R.id.savesubject_button);
-        check=(CheckBox) findViewById(R.id.);
+        lab=(CheckBox) findViewById(R.id.lab);
     }
 
     public void saveSubject(View view) {
