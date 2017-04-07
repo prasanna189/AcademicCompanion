@@ -245,6 +245,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public String getUserEmail()
     {
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
