@@ -240,7 +240,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     }
-
+    public String getSubjectName(int sub_id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from subject",null);
+        while(res.moveToNext())
+        {
+            if(res.getInt(0)==sub_id)
+            {
+                return res.getString(1);
+            }
+        }
+        return null;
+    }
     public String getUserEmail()
     {
 

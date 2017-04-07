@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,9 @@ public class AddNewSubjectActivity extends AppCompatActivity {
 
     public void saveSubject(View view) {
 
-        int sem=myDB.getcurrentsem();
+
+       int sem=myDB.getcurrentsem();
+
         int flag=0;
         String cre=credits.getText().toString();
         int c=Integer.parseInt(cre);
@@ -51,7 +54,10 @@ public class AddNewSubjectActivity extends AppCompatActivity {
         {
             flag=1;
         }
-        int sub_id = myDB.insertDataSubject( editsname.getText().toString());
+       int sub_id = myDB.insertDataSubject(editsname.getText().toString());
+//        Intent intent = new Intent(this, DisplaySubjectsActivity.class);
+//            startActivity(intent);
+
          boolean isInserted = myDB.insertDataSubjectDetails(sem,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
 
         if (isInserted == true) {
@@ -61,7 +67,7 @@ public class AddNewSubjectActivity extends AppCompatActivity {
         } else {
             Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_LONG).show();
         }
-    }
+  }
 
 
     @Override
