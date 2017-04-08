@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, DisplaySubjectsActivity.class);
         startActivity(intent);
     }
+
+    public void openEvents(View view) {
+        Intent intent = new Intent(this, DisplayEventActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

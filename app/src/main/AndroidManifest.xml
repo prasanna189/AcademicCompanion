@@ -38,11 +38,17 @@
             android:name=".DisplayEventActivity"
             android:label="@string/title_activity_display_event"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".AddEventActivity"></activity>
         <activity android:name=".DisplaySubjectDetails"
             android:label="Subject Name">
 
+
+
         </activity>
+
+        <activity android:name=".DisplayUserProfileActivity"
+            android:label="Profile"/>
     </application>
 
 </manifest>
