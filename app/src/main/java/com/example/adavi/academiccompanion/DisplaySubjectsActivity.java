@@ -44,7 +44,8 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
             buffer.replace(0,buffer.length(),"");
         }
     }
-String s;
+String s,sub_name;
+
     int i;
     public void displaySubjects(String sname, String status,int sub_id) {
 
@@ -102,6 +103,7 @@ String s;
                 Button pressed;
                 pressed=((Button)v);
                 i=pressed.getId();
+                sub_name=pressed.getText().toString();
                 viewSubjectDetails( v);
 
 
@@ -123,7 +125,8 @@ String s;
     {
         Intent intent = new Intent(this, DisplaySubjectDetails.class);
         s=Integer.toString(i);
-        intent.putExtra("abc",s);
+        intent.putExtra("sub_id",s);
+        //intent.putExtra("xyz",sub_name);
         startActivity(intent);
     }
 
