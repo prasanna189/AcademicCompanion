@@ -17,6 +17,7 @@ public class AddEventActivity extends AppCompatActivity {
     EditText eventName, eventDate, eventStime, eventEtime, eventSubject, eventDescription, eventRemainder;
     Button saveEvent;
 
+//    s=getIntent().getStringExtra("button_event_id");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,42 @@ public class AddEventActivity extends AppCompatActivity {
             }
 
         });
+
+
+        displayEventDetails();
     }
+
+
+    public void displayEventDetails()
+    {
+
+          String s=getIntent().getStringExtra("button_event_id");
+        if(s!=null)
+        {
+            Cursor res=myDB.getAllData("event");
+            while(res.moveToNext())
+            {
+                if(s.equals(res.getString(0)))
+                {
+                    eventName.setText(res.getString(1));
+                    eventDate.setText(res.getString(2));
+                    eventStime.setText(res.getString(3));
+                    eventEtime.setText(res.getString(4));
+                    eventSubject.setText(res.getString(5));
+                    eventDescription.setText(res.getString(6));
+                    eventRemainder.setText(res.getString(7));
+                    saveEvent.setText("Update");
+                }
+            }
+        }
+
+
+    }
+
+
     void saveEvent(View view)
     {
+        String s=getIntent().getStringExtra("button_event_id");
         int subject_id=0;
         String sub_name;
         Cursor c = myDB.getAllData("subject");
@@ -60,26 +94,54 @@ public class AddEventActivity extends AppCompatActivity {
                 subject_id = c.getInt(0);
             }
         }
-        if(subject_id==0)
+        if(s==null)
         {
-            Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            boolean isInserted ;
-            isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
+
+            if(subject_id==0)
+            {
+                Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                boolean isInserted ;
+                isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
+                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
 
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
-            if (isInserted == true) {
-                Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, DisplayEventActivity.class);
-                startActivity(intent);
+                if (isInserted == true) {
+                    Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, DisplayEventActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
+                }
+
             }
-            else {
-                Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            boolean isUpdated;
+            if(subject_id==0)
+            {
+                Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
             }
+            else
+            {
+                isUpdated = myDB.updateDataEvent(Integer.parseInt(s),eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
+                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
+
+                if (isUpdated ) {
+                    Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, DisplayEventActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+                }
+            }
+
 
         }
 

@@ -22,6 +22,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
     final TextView[] myTextViews = new TextView[128];
     DatabaseHelper myDB;
+    int button_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +95,26 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.setLayoutParams(ll_params);
         rowButton.setLayoutParams(rb_params);
 
+
         rowButton.setId(eventid);
         rowButton.setText(ename);
         rowButton.setTextSize(20);
         rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+
+        rowButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+
+                Button pressed;
+                pressed=((Button)v);
+                button_id=pressed.getId();
+                viewEventDetails(v);
+
+
+            }
+        });
 // Add id to buttons and also on click listner to these buttons
         tv.setText(date);
         tv.setTextSize(12);
@@ -121,6 +138,14 @@ public class DisplayEventActivity extends AppCompatActivity {
 
     public void openAddEvent(View view){
         Intent intent = new Intent(this, AddEventActivity.class);
+        startActivity(intent);
+    }
+
+    public void viewEventDetails(View v)
+    {
+        Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
+        String s = Integer.toString(button_id);
+        intent.putExtra("button_event_id",s);
         startActivity(intent);
     }
 
