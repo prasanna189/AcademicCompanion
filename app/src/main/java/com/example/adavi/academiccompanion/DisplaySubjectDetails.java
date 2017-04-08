@@ -1,15 +1,22 @@
 package com.example.adavi.academiccompanion;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.R.id.edit;
 
 public class DisplaySubjectDetails extends AppCompatActivity {
 
@@ -71,7 +78,7 @@ public class DisplaySubjectDetails extends AppCompatActivity {
                 {
                     if(res.getString(1).equals(s))
                     {
-                        j= myDB.deleteDataSubjectDetails(Integer.parseInt(s),res.getInt(0));
+                         j= myDB.deleteDataSubjectDetails(Integer.parseInt(s),res.getInt(0));
                     }
                 }
                 if(i && j)

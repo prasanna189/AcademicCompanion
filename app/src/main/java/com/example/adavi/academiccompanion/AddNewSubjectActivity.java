@@ -2,14 +2,18 @@ package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import static android.R.attr.y;
 
 public class AddNewSubjectActivity extends AppCompatActivity {
 
@@ -87,13 +91,13 @@ public class AddNewSubjectActivity extends AppCompatActivity {
                 flag=1;
             }
             boolean j=false;
-            boolean i= myDB.updateDataSubject(sname,Integer.parseInt(s));
+           boolean i= myDB.updateDataSubject(sname,Integer.parseInt(s));
             while(res.moveToNext())
             {
 //                Toast.makeText(AddNewSubjectActivity.this, Integer.toString(res.getInt(1)), Toast.LENGTH_LONG).show();
                 if(res.getString(1).equals(s))
                 {
-                    j=myDB.updateDataSubject_details(res.getInt(0),res.getInt(1),pname,pemail,minattendance,res.getString(5),credits,res.getString(7),flag,desc);
+                     j=myDB.updateDataSubject_details(res.getInt(0),res.getInt(1),pname,pemail,minattendance,res.getString(5),credits,res.getString(7),flag,desc);
                 }
             }
 

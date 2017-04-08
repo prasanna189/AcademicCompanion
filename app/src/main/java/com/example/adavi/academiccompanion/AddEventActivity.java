@@ -6,12 +6,8 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,20 +31,10 @@ public class AddEventActivity extends AppCompatActivity {
         eventDate=(EditText)findViewById(R.id.event_date_edit_text);
         eventStime=(EditText)findViewById(R.id.event_stime_edit_text);
         eventEtime=(EditText)findViewById(R.id.event_etime_edit_text);
-        Spinner eventSubject=(Spinner)findViewById(R.id.event_subject_edit_text);
+        eventSubject=(EditText)findViewById(R.id.event_subject_edit_text);
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
         eventRemainder=(EditText)findViewById(R.id.event_remainder_edit_text);
         saveEvent=(Button)findViewById(R.id.save_event_button);
-        String event_type=getIntent().getStringExtra("activity_type");
-        Toast.makeText(AddEventActivity.this,event_type,Toast.LENGTH_LONG).show();
-        if(event_type!=null)
-        {
-            eventType.setText(event_type);
-        }
-        else
-        {
-            eventType.setText("Activity");
-        }
 
         eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){
@@ -94,39 +80,6 @@ public class AddEventActivity extends AppCompatActivity {
                     dialog.show(ft, "TimeDialog");
 
                 }
-            }
-
-        });
-
-
-        String[] items={"Cambodia","Japan","USA"};
-
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,
-                R.layout.spinner_layout,R.id.textview, items);
-
-        eventSubject.setAdapter(adapter);
-
-        eventSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-
-            @Override
-
-            public void onItemSelected(AdapterView<?> parent, View view, int
-                    position, long id) {
-
-                ViewGroup vg=(ViewGroup)view;
-
-                TextView tv=(TextView)vg.findViewById(R.id.textview);
-
-                Toast.makeText(AddEventActivity.this, tv.getText().toString(),
-                        Toast.LENGTH_LONG).show();
-
-            }
-
-            @Override
-
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
 
         });

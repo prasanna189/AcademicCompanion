@@ -486,7 +486,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("date",date);
         contentValues.put("status",status);
         contentValues.put("isExtraClass",is_extra_class);
-       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
+        long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
 
         if(result == -1)
             return false;

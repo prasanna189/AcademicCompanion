@@ -1,6 +1,5 @@
 package com.example.adavi.academiccompanion;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -12,15 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static com.example.adavi.academiccompanion.R.id.toolbar;
 
@@ -29,10 +23,6 @@ public class DisplayEventActivity extends AppCompatActivity {
     final TextView[] myTextViews = new TextView[128];
     DatabaseHelper myDB;
     int button_id;
-    ListView listView=null;
-    String activity_type=null;
-    AlertDialog.Builder builder =null;
-    AlertDialog dialog=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,42 +34,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         displayEventHelper();
 
 
-        listView=new ListView(this);
-
-        // Add data to the ListView
-
-        String[] items={"Return Book","Assignment","Homework","Exam","Extra Class","Activity"};
-
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,
-                R.layout.list_item, R.id.txtitem,items);
-
-        listView.setAdapter(adapter);
-
-        // Perform action when an item is clicked
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-
-            public void onItemClick(AdapterView<?> parent, View view, int
-                    position, long id) {
-
-                ViewGroup vg=(ViewGroup)view;
-
-                TextView txt=(TextView)vg.findViewById(R.id.txtitem);
-
-//                Toast.makeText(DisplayEventActivity.this,txt.getText().toString(),Toast.LENGTH_LONG).show();
-                activity_type=txt.getText().toString();
-                openAddEvent();
-            }
-
-        });
-
-
-
-
-
-}
+    }
 
     public void displayEventHelper() {
         Cursor res = myDB.getRecentEvents();
@@ -181,39 +136,10 @@ public class DisplayEventActivity extends AppCompatActivity {
     }
 
 
-    public void showDialogListView(View view){
-
-        builder=new
-                AlertDialog.Builder(DisplayEventActivity.this);
-
-        builder.setCancelable(true);
-
-//        builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-//
-//            public void onClick(DialogInterface dialog,int id)
-//            {
-//               openAddEvent();
-//            }
-//        });
-
-        builder.setView(listView);
-
-        dialog=builder.create();
-
-        dialog.show();
-
-
-    }
-
-    public void openAddEvent()
-    {
-        dialog.dismiss();
+    public void openAddEvent(View view){
         Intent intent = new Intent(this, AddEventActivity.class);
-        intent.putExtra("activity_type",activity_type);
         startActivity(intent);
-
     }
-
 
     public void viewEventDetails(View v)
     {
