@@ -343,13 +343,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateDataSubject(String name) {
+    public boolean updateDataSubject(String name,int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("subject_name",name);
 
-        long result = db.update("subject",contentValues,"name="+name,null);
+        long result = db.update("subject",contentValues,"subject_id="+id,null);
         if(result == -1)
             return false;
         else
