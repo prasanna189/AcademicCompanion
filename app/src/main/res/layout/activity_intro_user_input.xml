@@ -73,7 +73,6 @@
             android:inputType="textNoSuggestions"
             android:imeOptions="actionNext"/>
 
-
         <EditText
             android:id="@+id/email_id"
             style="@style/EditTextCustomHolo"
