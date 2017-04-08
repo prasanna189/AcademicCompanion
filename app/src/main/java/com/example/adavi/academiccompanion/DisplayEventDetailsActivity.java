@@ -67,8 +67,8 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
     {
         String s=getIntent().getStringExtra("button_event_id");
         int event_id=Integer.parseInt(s);
-        int deleteStatus = myDB.deleteDataAttendance(event_id);
-        if(deleteStatus > 0)
+        boolean deleteStatus = myDB.deleteDataAttendance(event_id);
+        if(deleteStatus )
         {
             Toast.makeText(DisplayEventDetailsActivity.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
         }
