@@ -44,7 +44,8 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
             buffer.replace(0,buffer.length(),"");
         }
     }
-
+String s;
+    int i;
     public void displaySubjects(String sname, String status,int sub_id) {
 
         //layout to which children are added
@@ -95,8 +96,14 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         rowButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {
-                viewSubjectDetails(view);
+            public void onClick(View v)
+            {
+
+                Button pressed;
+                pressed=((Button)v);
+                i=pressed.getId();
+                viewSubjectDetails( v);
+
 
             }
         });
@@ -115,6 +122,8 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
     public void viewSubjectDetails(View v)
     {
         Intent intent = new Intent(this, DisplaySubjectDetails.class);
+        s=Integer.toString(i);
+        intent.putExtra("abc",s);
         startActivity(intent);
     }
 
