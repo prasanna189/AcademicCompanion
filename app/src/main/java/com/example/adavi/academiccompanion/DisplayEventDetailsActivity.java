@@ -11,13 +11,13 @@ import android.widget.Toast;
 public class DisplayEventDetailsActivity extends AppCompatActivity {
 
 
-
-
+    DatabaseHelper myDB = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_event_details);
 
+        myDB = new DatabaseHelper(this);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,7 +33,7 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
                 editEvent();
                 return true;
             case R.id.delete_event:
-
+                deleteEvent();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -63,5 +63,20 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    void deleteEvent()
+    {
+        String s=getIntent().getStringExtra("button_event_id");
+        int event_id=Integer.parseInt(s);
+        int deleteStatus = myDB.deleteDataAttendance(event_id);
+        if(deleteStatus > 0)
+        {
+            Toast.makeText(DisplayEventDetailsActivity.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(DisplayEventDetailsActivity.this, "Delete Failed!", Toast.LENGTH_LONG).show();
+        }
+        Intent intent = new Intent(this, DisplayEventActivity.class);
+        startActivity(intent);
+    }
 }
