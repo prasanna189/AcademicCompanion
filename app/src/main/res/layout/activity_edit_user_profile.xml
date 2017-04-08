@@ -53,11 +53,14 @@
 
                 <EditText
                     android:id="@+id/edit_username_et"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="adavi"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,7 +76,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:text="adavi@gmail.coom"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -85,11 +91,14 @@
 
                 <EditText
                     android:id="@+id/edit_userphone_et"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:text="8712359888"
-                    android:textSize="16sp" />
+                    android:hint="Optional"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:inputType="textNoSuggestions"
+                    android:imeOptions="actionNext"/>
 
             </LinearLayout>
 
