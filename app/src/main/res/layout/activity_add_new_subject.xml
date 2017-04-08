@@ -26,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -39,6 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -53,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Optional"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -66,6 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -79,6 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
@@ -93,6 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Optional"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <CheckBox
@@ -127,7 +139,8 @@
                     android:layout_weight="1"
                     android:onClick="saveSubject"
                     android:text="Save"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    />
 
             </LinearLayout>
 
