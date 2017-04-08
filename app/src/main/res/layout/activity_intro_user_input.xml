@@ -69,7 +69,6 @@
             android:shadowDx="2"
             android:shadowDy="2" />
 
-
         <EditText
             android:id="@+id/email_id"
             style="@style/EditTextCustomHolo"
