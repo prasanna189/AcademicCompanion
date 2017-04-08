@@ -393,13 +393,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateDataSubject(String name) {
+    public boolean updateDataSubject(String name,int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("subject_name",name);
 
-        long result = db.update("subject",contentValues,"name="+name,null);
+        long result = db.update("subject",contentValues,"subject_id="+Integer.toString(id),null);
         if(result == -1)
             return false;
         else
@@ -420,7 +420,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("grade",grade);
         contentValues.put("lab",lab);
         contentValues.put("description",description);
-        long result=db.update("subject_details",contentValues,"subject_id="+subject_id+"sem_id="+sem_id,null);
+        long result=db.update("subject_details",contentValues,"subject_id="+Integer.toString(subject_id)+"and sem_id="+Integer.toString(sem_id),null);
         if(result == -1)
             return false;
         else
