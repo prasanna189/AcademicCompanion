@@ -155,7 +155,7 @@
                 <!--/>-->
 
             <Spinner
-                android:id="@+id/country_spin"
+                android:id="@+id/event_subject_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
