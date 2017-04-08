@@ -87,7 +87,6 @@
             android:inputType="textNoSuggestions"
             android:imeOptions="actionNext"/>
 
-
     </LinearLayout>
 
     <Button
