@@ -6,129 +6,131 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.adavi.academiccompanion.AddNewSubjectActivity">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Subject Name"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/sname_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Professor's Name"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/pname_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Professor's Email"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/pemail_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="credits"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/credits_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Minimum Attendance"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/MinimumAttendance_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="#000000"/>
-
-        <EditText
-            android:id="@+id/Description_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            />
-
-        <CheckBox
-            android:id="@+id/lab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lab"
-            />
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
-
-            <Button
-                android:id="@+id/reset_button"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/holo_orange_light"
-                android:onClick="reset"
-                android:text="Reset"
-                android:textAllCaps="true" />
+                android:text="Subject Name"
+                android:textColor="#000000"/>
 
-
-            <Button
-                android:id="@+id/savesubject_button"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/sname_edittext"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:onClick="saveSubject"
-                android:text="Save"
-                android:textAllCaps="true" />
+                android:layout_marginBottom="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Professor's Name"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/pname_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Professor's Email"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/pemail_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Optional"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="credits"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/credits_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Minimum Attendance"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/MinimumAttendance_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textColor="#000000"/>
+
+            <EditText
+                android:id="@+id/Description_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Optional"
+                />
+
+            <CheckBox
+                android:id="@+id/lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lab"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <Button
+                    android:id="@+id/reset_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:onClick="reset"
+                    android:text="Reset"
+                    android:textAllCaps="true" />
+
+
+                <Button
+                    android:id="@+id/savesubject_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:onClick="saveSubject"
+                    android:text="Save"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

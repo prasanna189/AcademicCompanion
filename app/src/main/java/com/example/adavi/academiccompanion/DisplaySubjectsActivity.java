@@ -39,12 +39,13 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         while (res.moveToNext()) {
             buffer.append("Subject: "+myDB.getSubjectName(res.getInt(1))+"\n");
             buffer.append("Status: "+res.getString(5)+"\n");
-         //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
+            //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
             displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5),res.getInt(1));
             buffer.replace(0,buffer.length(),"");
         }
     }
-String s;
+    String s,sub_name;
+
     int i;
     public void displaySubjects(String sname, String status,int sub_id) {
 
@@ -102,6 +103,7 @@ String s;
                 Button pressed;
                 pressed=((Button)v);
                 i=pressed.getId();
+                sub_name=pressed.getText().toString();
                 viewSubjectDetails( v);
 
 
@@ -123,7 +125,8 @@ String s;
     {
         Intent intent = new Intent(this, DisplaySubjectDetails.class);
         s=Integer.toString(i);
-        intent.putExtra("abc",s);
+        intent.putExtra("sub_id",s);
+        //intent.putExtra("xyz",sub_name);
         startActivity(intent);
     }
 
