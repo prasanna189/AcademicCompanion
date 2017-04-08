@@ -334,7 +334,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("name",name);
         contentValues.put("email",email);
         contentValues.put("phone",phone);
-        long result=db.update("user_details",contentValues,"name="+name,null);
+        contentValues.put("current_sem",getcurrentsem());
+        long result=db.update("user_details",contentValues,null,null);
         if(result == -1)
             return false;
         else
