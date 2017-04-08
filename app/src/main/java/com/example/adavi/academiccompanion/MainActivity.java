@@ -1,13 +1,16 @@
 package com.example.adavi.academiccompanion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -158,4 +161,47 @@ public class MainActivity extends AppCompatActivity
         return true;
 
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+//            finishAffinity();
+//            System.exit(0);
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            finishAffinity();
+//                            System.exit(0);
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+
+//                        case DialogInterface.BUTTON_NEUTRAL:
+//
+//                            Toast.makeText(MainActivity.this, "CHOOSE", Toast.LENGTH_SHORT).show();
+//
+//                            break;
+
+
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
+                    .setNegativeButton("CANCEL", dialogClickListener).show();
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
