@@ -35,6 +35,16 @@ public class AddEventActivity extends AppCompatActivity {
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
         eventRemainder=(EditText)findViewById(R.id.event_remainder_edit_text);
         saveEvent=(Button)findViewById(R.id.save_event_button);
+        String event_type=getIntent().getStringExtra("activity_type");
+        Toast.makeText(AddEventActivity.this,event_type,Toast.LENGTH_LONG).show();
+        if(event_type!=null)
+        {
+            eventType.setText(event_type);
+        }
+        else
+        {
+            eventType.setText("Activity");
+        }
 
         eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             public void onFocusChange(View view, boolean hasfocus){

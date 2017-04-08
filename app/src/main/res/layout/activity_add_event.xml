@@ -8,9 +8,10 @@
 
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        >
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +26,6 @@
                 android:id="@+id/event_type_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Activity"
                 android:textSize="30sp"
                 android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
@@ -48,6 +48,8 @@
                 android:id="@+id/event_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
 
                 />
 
@@ -71,6 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 >
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -95,6 +99,8 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:hint="Optional"
+                        android:inputType="textNoSuggestions"
+                        android:imeOptions="actionNext"
                         />
 
                 </LinearLayout>
@@ -122,6 +128,8 @@
                         android:layout_height="wrap_content"
                         android:clickable="true"
                         android:hint="Optional"
+                        android:inputType="textNoSuggestions"
+                        android:imeOptions="actionNext"
                         />
 
                 </LinearLayout>
@@ -138,10 +146,19 @@
 
                 />
 
-            <EditText
-                android:id="@+id/event_subject_edit_text"
+            <!--<EditText-->
+                <!--android:id="@+id/event_subject_edit_text"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="textNoSuggestions"-->
+                <!--android:imeOptions="actionNext"-->
+                <!--/>-->
+
+            <Spinner
+                android:id="@+id/country_spin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 />
 
             <TextView
@@ -160,6 +177,7 @@
                 android:background="@color/White"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:hint="Notes or Books"
+
 
                 />
 
