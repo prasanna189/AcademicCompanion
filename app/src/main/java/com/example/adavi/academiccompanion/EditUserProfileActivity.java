@@ -88,9 +88,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 ImageView imageView = (ImageView)findViewById(R.id.edit_profile_icon);
                 imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
 
-                Toast.makeText(EditUserProfileActivity.this, String.valueOf(flag), Toast.LENGTH_SHORT).show();
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
