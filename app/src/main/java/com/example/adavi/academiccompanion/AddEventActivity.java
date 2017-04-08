@@ -48,6 +48,42 @@ public class AddEventActivity extends AppCompatActivity {
 
         });
 
+        eventStime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
+                    TimeDialog dialog = TimeDialog.newInstance(view);
+                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    dialog.show(ft, "TimeDialog");
+
+                }
+            }
+
+        });
+
+        eventEtime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
+                    TimeDialog dialog = TimeDialog.newInstance(view);
+                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    dialog.show(ft, "TimeDialog");
+
+                }
+            }
+
+        });
+
+        eventRemainder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View view, boolean hasfocus) {
+                if (hasfocus) {
+                    TimeDialog dialog = TimeDialog.newInstance(view);
+                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    dialog.show(ft, "TimeDialog");
+
+                }
+            }
+
+        });
+
 
         displayEventDetails();
     }
