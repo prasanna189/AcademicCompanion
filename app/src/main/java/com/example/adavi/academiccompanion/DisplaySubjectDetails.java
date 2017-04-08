@@ -72,8 +72,8 @@ public class DisplaySubjectDetails extends AppCompatActivity {
                 //do your work here
                 Cursor res=myDB.getAllData("subject_details");
                 String s=getIntent().getStringExtra("sub_id");
-                int i = myDB.deleteDataSubject(s);
-                int j=-1;
+                boolean i = myDB.deleteDataSubject(s);
+                boolean j=false;
                 while(res.moveToNext())
                 {
                     if(res.getString(1).equals(s))
@@ -81,7 +81,7 @@ public class DisplaySubjectDetails extends AppCompatActivity {
                          j= myDB.deleteDataSubjectDetails(Integer.parseInt(s),res.getInt(0));
                     }
                 }
-                if(i<=0 && j<=0)
+                if(i && j)
                 {
                     Toast.makeText(DisplaySubjectDetails.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(DisplaySubjectDetails.this, DisplaySubjectsActivity.class);
