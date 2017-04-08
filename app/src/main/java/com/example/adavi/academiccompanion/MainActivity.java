@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 //just testing
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
+        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
+        imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
     }
 
 

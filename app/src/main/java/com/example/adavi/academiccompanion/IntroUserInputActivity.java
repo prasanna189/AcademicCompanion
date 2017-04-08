@@ -1,14 +1,20 @@
 package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+
+import java.io.IOException;
 
 public class IntroUserInputActivity extends AppCompatActivity {
 
-
+    private int PICK_IMAGE_REQUEST = 1;
     DatabaseHelper myDB;
 
     @Override
@@ -17,6 +23,42 @@ public class IntroUserInputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro_user_input);
         myDB = new DatabaseHelper(this);
 
+        ImageView buttonLoadImage = (ImageView) findViewById(R.id.user_input_image);
+        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+
+                ImageView imageView = (ImageView) findViewById(R.id.user_input_image);
+                imageView.setImageBitmap(bitmap);
+
+                boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     void submit(View view) {
@@ -25,7 +67,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
         EditText semId = (EditText) findViewById(R.id.sem_id);
         EditText emailId = (EditText) findViewById(R.id.email_id);
 
-        /*
+
         if (nameId.getText().toString().length() == 0) {
             nameId.setError("Please Enter Your Name");
             flag = false;
@@ -38,7 +80,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
             emailId.setError("Please Enter Your Email ID");
             flag = false;
         }
-        */
+
 
         if (flag)
         {

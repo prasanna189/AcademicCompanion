@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DisplayUserProfileActivity extends AppCompatActivity {
@@ -21,7 +22,8 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.display_username_tv);
         TextView useremail = (TextView) findViewById(R.id.display_useremail_tv);
         TextView userphone = (TextView) findViewById(R.id.display_userphone_tv);
-
+        ImageView imageView = (ImageView)findViewById(R.id.display_profile_icon);
+        imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
         userphone.setText(myDB.getUserPhone());
@@ -43,7 +45,9 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.edit_user_profile) {
+        if (id == R.id.edit_user_profile)
+        {
+
 
             Intent intent = new Intent(this,EditUserProfileActivity.class);
             startActivity(intent);

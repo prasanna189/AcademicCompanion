@@ -22,10 +22,26 @@
             android:textSize="40sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/main_app_icon_dark" />
+        <!--<ImageView-->
+            <!--android:id="@+id/user_input_image"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:src="@drawable/main_app_icon_dark"-->
+            <!--android:clickable="true"-->
+            <!--/>-->
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/user_input_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/view"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/main_app_icon_dark"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:border_color="@color/White"
+            app:border_width="2dp" />
+
 
         <EditText
             android:id="@+id/name_id"

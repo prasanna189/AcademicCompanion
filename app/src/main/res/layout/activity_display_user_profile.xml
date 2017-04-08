@@ -15,11 +15,20 @@
         tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
-            android:id="@+id/display_profile_icon"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:background="@drawable/main_app_icon_dark">
+            android:layout_gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/display_profile_icon"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/main_app_icon_dark"
+                android:paddingTop="16dp"
+                android:clickable="true"
+                app:border_color="@color/White"
+                app:border_width="2dp" />
 
         </LinearLayout>
 
