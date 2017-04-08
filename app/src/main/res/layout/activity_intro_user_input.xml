@@ -55,6 +55,8 @@
             android:shadowDy="2"
             android:tag="Enter Your Name"
             android:maxLines="1"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"
             />
 
 
@@ -67,7 +69,9 @@
             android:paddingTop="16dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"/>
 
 
         <EditText
@@ -79,7 +83,9 @@
             android:paddingTop="16dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"/>
 
 
     </LinearLayout>
