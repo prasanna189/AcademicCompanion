@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,9 +36,11 @@ public class DisplaySubjectDetails extends AppCompatActivity {
 
         displaysubjectdetails();
     }
-
+int i;
+    String str=null;
     public void displaysubjectdetails()
     {
+
         LinearLayout subjectLL = (LinearLayout) findViewById(R.id.subject_details);
 
         LinearLayout ll = new LinearLayout(this);
@@ -172,7 +175,28 @@ public class DisplaySubjectDetails extends AppCompatActivity {
         ll.addView(descvalue);
 
         marks.setText("Marks");
+        marks.setId(Integer.parseInt(s));
+
         attendance.setText("Attendance");
+        marks.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+
+                Button pressed;
+                pressed=((Button)v);
+                i=pressed.getId();
+
+                Intent intent = new Intent(DisplaySubjectDetails.this, SubjectMarks.class);
+                str=Integer.toString(i);
+                intent.putExtra("sub_id",str);
+                //intent.putExtra("xyz",sub_name);
+                startActivity(intent);
+
+            }
+        });
+
 
         bl.addView(marks);
         bl.addView(attendance);

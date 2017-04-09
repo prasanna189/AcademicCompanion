@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/edit_marks"
+        android:icon="@drawable/pencil_edit_icon_light"
+        android:title="edit"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/delete_marks"
+        android:icon="@drawable/trash_icon_light"
+        android:title="delete"
+        app:showAsAction="always"/>
+    <item android:id="@+id/final_grade"
+        android:title="add grade"
+        app:showAsAction="never"
+        />
+
+</menu>
