@@ -425,7 +425,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("exam_type",new_examtype);
         contentValues.put("marks",marks);
         contentValues.put("max_marks",max_marks);
-        long result=db.update("marks", contentValues, "sem_id="+semid+"and subject_id="+subid+"and exam_type="+exam_type ,null);
+        long result=db.update("marks", contentValues, "sem_id="+semid+"and subject_id="+subid+"and exam_type='"+exam_type+"'" ,null);
 
         if(result == -1)
             return false;
