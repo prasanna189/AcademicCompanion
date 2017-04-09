@@ -417,15 +417,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
+    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks,String new_examtype) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("sem_id",semid);
         contentValues.put("subject_id",subid);
-        contentValues.put("exam_type",exam_type);
+        contentValues.put("exam_type",new_examtype);
         contentValues.put("marks",marks);
         contentValues.put("max_marks",max_marks);
-        long result=db.update("marks", contentValues, "sem_id="+semid +"and"+ "subject_id="+subid+"exam_type="+exam_type ,null);
+        long result=db.update("marks", contentValues, "sem_id="+semid+"and subject_id="+subid+"and exam_type="+exam_type ,null);
 
         if(result == -1)
             return false;
