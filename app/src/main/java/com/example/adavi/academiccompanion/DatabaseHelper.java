@@ -11,6 +11,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import static android.R.attr.id;
+
 /**
  * Created by pk on 4/6/2017.
  */
@@ -26,10 +28,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("create table if not exists  user_details( name text not null, email text not null, phone text, current_sem integer not null);");
+        db.execSQL("create table if not exists user_details( name text not null, email text not null, phone text, current_sem integer not null);");
         db.execSQL("create table if not exists  semester(sem_id integer primary key);");
-        db.execSQL("create table if not exists  subject(subject_id integer primary key,subject_name text);");
-        db.execSQL("create table if not exists  subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) );");
+        db.execSQL("create table if not exists subject(subject_id integer primary key,subject_name text);");
+        db.execSQL("create table if not exists subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) );");
         db.execSQL("create table if not exists  marks (sem_id integer, subject_id integer, exam_type text, marks integer, max_marks integer, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  attendance (attendance_id integer primary key, sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  timetable (sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
@@ -39,7 +41,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS ac_images");
         db.execSQL("DROP TABLE IF EXISTS user_details");
         db.execSQL("DROP TABLE IF EXISTS semester");
         db.execSQL("DROP TABLE IF EXISTS subject");
@@ -48,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS attendance");
         db.execSQL("DROP TABLE IF EXISTS timetable");
         db.execSQL("DROP TABLE IF EXISTS event");
+        db.execSQL("DROP TABLE IF EXISTS ac_images");
         onCreate(db);
     }
 
@@ -65,54 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-
-    public boolean insertDataImages( String name, byte[] image){
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues cv = new  ContentValues();
-        cv.put("image_name",    name);
-        cv.put("image_data",   image);
-        long result = database.insert( "ac_images", null, cv );
-
-        if(result == -1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    public boolean updateImage(String name, byte[] image) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new  ContentValues();
-        cv.put("image_name",    name);
-        cv.put("image_data",   image);
-        long result = db.update("ac_images",cv,null,null);
-        if(result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public byte[] getImage(String image_name)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        byte[] image = null;
-        Cursor res = db.rawQuery("select * from ac_images",null);
-        while(res.moveToNext())
-        {
-            if(res.getString(0).equals(image_name))
-            {
-                image = res.getBlob(1);
-            }
-        }
-        return image;
-    }
-
-
-
-
 
     public boolean insertDataSemester(String semester) {
 
@@ -304,7 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
-        if(i == true)
+        if(i)
         {
             return res.getString(2);
         }
@@ -318,7 +272,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
-        if(i == true)
+        if(i)
         {
             return res.getString(0);
         }
@@ -334,7 +288,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from user_details",null);
         boolean i=res.moveToNext();
-        if(i == true)
+        if(i)
         {
             return res.getString(1);
         }
@@ -420,7 +374,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("grade",grade);
         contentValues.put("lab",lab);
         contentValues.put("description",description);
-        long result=db.update("subject_details",contentValues,"subject_id="+Integer.toString(subject_id)+"and sem_id="+Integer.toString(sem_id),null);
+        long result=db.update("subject_details",contentValues,"subject_id="+Integer.toString(subject_id)+" and sem_id="+Integer.toString(sem_id),null);
         if(result == -1)
             return false;
         else
@@ -486,7 +440,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("date",date);
         contentValues.put("status",status);
         contentValues.put("isExtraClass",is_extra_class);
-        long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
+       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
 
         if(result == -1)
             return false;
@@ -562,7 +516,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+    public boolean insertDataImages( String name, byte[] image){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues cv = new  ContentValues();
+        cv.put("image_name",    name);
+        cv.put("image_data",   image);
+        long result = database.insert( "ac_images", null, cv );
 
+        if(result == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public boolean updateImage(String name, byte[] image) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new  ContentValues();
+        cv.put("image_name",    name);
+        cv.put("image_data",   image);
+        long result = db.update("ac_images",cv,null,null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+    public byte[] getImage(String image_name)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        byte[] image = null;
+        Cursor res = db.rawQuery("select * from ac_images",null);
+        while(res.moveToNext())
+        {
+            if(res.getString(0).equals(image_name))
+            {
+                image = res.getBlob(1);
+            }
+        }
+        return image;
+    }
 
 
     ////////////////  CODE FOR ANDROID DATABASE MANAGER

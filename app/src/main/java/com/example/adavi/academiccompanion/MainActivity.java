@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         useremail.setText(myDB.getUserEmail());
 
         ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
-        imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+     //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
     }
 
 
