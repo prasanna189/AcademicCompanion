@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,7 +24,8 @@ public class AddEventActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
 //    TextView eventType;
     Spinner eventType;
-    EditText eventName, eventDate, eventStime, eventEtime, eventDescription, eventRemainder;
+    Button eventDate, eventStime, eventEtime, eventRemainder;
+    EditText eventName, eventDescription;
     Button saveEvent;
     Spinner eventSubject;
     String subject_name;
@@ -42,12 +46,12 @@ public class AddEventActivity extends AppCompatActivity {
 //        eventType=(TextView) findViewById(R.id.event_type_text_view);
         eventType=(Spinner) findViewById(R.id.event_type_spinner);
         eventName= (EditText)findViewById(R.id.event_name_edit_text);
-        eventDate=(EditText)findViewById(R.id.event_date_edit_text);
-        eventStime=(EditText)findViewById(R.id.event_stime_edit_text);
-        eventEtime=(EditText)findViewById(R.id.event_etime_edit_text);
+        eventDate=(Button) findViewById(R.id.event_date_button);
+        eventStime=(Button) findViewById(R.id.event_stime_button);
+        eventEtime=(Button) findViewById(R.id.event_etime_button);
 //        eventSubject=(EditText)findViewById(R.id.event_subject_edit_text);
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
-        eventRemainder=(EditText)findViewById(R.id.event_remainder_edit_text);
+        eventRemainder=(Button) findViewById(R.id.event_remainder_button);
         saveEvent=(Button)findViewById(R.id.save_event_button);
 
 
@@ -56,55 +60,95 @@ public class AddEventActivity extends AppCompatActivity {
         event_type= getIntent().getStringExtra("activity_type");
 //        eventType.setText(event_type);
 
-        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-            public void onFocusChange(View view, boolean hasfocus){
-                if(hasfocus){
-                    DateDialog dialog=new DateDialog(view);
-                    FragmentTransaction ft =getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
+       eventDate.setOnClickListener(new View.OnClickListener(){
+           public void onClick(View view)
+           {
+               DateDialog dialog=new DateDialog(view);
+               FragmentTransaction ft =getFragmentManager().beginTransaction();
+               dialog.show(ft, "DatePicker");
+           }
+       });
 
-                }
-            }
-
-        });
-
-        eventStime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View view, boolean hasfocus) {
-                if (hasfocus) {
-                    TimeDialog dialog = TimeDialog.newInstance(view);
+        eventStime.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                TimeDialog dialog = TimeDialog.newInstance(view);
                     android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     dialog.show(ft, "TimeDialog");
-
-                }
             }
-
         });
 
-        eventEtime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View view, boolean hasfocus) {
-                if (hasfocus) {
-                    TimeDialog dialog = TimeDialog.newInstance(view);
-                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    dialog.show(ft, "TimeDialog");
-
-                }
+        eventEtime.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                TimeDialog dialog = TimeDialog.newInstance(view);
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                dialog.show(ft, "TimeDialog");
             }
-
         });
 
-        eventRemainder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View view, boolean hasfocus) {
-                if (hasfocus) {
-                    TimeDialog dialog = TimeDialog.newInstance(view);
-                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    dialog.show(ft, "TimeDialog");
-
-                }
+        eventRemainder.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                TimeDialog dialog = TimeDialog.newInstance(view);
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                dialog.show(ft, "TimeDialog");
             }
-
         });
+
+
+
+//        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//            public void onFocusChange(View view, boolean hasfocus){
+//                if(hasfocus){
+//                    DateDialog dialog=new DateDialog(view);
+//                    FragmentTransaction ft =getFragmentManager().beginTransaction();
+//                    dialog.show(ft, "DatePicker");
+//
+//                }
+//            }
+//
+//        });
+
+//        eventStime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View view, boolean hasfocus) {
+//                if (hasfocus) {
+//                    TimeDialog dialog = TimeDialog.newInstance(view);
+//                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    dialog.show(ft, "TimeDialog");
+//
+//                }
+//            }
+//
+//        });
+//
+//        eventEtime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View view, boolean hasfocus) {
+//                if (hasfocus) {
+//                    TimeDialog dialog = TimeDialog.newInstance(view);
+//                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    dialog.show(ft, "TimeDialog");
+//
+//                }
+//            }
+//
+//        });
+//
+//        eventRemainder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View view, boolean hasfocus) {
+//                if (hasfocus) {
+//                    TimeDialog dialog = TimeDialog.newInstance(view);
+//                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    dialog.show(ft, "TimeDialog");
+//
+//                }
+//            }
+//
+//        });
 
         eventSubject=(Spinner)findViewById(R.id.event_subject_spinner);
+
+//          Subject Spinner
 
         Cursor sub_res=myDB.getAllData("subject");
         String[] subject_array= new String[sub_res.getCount()+1];
@@ -185,8 +229,6 @@ public class AddEventActivity extends AppCompatActivity {
         });
         eventType.setSelection(adapter_event.getPosition(event_type));
 
-
-
         displayEventDetails();
     }
 
@@ -233,79 +275,102 @@ public class AddEventActivity extends AppCompatActivity {
 
     void saveEvent(View view)
     {
-        String s=getIntent().getStringExtra("button_event_id");
-        int subject_id=-1;
-        String sub_name;
-        Cursor c = myDB.getAllData("subject");
-        String activity_sub_name=subject_name;
-        while(c.moveToNext())
+        boolean flag=true;
+        String event_name=eventName.getText().toString();
+        String event_date=eventDate.getText().toString();
+        String event_stime=eventStime.getText().toString();
+        String event_etime=eventEtime.getText().toString();
+
+        if(event_name.equals(""))
         {
-            sub_name=c.getString(1);
-            if(sub_name.equals(subject_name))
-            {
-                subject_id = c.getInt(0);
-            }
+            Toast.makeText(AddEventActivity.this, "Enter Event Name", Toast.LENGTH_LONG).show();
         }
-        if(s==null)
+        else if(event_date.equals(""))
         {
-
-            if(subject_id==-1 && !activity_sub_name.equals(""))
-            {
-                Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                boolean isInserted ;
-                isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
-
-//            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-//                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
-                if (isInserted == true) {
-                    Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, DisplayEventActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
-                }
-
-            }
+            Toast.makeText(AddEventActivity.this, "Enter Event Date", Toast.LENGTH_LONG).show();
+        }
+        else if(event_etime.compareTo(event_stime)<0)
+        {
+            Toast.makeText(AddEventActivity.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
         }
         else
         {
-            boolean isUpdated;
-            if(subject_id==-1 && !activity_sub_name.equals(""))
-            {
-                Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                isUpdated = myDB.updateDataEvent(Integer.parseInt(s),eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
 
-                if (isUpdated ) {
-                    Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, DisplayEventActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+            String s=getIntent().getStringExtra("button_event_id");
+            int subject_id=-1;
+            String sub_name;
+            Cursor c = myDB.getAllData("subject");
+            String activity_sub_name=subject_name;
+            while(c.moveToNext())
+            {
+                sub_name=c.getString(1);
+                if(sub_name.equals(subject_name))
+                {
+                    subject_id = c.getInt(0);
                 }
             }
+            if(event_type.equals("Assignment")||event_type.equals("Homework")||event_type.equals("Exam")||event_type.equals("Extra Class"))
+            {
+                if(subject_id==-1)
+                {
+                    Toast.makeText(AddEventActivity.this, "Enter Subject", Toast.LENGTH_LONG).show();
+                    flag=false;
+                }
 
+            }
+            if(flag)
+            {
+                if(s==null)
+                {
 
+                    if(subject_id==-1 && !activity_sub_name.equals(""))
+                    {
+                        Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        boolean isInserted ;
+                        isInserted = myDB.insertDataEvent(event_name,event_date,event_stime,event_etime,
+                                subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
+
+//            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
+//                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
+                        if (isInserted == true) {
+                            Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, DisplayEventActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }
+                else
+                {
+                    boolean isUpdated;
+                    if(subject_id==-1 && !activity_sub_name.equals(""))
+                    {
+                        Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        isUpdated = myDB.updateDataEvent(Integer.parseInt(s),event_name,event_date,event_stime,event_etime,
+                                subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
+
+                        if (isUpdated ) {
+                            Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
+                            intent.putExtra("button_event_id",s);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            }
         }
-
-
-//        if (isInserted == true) {
-//            Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(this, DisplaySubjectsActivity.class);
-//            startActivity(intent);
-//        } else {
-//            Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_LONG).show();
-//
-
     }
 
 
@@ -313,6 +378,50 @@ public class AddEventActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddEventActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_event_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.cancel_add_event)
+        {
+            String s=getIntent().getStringExtra("button_event_id");
+
+            if(s==null)//while adding new event
+            {
+                Intent intent = new Intent(this,DisplayEventActivity.class);
+                startActivity(intent);
+
+            }
+            else//editing already existing event
+            {
+                Intent intent = new Intent(this,DisplayEventActivity.class);
+                intent.putExtra("button_event_id",s);
+                startActivity(intent);
+            }
+
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//
+//    void showDateDialog(View view)
+//    {
+//        DateDialog dialog=new DateDialog(view);
+//               FragmentTransaction ft =getFragmentManager().beginTransaction();
+//               dialog.show(ft, "DatePicker");
+//    }
 
 
 }

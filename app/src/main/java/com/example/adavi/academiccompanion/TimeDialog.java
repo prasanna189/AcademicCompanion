@@ -7,15 +7,16 @@ import java.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.app.Dialog;
 import android.app.TimePickerDialog;;
 
 public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    private static EditText txt_time;
+    private static Button txt_time;
     public static TimeDialog newInstance(View view){
-        txt_time=(EditText)view;
+        txt_time=(Button) view;
         return(new TimeDialog());
     }
 
