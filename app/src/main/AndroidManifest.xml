@@ -48,6 +48,7 @@
         </activity>
 
         <activity android:name=".DisplayUserProfileActivity"
+            android:theme="@style/Widget.Design.NavigationView"
             android:label="Profile"/>
         <activity android:name=".DisplayEventDetailsActivity"></activity>
         <activity android:name=".EditUserProfileActivity"
