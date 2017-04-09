@@ -103,8 +103,10 @@ public class AddNewSubjectActivity extends AppCompatActivity {
 
             if(i && j)
             {
+
                 Toast.makeText(AddNewSubjectActivity.this, "Subject Details Updated", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, DisplaySubjectsActivity.class);
+                Intent intent = new Intent(this, DisplaySubjectDetails.class);
+                intent.putExtra("sub_id",s);
                 startActivity(intent);
             }
             else {
