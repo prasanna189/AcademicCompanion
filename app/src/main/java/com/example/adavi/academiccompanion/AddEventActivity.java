@@ -96,6 +96,8 @@ public class AddEventActivity extends AppCompatActivity {
         if(s!=null)
         {
             Cursor res=myDB.getAllData("event");
+            Cursor res1=myDB.getAllData("subject");
+            String sub_name=null;
             while(res.moveToNext())
             {
                 if(s.equals(res.getString(0)))
@@ -104,10 +106,19 @@ public class AddEventActivity extends AppCompatActivity {
                     eventDate.setText(res.getString(2));
                     eventStime.setText(res.getString(3));
                     eventEtime.setText(res.getString(4));
-                    eventSubject.setText(res.getString(5));
+//                    eventSubject.setText(res.getString(5));
                     eventDescription.setText(res.getString(6));
                     eventRemainder.setText(res.getString(7));
                     saveEvent.setText("Update");
+                    while(res1.moveToNext())
+                    {
+                        if(res1.getInt(0)==res.getInt(5))
+                        {
+                            sub_name=res1.getString(1);
+                        }
+                    }
+                    eventSubject.setText(sub_name);
+
                 }
             }
         }
@@ -119,9 +130,10 @@ public class AddEventActivity extends AppCompatActivity {
     void saveEvent(View view)
     {
         String s=getIntent().getStringExtra("button_event_id");
-        int subject_id=0;
+        int subject_id=-1;
         String sub_name;
         Cursor c = myDB.getAllData("subject");
+        String activity_sub_name=eventSubject.getText().toString();
         while(c.moveToNext())
         {
             sub_name=c.getString(1);
@@ -133,7 +145,7 @@ public class AddEventActivity extends AppCompatActivity {
         if(s==null)
         {
 
-            if(subject_id==0)
+            if(subject_id==-1 && !activity_sub_name.equals(""))
             {
                 Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
             }
@@ -159,7 +171,7 @@ public class AddEventActivity extends AppCompatActivity {
         else
         {
             boolean isUpdated;
-            if(subject_id==0)
+            if(subject_id==-1 && !activity_sub_name.equals(""))
             {
                 Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
             }
