@@ -1,6 +1,7 @@
 package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,8 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //just testing
 
@@ -20,6 +26,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     DatabaseHelper myDB;
+    ArrayAdapter<String> adapter;
 
 
     @Override
@@ -37,14 +44,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //code for setting user's name and email in the nav bar
+        //code for setting user's name, profile pic and email in the nav bar
 
         TextView username;
         TextView useremail;
@@ -61,12 +60,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header=navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
         username = (TextView)header.findViewById(R.id.navbar_username_tv);
         useremail = (TextView)header.findViewById(R.id.navbar_useremail_tv);
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
-        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
      //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
     }
 
@@ -111,16 +110,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-//    Button button = (Button)findViewById(R.id.dbmanager_id);
-//
-//    button.setOnClickListener(new OnClickListener() {
-//        public void onClick(View v) {
-//
-//            Intent dbmanager = new Intent(getActivity(),AndroidDatabaseManager.class);
-//            startActivity(dbmanager);
-//        }
-//    });
-
     public void databasemanager(View view)
     {
         Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
@@ -139,18 +128,57 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.navbar_schedule) {
+            Toast.makeText(MainActivity.this, "Schedule", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.navbar_settings) {
+            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.navbar_help) {
+            Toast.makeText(MainActivity.this, "Help", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.navbar_notifications) {
+            Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.navbar_semester) {
 
-        } else if (id == R.id.nav_slideshow) {
+            //Semester Spinner
 
-        } else if (id == R.id.nav_manage) {
+            Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
 
-        } else if (id == R.id.nav_share) {
+            Cursor sem_res = myDB.getAllData("Semester");
+            String[] sem_array= new String[sem_res.getCount()+1];
+            sem_array[0]="";
+            int i=1;
+            while(sem_res.moveToNext())
+            {
+                sem_array[i]=String.valueOf(sem_res.getInt(0));
+                i=i+1;
+            }
 
-        } else if (id == R.id.nav_send) {
+            adapter=new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.textview, sem_array);
 
+            semester.setAdapter(adapter);
+
+            semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+            {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                {
+
+                    ViewGroup vg=(ViewGroup)view;
+
+//                    TextView tv=(TextView)vg.findViewById(R.id.textview);
+//                    subject_name=tv.getText().toString();
+                    Toast.makeText(MainActivity.this, "fair enough", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+//                    subject_name=null;
+                }
+
+            });
+            semester.setSelection(adapter.getPosition(String.valueOf(myDB.getcurrentsem())));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -158,4 +186,8 @@ public class MainActivity extends AppCompatActivity
         return true;
 
     }
+
+
+
+
 }

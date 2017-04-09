@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table if not exists  marks (sem_id integer, subject_id integer, exam_type text, marks integer, max_marks integer, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  attendance (attendance_id integer primary key, sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  timetable (sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
-        db.execSQL("create table if not exists  event ( event_id integer primary key, event_name text,date text, startTime text, endTime text, subject_id integer, description text, remainderTime text , foreign key (subject_id) references subject(subject_id));");
+        db.execSQL("create table if not exists  event ( event_id integer primary key, event_name text,date text, startTime text, endTime text, subject_id integer, description text, remainderTime text ,eventType text, foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  ac_images ( image_name text, image_data blob);");
     }
 
@@ -165,7 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+    public boolean insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime, String eventType) {
         SQLiteDatabase db = this.getWritableDatabase();
         int event_id=0;
         Cursor res = db.rawQuery("SELECT ifnull(max(event_id),0) FROM event", null);
@@ -188,6 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("subject_id",subject_id);
         contentValues.put("description",description);
         contentValues.put("remainderTime",remainderTime);
+        contentValues.put("eventType",eventType);
         long result = db.insert("event",null ,contentValues);
         if(result == -1)
             return false;
@@ -381,7 +382,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean updateDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime) {
+    public boolean updateDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime,String eventType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("event_id",event_id);
@@ -392,6 +393,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("subject_id",subject_id);
         contentValues.put("description",description);
         contentValues.put("remainderTime",remainderTime);
+        contentValues.put("eventType",eventType);
         long result=db.update("event", contentValues, "event_id = "+event_id+"",null);
         if(result == -1)
             return false;
@@ -415,15 +417,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
+    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks,String new_examtype) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("sem_id",semid);
         contentValues.put("subject_id",subid);
-        contentValues.put("exam_type",exam_type);
+        contentValues.put("exam_type",new_examtype);
         contentValues.put("marks",marks);
         contentValues.put("max_marks",max_marks);
-        long result=db.update("marks", contentValues, "sem_id="+semid +"and"+ "subject_id="+subid+"exam_type="+exam_type ,null);
+        long result=db.update("marks", contentValues, "sem_id="+semid+"and subject_id="+subid+"and exam_type="+exam_type ,null);
 
         if(result == -1)
             return false;
