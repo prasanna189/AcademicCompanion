@@ -204,7 +204,7 @@ public class AddEventActivity extends AppCompatActivity {
             {
                 if(s.equals(res.getString(0)))
                 {
-//                    eventType.setSelection(adapter.getPosition(sub_name));
+                    eventType.setSelection(adapter_event.getPosition(res.getString(8)));
                     eventName.setText(res.getString(1));
                     eventDate.setText(res.getString(2));
                     eventStime.setText(res.getString(3));
@@ -257,7 +257,7 @@ public class AddEventActivity extends AppCompatActivity {
             {
                 boolean isInserted ;
                 isInserted = myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
+                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
 
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
@@ -282,7 +282,7 @@ public class AddEventActivity extends AppCompatActivity {
             else
             {
                 isUpdated = myDB.updateDataEvent(Integer.parseInt(s),eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
-                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
+                        subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
 
                 if (isUpdated ) {
                     Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
