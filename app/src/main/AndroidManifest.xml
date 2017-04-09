@@ -19,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="HOME"
@@ -31,20 +30,16 @@
             android:name=".DisplaySubjectsActivity"
             android:label="@string/title_activity_display_subjects"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".AddNewSubjectActivity" />
-
         <activity
             android:name=".AndroidDatabaseManager"
             android:label="database manager" />
-
         <activity
             android:name=".DisplayEventActivity"
             android:label="@string/title_activity_display_event"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".AddEventActivity"></activity>
-
         <activity android:name=".DisplaySubjectDetails"
             android:label="Subject Name">
 
@@ -53,11 +48,8 @@
         </activity>
 
         <activity android:name=".DisplayUserProfileActivity"
-            android:theme="@style/Widget.Design.NavigationView"
             android:label="Profile"/>
-
         <activity android:name=".DisplayEventDetailsActivity"></activity>
-
         <activity android:name=".EditUserProfileActivity"
             android:label="Edit Profile"></activity>
 

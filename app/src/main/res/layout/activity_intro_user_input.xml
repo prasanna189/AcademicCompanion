@@ -16,19 +16,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome!"
+            android:text="Welcome"
             android:textAlignment="center"
             android:textColor="@android:color/secondary_text_light"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"/>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/user_input_image"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="150dp"-->
-            <!--android:src="@drawable/main_app_icon_dark"-->
-            <!--android:clickable="true"-->
-            <!--/>-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select your profile picture"
+            android:textAlignment="center"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="16sp" />
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/user_input_image"
@@ -39,7 +41,7 @@
             android:src="@drawable/main_app_icon_dark"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            app:border_color="@color/White"
+            app:border_color="@android:color/background_light"
             app:border_width="2dp" />
 
 
@@ -53,9 +55,10 @@
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            android:tag="Enter Your Name"
+            android:tag="Enter your name"
             android:maxLines="1"
-            />
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext" />
 
 
         <EditText
@@ -63,11 +66,13 @@
             style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="Enter Semester"
+            android:hint="Enter Semester (Eg: 6)"
             android:paddingTop="16dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"/>
 
 
         <EditText
@@ -75,11 +80,13 @@
             style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="Enter Email_id"
+            android:hint="Enter Email"
             android:paddingTop="16dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
-            android:shadowDy="2" />
+            android:shadowDy="2"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"/>
 
 
     </LinearLayout>
@@ -91,6 +98,5 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:onClick="submit"
-        android:text="PROCEED"
-        />
+        android:text="PROCEED" />0`
 </RelativeLayout>

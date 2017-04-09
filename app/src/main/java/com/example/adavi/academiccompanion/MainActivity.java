@@ -37,14 +37,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //code for setting user's name and email in the nav bar
+        //code for setting user's name, profile pic and email in the nav bar
 
         TextView username;
         TextView useremail;
@@ -61,12 +53,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header=navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
         username = (TextView)header.findViewById(R.id.navbar_username_tv);
         useremail = (TextView)header.findViewById(R.id.navbar_useremail_tv);
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
-        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
      //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
     }
 
@@ -111,16 +103,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-//    Button button = (Button)findViewById(R.id.dbmanager_id);
-//
-//    button.setOnClickListener(new OnClickListener() {
-//        public void onClick(View v) {
-//
-//            Intent dbmanager = new Intent(getActivity(),AndroidDatabaseManager.class);
-//            startActivity(dbmanager);
-//        }
-//    });
-
     public void databasemanager(View view)
     {
         Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
@@ -147,11 +129,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
+//        else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
