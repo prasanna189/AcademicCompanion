@@ -54,7 +54,11 @@
             android:label="@string/title_activity_subject_marks"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AddNewSubjectMarks" />
-        <activity android:name=".DisplayExamDetails"></activity>
+        <activity android:name=".DisplayExamDetails" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

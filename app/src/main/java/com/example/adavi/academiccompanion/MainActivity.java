@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
 
+                //Add a new semester.
                 if(sem_res.getCount()+1 == position){
 
 
@@ -175,59 +176,27 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navbar_schedule) {
+        if (id == R.id.navbar_schedule)
+        {
             Toast.makeText(MainActivity.this, "Schedule", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.navbar_settings) {
-            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.navbar_help) {
-            Toast.makeText(MainActivity.this, "Help", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.navbar_notifications) {
+        }
+        else if (id == R.id.navbar_settings) {
+//            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this,SettingsActivity.class);
+            startActivity(intent);
+
+        }
+        else if (id == R.id.navbar_help)
+        {
+//            Toast.makeText(MainActivity.this, "Help", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,HelpActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.navbar_notifications)
+        {
             Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
         }
-//        else if (id == R.id.navbar_semester) {
-//
-//            //Semester Spinner
-//
-//            Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
-//
-//            Cursor sem_res = myDB.getAllData("Semester");
-//            String[] sem_array= new String[sem_res.getCount()+1];
-//            sem_array[0]="Semester";
-//            int i=1;
-//            while(sem_res.moveToNext())
-//            {
-//                sem_array[i]=String.valueOf(sem_res.getInt(0));
-//                i=i+1;
-//            }
-//
-//            adapter=new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.textview, sem_array);
-//
-//            semester.setAdapter(adapter);
-//
-//            semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-//            {
-//
-//                @Override
-//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-//                {
-//
-//                    ViewGroup vg=(ViewGroup)view;
-//                    TextView tv=(TextView)vg.findViewById(R.id.textview);
-//                    myDB.setCurrentSem(tv.getText().toString());
-////                    Toast.makeText(MainActivity.this, "fair enough", Toast.LENGTH_LONG).show();
-//                }
-//
-//                @Override
-//                public void onNothingSelected(AdapterView<?> parent)
-//                {
-////                    subject_name=null;
-//                }
-//
-//            });
-////            semester.setSelection(adapter.getPosition(String.valueOf(myDB.getcurrentsem())));
-//        }
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
