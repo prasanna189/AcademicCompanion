@@ -15,14 +15,6 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-    <!--<ImageView-->
-        <!--android:id="@+id/userImageView"-->
-        <!--android:layout_width="88dp"-->
-        <!--android:layout_height="88dp"-->
-        <!--android:paddingTop="8dp"-->
-        <!--app:srcCompat="@drawable/main_app_icon_dark" />-->
-
-
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/userImageView"
         android:layout_width="72dp"
@@ -30,7 +22,6 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/main_app_icon_dark"
         android:paddingTop="16dp"
-        android:clickable="true"
         app:border_color="@color/White"
         app:border_width="2dp" />
 
@@ -39,13 +30,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="adavi" />
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
     <TextView
         android:id="@+id/navbar_useremail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="adavi@gmail.com" />
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
 </LinearLayout>

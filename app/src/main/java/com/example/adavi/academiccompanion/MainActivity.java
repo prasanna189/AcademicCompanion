@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     DatabaseHelper myDB;
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<Integer> adapter;
 
 
     @Override
@@ -67,6 +66,54 @@ public class MainActivity extends AppCompatActivity
         useremail.setText(myDB.getUserEmail());
 
      //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+
+
+        //Semester spinner
+
+//        Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
+
+        final Cursor sem_res = myDB.getAllData("Semester");
+        final String[] sem_array= new String[sem_res.getCount()+2];
+        sem_array[0]=String.valueOf(myDB.getcurrentsem());
+        int i=1;
+        while(sem_res.moveToNext())
+        {
+            sem_array[i]=String.valueOf(sem_res.getInt(0));
+            i=i+1;
+        }
+        sem_array[i]="+";
+
+        Spinner spinner = (Spinner) navigationView.getMenu().findItem(R.id.navbar_semester).getActionView();
+        spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,sem_array));
+        spinner.setDropDownWidth(-2);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+
+                if(sem_res.getCount()+1 == position){
+
+
+                }
+                else{
+                    myDB.setCurrentSem(sem_array[position]);
+                    sem_array[0]=String.valueOf(myDB.getcurrentsem());
+
+                }
+                //                Toast.makeText(MainActivity.this,sem_array[position],Toast.LENGTH_SHORT).show();
+
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                Toast.makeText(MainActivity.this,"hi",Toast.LENGTH_SHORT).show();
+            }
+        });
+//        spinner.setSelection(adapter.getPosition(0));
+
+
     }
 
 
@@ -137,55 +184,58 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.navbar_notifications) {
             Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
         }
-        else if (id == R.id.navbar_semester) {
-
-            //Semester Spinner
-
-            Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
-
-            Cursor sem_res = myDB.getAllData("Semester");
-            String[] sem_array= new String[sem_res.getCount()+1];
-            sem_array[0]="";
-            int i=1;
-            while(sem_res.moveToNext())
-            {
-                sem_array[i]=String.valueOf(sem_res.getInt(0));
-                i=i+1;
-            }
-
-            adapter=new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.textview, sem_array);
-
-            semester.setAdapter(adapter);
-
-            semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-            {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-                {
-
-                    ViewGroup vg=(ViewGroup)view;
-
+//        else if (id == R.id.navbar_semester) {
+//
+//            //Semester Spinner
+//
+//            Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
+//
+//            Cursor sem_res = myDB.getAllData("Semester");
+//            String[] sem_array= new String[sem_res.getCount()+1];
+//            sem_array[0]="Semester";
+//            int i=1;
+//            while(sem_res.moveToNext())
+//            {
+//                sem_array[i]=String.valueOf(sem_res.getInt(0));
+//                i=i+1;
+//            }
+//
+//            adapter=new ArrayAdapter<String>(this, R.layout.spinner_layout,R.id.textview, sem_array);
+//
+//            semester.setAdapter(adapter);
+//
+//            semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+//            {
+//
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+//                {
+//
+//                    ViewGroup vg=(ViewGroup)view;
 //                    TextView tv=(TextView)vg.findViewById(R.id.textview);
-//                    subject_name=tv.getText().toString();
-                    Toast.makeText(MainActivity.this, "fair enough", Toast.LENGTH_LONG).show();
-                }
+//                    myDB.setCurrentSem(tv.getText().toString());
+////                    Toast.makeText(MainActivity.this, "fair enough", Toast.LENGTH_LONG).show();
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent)
+//                {
+////                    subject_name=null;
+//                }
+//
+//            });
+////            semester.setSelection(adapter.getPosition(String.valueOf(myDB.getcurrentsem())));
+//        }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent)
-                {
-//                    subject_name=null;
-                }
 
-            });
-            semester.setSelection(adapter.getPosition(String.valueOf(myDB.getcurrentsem())));
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
+
+
 
 
 
