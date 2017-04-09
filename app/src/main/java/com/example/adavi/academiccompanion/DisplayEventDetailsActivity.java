@@ -157,4 +157,11 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this, DisplayEventActivity.class);
+        startActivity(intent);
+    }
 }

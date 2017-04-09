@@ -278,8 +278,20 @@ public class AddEventActivity extends AppCompatActivity {
         boolean flag=true;
         String event_name=eventName.getText().toString();
         String event_date=eventDate.getText().toString();
+        if(event_date.equals("Set Date"))
+        {
+            event_date="";
+        }
         String event_stime=eventStime.getText().toString();
+        if(event_stime.equals("Set Start Time"))
+        {
+            event_stime="";
+        }
         String event_etime=eventEtime.getText().toString();
+        if(event_etime.equals("Set End Time"))
+        {
+            event_etime="";
+        }
 
         if(event_name.equals(""))
         {
@@ -403,7 +415,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
             else//editing already existing event
             {
-                Intent intent = new Intent(this,DisplayEventActivity.class);
+                Intent intent = new Intent(this,DisplayEventDetailsActivity.class);
                 intent.putExtra("button_event_id",s);
                 startActivity(intent);
             }
@@ -414,6 +426,25 @@ public class AddEventActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed()
+    {
+        String s=getIntent().getStringExtra("button_event_id");
+
+        if(s==null)//while adding new event
+        {
+            Intent intent = new Intent(this,DisplayEventActivity.class);
+            startActivity(intent);
+
+        }
+        else//editing already existing event
+        {
+            Intent intent = new Intent(this,DisplayEventDetailsActivity.class);
+            intent.putExtra("button_event_id",s);
+            startActivity(intent);
+        }
+    }
+
 
 //
 //    void showDateDialog(View view)

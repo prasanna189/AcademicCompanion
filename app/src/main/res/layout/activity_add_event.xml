@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_edit_text_holo_light"
-                android:text="Set Date"
+                android:hint="Set Date"
                 android:textAlignment="textStart"
                 android:gravity="start"
 
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/apptheme_edit_text_holo_light"
-                        android:text="Set Start Time"
+                        android:hint="Set Start Time"
                         android:textAlignment="textStart"
                         android:gravity="start"
 
@@ -146,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/apptheme_edit_text_holo_light"
-                        android:text="Set End Time"
+                        android:hint="Set End Time"
                         android:textAlignment="textStart"
                         android:gravity="start"
 
