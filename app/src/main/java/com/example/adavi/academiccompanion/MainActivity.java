@@ -1,5 +1,6 @@
 package com.example.adavi.academiccompanion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,17 +8,22 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.R.id.input;
 
 //just testing
 
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     DatabaseHelper myDB;
     ArrayAdapter<Integer> adapter;
+    private String m_Text = "";
 
 
     @Override
@@ -93,17 +100,43 @@ public class MainActivity extends AppCompatActivity
             {
 
                 //Add a new semester.
-                if(sem_res.getCount()+1 == position){
+                if(position==sem_res.getCount()+1){
 
 
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("Enter Semester ");
+
+                    final EditText input = new EditText(MainActivity.this);
+                    input.setInputType(InputType.TYPE_CLASS_TEXT );
+
+
+                    builder.setView(input);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            m_Text = input.getText().toString();
+                            myDB.setCurrentSem(m_Text);
+                            myDB.insertDataSemester(m_Text);
+                            sem_array[0]=String.valueOf(myDB.getcurrentsem());
+                            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+
+                    sem_array[0]=String.valueOf(myDB.getcurrentsem());
                 }
                 else{
                     myDB.setCurrentSem(sem_array[position]);
                     sem_array[0]=String.valueOf(myDB.getcurrentsem());
-
                 }
-                //                Toast.makeText(MainActivity.this,sem_array[position],Toast.LENGTH_SHORT).show();
-
 
             }
             @Override
@@ -203,8 +236,6 @@ public class MainActivity extends AppCompatActivity
         return true;
 
     }
-
-
 
 
 
