@@ -33,13 +33,12 @@ public class SubjectMarks extends AppCompatActivity {
             return;
         }
 
-
         while (res.moveToNext()) {
-            //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
+
             displayMarks(res.getString(2), res.getInt(3),res.getInt(1));
-//            buffer.replace(0,buffer.length(),"");
+
         }
-    }
+   }
 
     String s,type;
 
@@ -108,7 +107,7 @@ public class SubjectMarks extends AppCompatActivity {
         });
 
 
-        tv.setText(marksob);
+        tv.setText(Integer.toString(marksob));
         tv.setTextSize(12);
 
 
@@ -122,7 +121,7 @@ public class SubjectMarks extends AppCompatActivity {
     {
         Intent intent = new Intent(this, DisplayExamDetails.class);
         s=Integer.toString(i);
-        intent.putExtra("sub_id",s);
+        intent.putExtra("subid",s);
         intent.putExtra("examtype",type);
         startActivity(intent);
     }
@@ -136,6 +135,8 @@ public class SubjectMarks extends AppCompatActivity {
     }
     public void addSubjectMarks(View view){
         Intent intent = new Intent(this, AddNewSubjectMarks.class);
+        String str=getIntent().getStringExtra("sub_id");
+        intent.putExtra("subject_id",str);
         startActivity(intent);
     }
 

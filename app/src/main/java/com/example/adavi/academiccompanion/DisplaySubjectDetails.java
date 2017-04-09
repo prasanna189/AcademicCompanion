@@ -191,7 +191,6 @@ int i;
                 Intent intent = new Intent(DisplaySubjectDetails.this, SubjectMarks.class);
                 str=Integer.toString(i);
                 intent.putExtra("sub_id",str);
-                //intent.putExtra("xyz",sub_name);
                 startActivity(intent);
 
             }

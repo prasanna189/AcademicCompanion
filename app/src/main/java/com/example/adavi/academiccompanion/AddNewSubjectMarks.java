@@ -15,7 +15,7 @@ public class AddNewSubjectMarks extends AppCompatActivity {
     DatabaseHelper myDB;
     EditText examtype,maxmarks,marks;
     Button buttonSaveMarks;
-
+    String s, e_type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +33,16 @@ public class AddNewSubjectMarks extends AppCompatActivity {
         displayMarks();
     }
 
-    void displayMarks()
+    public void displayMarks()
     {
-        String s= getIntent().getStringExtra("sub_id");
-        String e_type=getIntent().getStringExtra("examtype");
+
+         String s=getIntent().getStringExtra("subj_id");
+        String e_type=getIntent().getStringExtra("exam_type");
         if(s!=null)
         {
             Cursor res=myDB.getAllData("marks");
             while(res.moveToNext()){
-                if(res.getString(1).equals(s))
+                if(res.getString(1).equals(s) && res.getString(2).equals(e_type))
                 {
                     examtype.setText(e_type);
 
@@ -58,27 +59,33 @@ public class AddNewSubjectMarks extends AppCompatActivity {
         }
     }
 
-    public void saveSubject(View view) {
+    public void SaveMarks(View view) {
 
-        String s= getIntent().getStringExtra("sub_id");
-        String e_type=getIntent().getStringExtra("examtype");
+
+
+        String s= getIntent().getStringExtra("subj_id");
+        String e_type=getIntent().getStringExtra("exam_type");
+        //Toast.makeText(AddNewSubjectMarks.this, "hello", Toast.LENGTH_SHORT).show();
 
         if (s != null) {
             int flag=0;
             Cursor res=myDB.getAllData("marks");
             String exam_type=examtype.getText().toString();
-            String mar=marks.getText().toString();
             String mm=maxmarks.getText().toString();
+            String mar=marks.getText().toString();
             int maxmar=Integer.parseInt(mm);
             int mark=Integer.parseInt(mar);
+
+
 
             boolean j=false;
 
             while(res.moveToNext())
             {
-//                Toast.makeText(AddNewSubjectActivity.this, Integer.toString(res.getInt(1)), Toast.LENGTH_LONG).show();
-                if(res.getString(1).equals(s) && res.getString(2).equals(e_type))
+
+                if(res.getInt(1)==Integer.parseInt(s) && res.getString(2).equals(e_type))
                 {
+
                     j=myDB.updateDataMarks(res.getInt(0),res.getInt(1),res.getString(2),mark,maxmar,exam_type);
                 }
             }
@@ -87,7 +94,7 @@ public class AddNewSubjectMarks extends AppCompatActivity {
             {
 
                 Toast.makeText(AddNewSubjectMarks.this, "Marks Details Updated", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, DisplayExamDetails.class);
+                Intent intent = new Intent(this, SubjectMarks.class);
                 intent.putExtra("sub_id",s);
                 intent.putExtra("examtype",e_type);
                 startActivity(intent);
@@ -99,9 +106,10 @@ public class AddNewSubjectMarks extends AppCompatActivity {
         }
         else
         {
+            String sub= getIntent().getStringExtra("subject_id");
             int sem=myDB.getcurrentsem();
 
-            boolean isInserted = myDB.insertDataMarks(sem,Integer.parseInt(s),examtype.getText().toString(),Integer.parseInt(marks.getText().toString()),Integer.parseInt(maxmarks.getText().toString()));
+            boolean isInserted = myDB.insertDataMarks(sem,Integer.parseInt(sub),examtype.getText().toString(),Integer.parseInt(marks.getText().toString()),Integer.parseInt(maxmarks.getText().toString()));
 
             if (isInserted == true) {
                 Toast.makeText(AddNewSubjectMarks.this, "Marks Saved", Toast.LENGTH_LONG).show();
@@ -116,7 +124,7 @@ public class AddNewSubjectMarks extends AppCompatActivity {
 
 
     public void resetmarks(View view) {
-        Intent intent = new Intent(this, AddNewSubjectActivity.class);
+        Intent intent = new Intent(this, AddNewSubjectMarks.class);
         startActivity(intent);
     }
 }
