@@ -485,7 +485,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean deleteDataMarks (int sub_id,int sem_id,String type) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and exam_type = '"+type+"'",null);
+        long result= db.delete("marks", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and exam_type = '"+type+"'",null);
         if(result == -1)
             return false;
         else
