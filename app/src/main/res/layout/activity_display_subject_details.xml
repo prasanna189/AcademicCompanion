@@ -6,14 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.adavi.academiccompanion.DisplaySubjectDetails"
     >
-
-
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
-    <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/subject_details_scrollview">
 
     <LinearLayout
 
@@ -24,6 +20,10 @@
         >
 
     </LinearLayout>
+
+
+</ScrollView>
+
     <!--<RelativeLayout-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content">-->
