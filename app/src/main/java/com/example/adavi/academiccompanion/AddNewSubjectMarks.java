@@ -94,9 +94,9 @@ public class AddNewSubjectMarks extends AppCompatActivity {
             {
 
                 Toast.makeText(AddNewSubjectMarks.this, "Marks Details Updated", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, SubjectMarks.class);
-                intent.putExtra("sub_id",s);
-                intent.putExtra("examtype",e_type);
+                Intent intent = new Intent(this, DisplayExamDetails.class);
+                intent.putExtra("subid",s);
+                intent.putExtra("examtype",exam_type);
                 startActivity(intent);
             }
             else {
@@ -114,6 +114,8 @@ public class AddNewSubjectMarks extends AppCompatActivity {
             if (isInserted == true) {
                 Toast.makeText(AddNewSubjectMarks.this, "Marks Saved", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, SubjectMarks.class);
+                intent.putExtra("sub_id",sub);
+
                 startActivity(intent);
             } else {
                 Toast.makeText(AddNewSubjectMarks.this, "Subject not Saved", Toast.LENGTH_LONG).show();

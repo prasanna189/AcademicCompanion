@@ -80,6 +80,7 @@ public class DisplayExamDetails extends AppCompatActivity {
                 {
                     Toast.makeText(DisplayExamDetails.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(DisplayExamDetails.this, SubjectMarks.class);
+                    intent.putExtra("sub_id",s);
                     startActivity(intent);
                 }
                 else {
@@ -102,11 +103,12 @@ public class DisplayExamDetails extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//        Intent intent = new Intent(this, SubjectMarks.class);
-//        startActivity(intent);
-//        super.onBackPressed();
-//    }
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this, SubjectMarks.class);
+        intent.putExtra("sub_id",s);
+        startActivity(intent);
+        super.onBackPressed();
+    }
 }

@@ -12,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplaySubjectsActivity extends AppCompatActivity {
 
     final TextView[] myTextViews = new TextView[128]; // create an empty array;
     DatabaseHelper myDB;
 
+    int semid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,24 +27,46 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDB = new DatabaseHelper(this);
+        semid=myDB.getcurrentsem();
         displaySubjectsHelper();
     }
 
     public void displaySubjectsHelper() {
+        int flag=0;
         Cursor res = myDB.getAllData("subject_details");
         if (res.getCount() == 0) {
             subjectAlert("No Subjects", "Go and Add a subject!");
             return;
         }
+        else
+        {
+            StringBuffer buffer = new StringBuffer();
+            while (res.moveToNext()) {
+                buffer.append("Subject: "+myDB.getSubjectName(res.getInt(1))+"\n");
+                buffer.append("Status: "+res.getString(5)+"\n");
+                //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
 
-        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()) {
-            buffer.append("Subject: "+myDB.getSubjectName(res.getInt(1))+"\n");
-            buffer.append("Status: "+res.getString(5)+"\n");
-         //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-            displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5),res.getInt(1));
-            buffer.replace(0,buffer.length(),"");
+                if(res.getInt(0)==(semid))
+                {
+                    //Toast.makeText(DisplaySubjectsActivity.this,"faf0", Toast.LENGTH_LONG).show();
+                    flag=1;
+                    displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5),res.getInt(1));
+                }
+//            else
+//            {
+//               // Toast.makeText(DisplaySubjectsActivity.this,res.getString(0), Toast.LENGTH_LONG).show();
+//               // Toast.makeText(DisplaySubjectsActivity.this,Integer.toString(semid), Toast.LENGTH_LONG).show();
+//               // Toast.makeText(DisplaySubjectsActivity.this, "No subjects added", Toast.LENGTH_LONG).show();
+//            }
+
+                buffer.replace(0,buffer.length(),"");
+            }
+            if(flag==0){
+                subjectAlert("No Subjects", "Go and Add a subject!");
+                return;
+            }
         }
+
     }
 String s,sub_name;
 

@@ -13,10 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SubjectMarks extends AppCompatActivity {
     DatabaseHelper myDB;
-
+    String str;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class SubjectMarks extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDB= new DatabaseHelper(this);
-
+         str=getIntent().getStringExtra("sub_id");
 
 
         Cursor res = myDB.getAllData("marks");
@@ -35,7 +36,16 @@ public class SubjectMarks extends AppCompatActivity {
 
         while (res.moveToNext()) {
 
-            displayMarks(res.getString(2), res.getInt(3),res.getInt(1));
+            if(res.getString(1).equals(str))
+            {
+                displayMarks(res.getString(2), res.getInt(3),res.getInt(1));
+
+            }
+//            else
+//            {
+//                Toast.makeText(SubjectMarks.this, "UnSuccessful Display", Toast.LENGTH_LONG).show();
+//            }
+            //displayMarks(res.getString(2), res.getInt(3),res.getInt(1));
 
         }
    }
@@ -135,9 +145,15 @@ public class SubjectMarks extends AppCompatActivity {
     }
     public void addSubjectMarks(View view){
         Intent intent = new Intent(this, AddNewSubjectMarks.class);
-        String str=getIntent().getStringExtra("sub_id");
         intent.putExtra("subject_id",str);
         startActivity(intent);
+    }
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this, DisplaySubjectDetails.class);
+        intent.putExtra("sub_id",str);
+        startActivity(intent);
+        super.onBackPressed();
     }
 
 }
