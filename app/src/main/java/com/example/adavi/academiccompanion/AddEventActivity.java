@@ -24,7 +24,7 @@ public class AddEventActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
 //    TextView eventType;
     Spinner eventType;
-    Button eventDate, eventStime, eventEtime, eventRemainder;
+    Button eventDate, eventStime, eventEtime, eventRemainderTime, eventRemainderDate;
     EditText eventName, eventDescription;
     Button saveEvent;
     Spinner eventSubject;
@@ -51,7 +51,8 @@ public class AddEventActivity extends AppCompatActivity {
         eventEtime=(Button) findViewById(R.id.event_etime_button);
 //        eventSubject=(EditText)findViewById(R.id.event_subject_edit_text);
         eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
-        eventRemainder=(Button) findViewById(R.id.event_remainder_button);
+        eventRemainderTime=(Button) findViewById(R.id.event_remainder_time_button);
+        eventRemainderDate=(Button)findViewById(R.id.event_remainder_date_button);
         saveEvent=(Button)findViewById(R.id.save_event_button);
 
 
@@ -87,7 +88,16 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        eventRemainder.setOnClickListener(new View.OnClickListener(){
+        eventRemainderDate.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                DateDialog dialog=new DateDialog(view);
+                FragmentTransaction ft =getFragmentManager().beginTransaction();
+                dialog.show(ft, "DatePicker");
+            }
+        });
+
+        eventRemainderTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)
             {
                 TimeDialog dialog = TimeDialog.newInstance(view);
@@ -254,7 +264,8 @@ public class AddEventActivity extends AppCompatActivity {
                     eventEtime.setText(res.getString(4));
 //                    eventSubject.setText(res.getString(5));
                     eventDescription.setText(res.getString(6));
-                    eventRemainder.setText(res.getString(7));
+                    eventRemainderTime.setText(res.getString(7));
+                    eventRemainderDate.setText(res.getString(9));
                     saveEvent.setText("Update");
                     while(res1.moveToNext())
                     {
@@ -344,7 +355,8 @@ public class AddEventActivity extends AppCompatActivity {
                     {
                         boolean isInserted ;
                         isInserted = myDB.insertDataEvent(event_name,event_date,event_stime,event_etime,
-                                subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
+                                subject_id,eventDescription.getText().toString(),eventRemainderTime.getText().toString(),event_type,
+                                eventRemainderDate.getText().toString());
 
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
@@ -369,7 +381,8 @@ public class AddEventActivity extends AppCompatActivity {
                     else
                     {
                         isUpdated = myDB.updateDataEvent(Integer.parseInt(s),event_name,event_date,event_stime,event_etime,
-                                subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString(),event_type);
+                                subject_id,eventDescription.getText().toString(),eventRemainderTime.getText().toString(),event_type,
+                                eventRemainderDate.getText().toString());
 
                         if (isUpdated ) {
                             Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
