@@ -16,6 +16,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     DatabaseHelper myDB;
+    public static PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
                 boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
 
-
+                //shared preference to indicate profile pic is set
+                prefManager.setProfilePic(true);
 
             } catch (IOException e) {
                 e.printStackTrace();

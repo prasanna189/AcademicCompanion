@@ -25,10 +25,10 @@ public class PrefManager {
     public PrefManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
     }
 
     public void setFirstTimeLaunch(boolean isFirstTime) {
+        editor = pref.edit();
         editor.putBoolean(IS_FIRST_TIME_LAUNCH, isFirstTime);
         editor.commit();
     }
@@ -38,10 +38,13 @@ public class PrefManager {
     }
 
     public void setProfilePic(boolean isPicSet){
+        editor = profile_pic.edit();
         editor.putBoolean(IS_PROFILE_PIC_SET, isPicSet);
         editor.commit();
     }
 
-    public boolean isProfilePicSet() { return pref.getBoolean(IS_PROFILE_PIC_SET, false); }
+    public boolean isProfilePicSet() {
+        return pref.getBoolean(IS_PROFILE_PIC_SET, false);
+    }
 
 }

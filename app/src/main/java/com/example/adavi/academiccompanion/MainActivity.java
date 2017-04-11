@@ -23,8 +23,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.R.id.input;
-
 //just testing
 
 public class MainActivity extends AppCompatActivity
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseHelper myDB;
     ArrayAdapter<Integer> adapter;
     private String m_Text = "";
+    public static PrefManager prefManager;
 
 
     @Override
@@ -72,12 +71,15 @@ public class MainActivity extends AppCompatActivity
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
-     //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+        if(prefManager.isProfilePicSet()){
+
+            Toast.makeText(MainActivity.this, "profile pic set", Toast.LENGTH_SHORT).show();
+            //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+        }
+
 
 
         //Semester spinner
-
-//        Spinner semester = (Spinner)findViewById(R.id.navbar_semester_spinner);
 
         final Cursor sem_res = myDB.getAllData("Semester");
         final String[] sem_array= new String[sem_res.getCount()+2];
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
         Spinner spinner = (Spinner) navigationView.getMenu().findItem(R.id.navbar_semester).getActionView();
         spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,sem_array));
-        spinner.setDropDownWidth(-2);
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
