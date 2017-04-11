@@ -23,6 +23,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_user_input);
         myDB = new DatabaseHelper(this);
+        prefManager = new PrefManager(this);
 
         ImageView buttonLoadImage = (ImageView) findViewById(R.id.user_input_image);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
@@ -50,12 +51,10 @@ public class IntroUserInputActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
-
                 ImageView imageView = (ImageView) findViewById(R.id.user_input_image);
                 imageView.setImageBitmap(bitmap);
 
                 boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
-
                 //shared preference to indicate profile pic is set
                 prefManager.setProfilePic(true);
 
@@ -100,7 +99,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
 
-            //setting firsttimelaunch as false, so from next time directly home screen is opened.
+
 
         }
     }

@@ -37,17 +37,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        prefManager = new PrefManager(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDB = new DatabaseHelper(this);
 
 
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
 
 
@@ -71,10 +69,14 @@ public class MainActivity extends AppCompatActivity
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
-        if(prefManager.isProfilePicSet()){
-
+        if(prefManager.isProfilePicSet())
+        {
             Toast.makeText(MainActivity.this, "profile pic set", Toast.LENGTH_SHORT).show();
             //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+        }
+        else{
+            Toast.makeText(MainActivity.this, "profile pic not set", Toast.LENGTH_SHORT).show();
+
         }
 
 
