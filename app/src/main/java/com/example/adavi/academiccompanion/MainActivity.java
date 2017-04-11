@@ -209,6 +209,12 @@ public class MainActivity extends AppCompatActivity
         startActivity(dbmanager);
     }
 
+    public void openTimeTable(View view)
+    {
+        Intent dbmanager = new Intent(this, TimeTableActivity.class);
+        startActivity(dbmanager);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
