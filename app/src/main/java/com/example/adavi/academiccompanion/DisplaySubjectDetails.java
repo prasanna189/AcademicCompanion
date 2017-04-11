@@ -203,6 +203,24 @@ int i;
             }
         });
 
+        attendance.setId(Integer.parseInt(s));
+        attendance.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+
+                Button pressed;
+                pressed=((Button)v);
+                i=pressed.getId();
+
+                Intent intent = new Intent(DisplaySubjectDetails.this, DisplayAttendance.class);
+                String subjectid=Integer.toString(i);
+                intent.putExtra("subj_id",subjectid);
+                startActivity(intent);
+
+            }
+        });
 
         bl.addView(marks);
         bl.addView(attendance);
