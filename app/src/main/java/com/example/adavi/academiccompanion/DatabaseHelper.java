@@ -30,12 +30,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table if not exists user_details( name text not null, email text not null, phone text, current_sem integer not null);");
-        db.execSQL("create table if not exists  semester(sem_id integer primary key);");
+        db.execSQL("create table if not exists  semester(sem_id integer primary key, start_date text, end_date text);");
         db.execSQL("create table if not exists subject(subject_id integer primary key,subject_name text);");
         db.execSQL("create table if not exists subject_details(sem_id integer, subject_id integer, prof_name text , prof_email text, min_attendance integer,status text, credits integer, grade text, lab integer, description text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references  subject(subject_id) );");
         db.execSQL("create table if not exists  marks (sem_id integer, subject_id integer, exam_type text, marks integer, max_marks integer, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  attendance (attendance_id integer primary key, sem_id integer, subject_id integer, date text, status text, isExtraClass integer,foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
-        db.execSQL("create table if not exists  timetable (sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
+        db.execSQL("create table if not exists  timetable (timetable_id integer primary key, sem_id integer, subject_id integer, day text, startTime text, endTime text, foreign key (sem_id) references semester(sem_id), foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  event ( event_id integer primary key, event_name text,date text, startTime text, endTime text, subject_id integer, description text, remainderTime text ,eventType text, remainderDate text, foreign key (subject_id) references subject(subject_id));");
         db.execSQL("create table if not exists  ac_images ( image_name text, image_data blob);");
     }
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertDataSemester(String semester) {
+    public boolean insertDataSemester(String semester, String start_date, String end_date) {
 
         int sem = Integer.parseInt(semester);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -158,8 +158,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+
         SQLiteDatabase db = this.getWritableDatabase();
+        int id=0;
+        Cursor res = db.rawQuery("select if(null(max(timetable_id),0) from timetable", null);
+        if(res.moveToNext())
+        {
+            id=res.getInt(0);
+        }
+
         ContentValues contentValues = new ContentValues();
+        contentValues.put("timetable_id",id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("day",day);
@@ -337,10 +346,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateDataSemester(int sem) {
+    public boolean updateDataSemester(int sem, String start_date, String end_date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("sem_id",sem);
+        contentValues.put("start_date",start_date);
+        contentValues.put("end_date",end_date);
         long result=db.update("semester",contentValues,"sem_id="+sem,null);
         if(result == -1)
             return false;
