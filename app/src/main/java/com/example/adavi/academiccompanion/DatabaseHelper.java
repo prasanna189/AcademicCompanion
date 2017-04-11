@@ -54,6 +54,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
+    public String getDBName()
+    {
+        return DATABASE_NAME;
+    }
+
     public boolean insertDataUserDetails(String name,String email, String phone, String semester) {
         SQLiteDatabase db = this.getWritableDatabase();
         int current_sem = Integer.parseInt(semester);
@@ -561,7 +567,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updategrade(String grad,int subid)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("update subject_details set grade='"+grad+"' where subject_id="+subid+";");
+        Cursor res=db.rawQuery("update subject_details set grade='"+grad+"' where subject_id="+subid+";",null);
 
     }
     public boolean updateImage(String name, byte[] image) {
