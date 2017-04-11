@@ -3,6 +3,8 @@ package com.example.adavi.academiccompanion;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,6 +33,8 @@ public class AddEventActivity extends AppCompatActivity {
     String subject_name;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_event;
+    String formattedDate;
+    String formattedTime;
 
     String event_type;
 
@@ -56,6 +60,13 @@ public class AddEventActivity extends AppCompatActivity {
         saveEvent=(Button)findViewById(R.id.save_event_button);
 
 
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+
+        formattedDate = df.format(c.getTime());
+        formattedTime = tf.format(c.getTime());
 
 
         event_type= getIntent().getStringExtra("activity_type");
@@ -313,49 +324,55 @@ public class AddEventActivity extends AppCompatActivity {
         {
             Toast.makeText(AddEventActivity.this, "Enter Event Date", Toast.LENGTH_LONG).show();
         }
+        else if(event_date.compareTo(formattedDate)<0)
+        {
+            Toast.makeText(AddEventActivity.this, "Event Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
+        }
+        else if(event_stime.compareTo(formattedTime)<0)
+        {
+            Toast.makeText(AddEventActivity.this, "Event Start Time Should be greater than Current Time", Toast.LENGTH_LONG).show();
+        }
         else if(event_etime.compareTo(event_stime)<0)
         {
             Toast.makeText(AddEventActivity.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
         }
-        else
+        else if(eventRemainderDate.getText().toString().compareTo(formattedDate)<0)
         {
+            Toast.makeText(AddEventActivity.this, "Remainder Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
+        }
+        else if (eventRemainderTime.getText().toString().compareTo(formattedTime)<0)
+        {
+            Toast.makeText(AddEventActivity.this, "Remainder Time Should be greater than Current Time", Toast.LENGTH_LONG).show();
+        }
+        else {
 
-            String s=getIntent().getStringExtra("button_event_id");
-            int subject_id=-1;
+            String s = getIntent().getStringExtra("button_event_id");
+            int subject_id = -1;
             String sub_name;
             Cursor c = myDB.getAllData("subject");
-            String activity_sub_name=subject_name;
-            while(c.moveToNext())
-            {
-                sub_name=c.getString(1);
-                if(sub_name.equals(subject_name))
-                {
+            String activity_sub_name = subject_name;
+            while (c.moveToNext()) {
+                sub_name = c.getString(1);
+                if (sub_name.equals(subject_name)) {
                     subject_id = c.getInt(0);
                 }
             }
-            if(event_type.equals("Assignment")||event_type.equals("Homework")||event_type.equals("Exam")||event_type.equals("Extra Class"))
-            {
-                if(subject_id==-1)
-                {
+            if (event_type.equals("Assignment") || event_type.equals("Homework") || event_type.equals("Exam") || event_type.equals("Extra Class")) {
+                if (subject_id == -1) {
                     Toast.makeText(AddEventActivity.this, "Enter Subject", Toast.LENGTH_LONG).show();
-                    flag=false;
+                    flag = false;
                 }
 
             }
-            if(flag)
-            {
-                if(s==null)
-                {
+            if (flag) {
+                if (s == null) {
 
-                    if(subject_id==-1 && !activity_sub_name.equals(""))
-                    {
+                    if (subject_id == -1 && !activity_sub_name.equals("")) {
                         Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        boolean isInserted ;
-                        isInserted = myDB.insertDataEvent(event_name,event_date,event_stime,event_etime,
-                                subject_id,eventDescription.getText().toString(),eventRemainderTime.getText().toString(),event_type,
+                    } else {
+                        boolean isInserted;
+                        isInserted = myDB.insertDataEvent(event_name, event_date, event_stime, event_etime,
+                                subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
@@ -364,33 +381,26 @@ public class AddEventActivity extends AppCompatActivity {
                             Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventActivity.class);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(AddEventActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
                         }
 
                     }
-                }
-                else
-                {
+                } else {
                     boolean isUpdated;
-                    if(subject_id==-1 && !activity_sub_name.equals(""))
-                    {
+                    if (subject_id == -1 && !activity_sub_name.equals("")) {
                         Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        isUpdated = myDB.updateDataEvent(Integer.parseInt(s),event_name,event_date,event_stime,event_etime,
-                                subject_id,eventDescription.getText().toString(),eventRemainderTime.getText().toString(),event_type,
+                    } else {
+                        isUpdated = myDB.updateDataEvent(Integer.parseInt(s), event_name, event_date, event_stime, event_etime,
+                                subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
-                        if (isUpdated ) {
+                        if (isUpdated) {
                             Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
-                            intent.putExtra("button_event_id",s);
+                            intent.putExtra("button_event_id", s);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
                         }
                     }

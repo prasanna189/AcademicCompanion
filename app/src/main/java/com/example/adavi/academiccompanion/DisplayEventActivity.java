@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,6 +36,8 @@ public class DisplayEventActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String activity_type;
     AlertDialog dialog;
+    String formattedDate;
+    String formattedTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,17 @@ public class DisplayEventActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         activity_type=null;
         listView=new ListView(this);
+        Calendar c = Calendar.getInstance();
+//        System.out.println("Current time => "+c.getTime());
+//        Toast.makeText(this, toString(c.getTime()), Toast.LENGTH_SHORT).show();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+
+        formattedDate = df.format(c.getTime());
+        formattedTime = tf.format(c.getTime());
+        // formattedDate have current date/time
+//        Toast.makeText(this, formattedTime, Toast.LENGTH_SHORT).show();
 
         // Add data to the ListView
 
@@ -92,12 +107,31 @@ public class DisplayEventActivity extends AppCompatActivity {
 //            buffer.append("Subject: "+res.getString(0)+"\n");
 //            buffer.append("Teacher: "+res.getString(1)+"\n");
 //            buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-            displayEvent(res.getInt(0), res.getString(1), res.getString(2));
+            if(res.getString(2).compareTo(formattedDate)>0)
+            {
+                displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
+            }
+            else if(res.getString(2).compareTo(formattedDate)==0)
+            {
+                if(res.getString(4).compareTo(formattedTime)>0)
+                {
+                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
+                }
+                else
+                {
+                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
+                }
+            }
+            else
+            {
+                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
+            }
+
 //            buffer.replace(0,buffer.length(),"");
         }
     }
 
-    public void displayEvent(int eventid, String ename, String date) {
+    public void displayEvent(int eventid, String ename, String date,int status) {
 
         //layout to which children are added
         LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
@@ -167,7 +201,11 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.setBackgroundColor(Color.rgb(224, 242, 241));
         ll.addView(rowButton);
         ll.addView(tv);
-
+        if(status==0)
+        {
+            ll.setBackgroundColor(Color.LTGRAY);
+            rowButton.setBackgroundColor(Color.LTGRAY);
+        }
         eventLL.addView(ll);
     }
 
