@@ -230,6 +230,11 @@ public class MainActivity extends AppCompatActivity
         {
             Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
         }
+        else if (id == R.id.navbar_about)
+        {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

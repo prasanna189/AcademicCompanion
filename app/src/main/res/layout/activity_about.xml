@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.adavi.academiccompanion.AboutActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/AliceBlue">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Developed by : "
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:textColor="@color/White"
+                android:layout_margin="8dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Team Adavi"
+                android:textAlignment="center"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Akhil Sai Chandra"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Akhilesh"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Varun"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Praveen"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prasanna Kumar"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:layout_margin="8dp"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
