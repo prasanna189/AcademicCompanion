@@ -194,7 +194,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Remainder :"
+                android:text="Remainder Date:"
                 android:textColor="#000000"
                 android:textSize="20sp"
                 android:paddingTop="16dp"
@@ -202,11 +202,32 @@
                 />
 
             <Button
-                android:id="@+id/event_remainder_button"
+                android:id="@+id/event_remainder_date_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_edit_text_holo_light"
-                android:text="Set Date"
+                android:hint="Set Date"
+                android:textAlignment="textStart"
+                android:gravity="start"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remainder Time:"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:paddingTop="16dp"
+
+                />
+
+            <Button
+                android:id="@+id/event_remainder_time_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:hint="Set Time"
                 android:textAlignment="textStart"
                 android:gravity="start"
 
