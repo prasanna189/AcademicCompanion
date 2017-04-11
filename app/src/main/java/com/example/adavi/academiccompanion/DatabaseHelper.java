@@ -12,6 +12,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import static android.R.attr.id;
+import static android.R.attr.type;
 
 /**
  * Created by pk on 4/6/2017.
@@ -499,6 +500,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+
+    public boolean deleteMarksOnSubDelete (int sub_id,int sem_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result= db.delete("marks", "subject_id = "+sub_id+" and sem_id = "+sem_id,null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+
+
 
     public boolean deleteDataAttendance (int id) {
         SQLiteDatabase db = this.getWritableDatabase();
