@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.adavi.academiccompanion.SettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/backup_now_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Backup Now"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:onClick="backupNow"
+            android:background="@color/AliceBlue"/>
+
+        <Button
+            android:id="@+id/restore_now_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Restore Now"
+            android:layout_margin="8dp"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:onClick="restoreNow"
+            android:background="@color/AliceBlue"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

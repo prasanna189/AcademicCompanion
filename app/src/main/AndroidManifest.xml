@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIywMFxPZE8l7QQcq5xBtnQqkBJW_PTE_0qYHIFw" />
@@ -61,7 +62,7 @@
         <activity android:name=".DisplayExamDetails" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="Settings" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".AboutActivity" />
         <activity
