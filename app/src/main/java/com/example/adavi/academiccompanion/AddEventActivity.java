@@ -149,8 +149,9 @@ public class AddEventActivity extends AppCompatActivity {
         eventSubject=(Spinner)findViewById(R.id.event_subject_spinner);
 
 //          Subject Spinner
+        int sem=myDB.getcurrentsem();
 
-        Cursor sub_res=myDB.getAllData("subject");
+        Cursor sub_res=myDB.getCurrentSemSubjects(sem);
         String[] subject_array= new String[sub_res.getCount()+1];
         subject_array[0]="";
 
