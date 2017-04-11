@@ -13,11 +13,11 @@ import android.widget.TextView;
 public class DisplayUserProfileActivity extends AppCompatActivity {
 
     DatabaseHelper myDB;
-    public static PrefManager prefManager;
+    PrefManager prefM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefManager = new PrefManager(this);
+        prefM = new PrefManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user_profile);
         myDB = new DatabaseHelper(this);
@@ -30,9 +30,9 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         useremail.setText(myDB.getUserEmail());
         userphone.setText(myDB.getUserPhone());
 
-        if(prefManager.isProfilePicSet())
+        if(prefM.isProfilePicSet())
         {
-//            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
         }
     }
 

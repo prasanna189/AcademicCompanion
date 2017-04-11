@@ -38,7 +38,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         if(prefManager.isProfilePicSet())
         {
-//            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
         }
 
         ImageView buttonLoadImage = (ImageView) findViewById(R.id.edit_profile_icon);

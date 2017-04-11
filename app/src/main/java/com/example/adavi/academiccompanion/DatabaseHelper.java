@@ -557,6 +557,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public void updategrade(String grad,int subid)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("update subject_details set grade='"+grad+"' where subject_id="+subid+";");
+
+    }
     public boolean updateImage(String name, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new  ContentValues();

@@ -63,6 +63,7 @@
 
         <EditText
             android:id="@+id/sem_id"
+            android:inputType="number"
             style="@style/EditTextCustomHolo"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -71,7 +72,6 @@
             android:shadowColor="@android:color/black"
             android:shadowDx="2"
             android:shadowDy="2"
-            android:inputType="textNoSuggestions"
             android:imeOptions="actionNext"/>
 
 
