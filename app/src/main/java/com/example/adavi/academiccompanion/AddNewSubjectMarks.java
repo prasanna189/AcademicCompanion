@@ -60,68 +60,99 @@ public class AddNewSubjectMarks extends AppCompatActivity {
     }
 
     public void SaveMarks(View view) {
+        int checkerr=0;
+        if(examtype.getText().toString().equals(""))
+        {
+            checkerr=1;
+            examtype.setError("Please Enter Examtype");
+        }
+        if(maxmarks.getText().toString().equals("") )
+        {
+            checkerr=1;
+            maxmarks.setError("Please Enter Max Marks");
+        }
+        if(marks.getText().toString().equals(""))
+        {
+            checkerr=1;
+            marks.setError("Please Enter Marks");
+        }
+        if(checkerr==0)
+        {
+            int a=Integer.parseInt(marks.getText().toString());
+        int b=Integer.parseInt(maxmarks.getText().toString());
+        a=a-b;
+        if(a>0)
+        {
+            checkerr=1;
+            Toast.makeText(AddNewSubjectMarks.this, "Entered Marks should be less than or equal to max marks", Toast.LENGTH_SHORT).show();
+
+        }
+        }
+        //
+
+        if(checkerr==0)
+        {
+            String s= getIntent().getStringExtra("subj_id");
+            String e_type=getIntent().getStringExtra("exam_type");
+            //Toast.makeText(AddNewSubjectMarks.this, "hello", Toast.LENGTH_SHORT).show();
+
+            if (s != null) {
+                int flag=0;
+                Cursor res=myDB.getAllData("marks");
+                String exam_type=examtype.getText().toString();
+                String mm=maxmarks.getText().toString();
+                String mar=marks.getText().toString();
+                int maxmar=Integer.parseInt(mm);
+                int mark=Integer.parseInt(mar);
 
 
 
-        String s= getIntent().getStringExtra("subj_id");
-        String e_type=getIntent().getStringExtra("exam_type");
-        //Toast.makeText(AddNewSubjectMarks.this, "hello", Toast.LENGTH_SHORT).show();
+                boolean j=false;
 
-        if (s != null) {
-            int flag=0;
-            Cursor res=myDB.getAllData("marks");
-            String exam_type=examtype.getText().toString();
-            String mm=maxmarks.getText().toString();
-            String mar=marks.getText().toString();
-            int maxmar=Integer.parseInt(mm);
-            int mark=Integer.parseInt(mar);
-
-
-
-            boolean j=false;
-
-            while(res.moveToNext())
-            {
-
-                if(res.getInt(1)==Integer.parseInt(s) && res.getString(2).equals(e_type))
+                while(res.moveToNext())
                 {
 
-                    j=myDB.updateDataMarks(res.getInt(0),res.getInt(1),res.getString(2),mark,maxmar,exam_type);
+                    if(res.getInt(1)==Integer.parseInt(s) && res.getString(2).equals(e_type))
+                    {
+
+                        j=myDB.updateDataMarks(res.getInt(0),res.getInt(1),res.getString(2),mark,maxmar,exam_type);
+                    }
                 }
-            }
 
-            if(j)
+                if(j)
+                {
+
+                    Toast.makeText(AddNewSubjectMarks.this, "Marks Details Updated", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, DisplayExamDetails.class);
+                    intent.putExtra("subid",s);
+                    intent.putExtra("examtype",exam_type);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(AddNewSubjectMarks.this, "Marks Updation Failed", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            else
             {
+                String sub= getIntent().getStringExtra("subject_id");
+                int sem=myDB.getcurrentsem();
 
-                Toast.makeText(AddNewSubjectMarks.this, "Marks Details Updated", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, DisplayExamDetails.class);
-                intent.putExtra("subid",s);
-                intent.putExtra("examtype",exam_type);
-                startActivity(intent);
-            }
-            else {
-                Toast.makeText(AddNewSubjectMarks.this, "Marks Updation Failed", Toast.LENGTH_LONG).show();
-            }
+                boolean isInserted = myDB.insertDataMarks(sem,Integer.parseInt(sub),examtype.getText().toString(),Integer.parseInt(marks.getText().toString()),Integer.parseInt(maxmarks.getText().toString()));
 
+                if (isInserted == true) {
+                    Toast.makeText(AddNewSubjectMarks.this, "Marks Saved", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, SubjectMarks.class);
+                    intent.putExtra("sub_id",sub);
+
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(AddNewSubjectMarks.this, "Subject not Saved", Toast.LENGTH_SHORT).show();
+                }
+
+            }
         }
-        else
-        {
-            String sub= getIntent().getStringExtra("subject_id");
-            int sem=myDB.getcurrentsem();
 
-            boolean isInserted = myDB.insertDataMarks(sem,Integer.parseInt(sub),examtype.getText().toString(),Integer.parseInt(marks.getText().toString()),Integer.parseInt(maxmarks.getText().toString()));
-
-            if (isInserted == true) {
-                Toast.makeText(AddNewSubjectMarks.this, "Marks Saved", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, SubjectMarks.class);
-                intent.putExtra("sub_id",sub);
-
-                startActivity(intent);
-            } else {
-                Toast.makeText(AddNewSubjectMarks.this, "Subject not Saved", Toast.LENGTH_LONG).show();
-            }
-
-        }
     }
 
 

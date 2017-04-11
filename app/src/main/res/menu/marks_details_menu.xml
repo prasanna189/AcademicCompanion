@@ -10,9 +10,7 @@
         android:icon="@drawable/trash_icon_light"
         android:title="delete"
         app:showAsAction="always"/>
-    <item android:id="@+id/final_grade"
-        android:title="add grade"
-        app:showAsAction="never"
+
         />
 
 </menu>
