@@ -55,6 +55,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
                 boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
 
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
