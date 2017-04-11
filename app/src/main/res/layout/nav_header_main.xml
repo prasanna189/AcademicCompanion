@@ -30,12 +30,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="adavi"
+        android:textSize="16sp"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/navbar_useremail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="adavi@gmail.com" />
 
 </LinearLayout>

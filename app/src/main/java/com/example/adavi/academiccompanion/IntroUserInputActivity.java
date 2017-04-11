@@ -82,10 +82,12 @@ public class IntroUserInputActivity extends AppCompatActivity {
             semId.setError("Please Enter Your Semester");
             flag = false;
         }
-        if (emailId.getText().toString().length() == 0) {
-            emailId.setError("Please Enter Your Email ID");
-            flag = false;
-        }
+
+        //email optional.
+//        if (emailId.getText().toString().length() == 0) {
+//            emailId.setError("Please Enter Your Email ID");
+//            flag = false;
+//        }
 
 
         if (flag)
@@ -101,9 +103,6 @@ public class IntroUserInputActivity extends AppCompatActivity {
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-
-
-
         }
     }
 

@@ -26,7 +26,6 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/main_app_icon_dark"
                 android:paddingTop="16dp"
-                android:clickable="true"
                 app:border_color="@color/White"
                 app:border_width="2dp" />
 
