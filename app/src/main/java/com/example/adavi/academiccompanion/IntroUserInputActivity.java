@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +59,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
                 //shared preference to indicate profile pic is set
                 prefManager.setProfilePic(true);
 
+//                Toast.makeText(IntroUserInputActivity.this, "pic saved", Toast.LENGTH_SHORT).show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,5 +105,19 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    //On clicking back button, it takes back to main acitivity..
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

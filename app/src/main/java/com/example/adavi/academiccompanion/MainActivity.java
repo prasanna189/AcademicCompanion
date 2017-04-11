@@ -71,11 +71,9 @@ public class MainActivity extends AppCompatActivity
 
         if(prefManager.isProfilePicSet())
         {
-            Toast.makeText(MainActivity.this, "profile pic set", Toast.LENGTH_SHORT).show();
-            //   imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
         }
         else{
-            Toast.makeText(MainActivity.this, "profile pic not set", Toast.LENGTH_SHORT).show();
 
         }
 

@@ -3,6 +3,7 @@ package com.example.adavi.academiccompanion;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 public class DisplayUserProfileActivity extends AppCompatActivity {
 
     DatabaseHelper myDB;
+    public static PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        prefManager = new PrefManager(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_user_profile);
         myDB = new DatabaseHelper(this);
@@ -23,10 +26,14 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         TextView useremail = (TextView) findViewById(R.id.display_useremail_tv);
         TextView userphone = (TextView) findViewById(R.id.display_userphone_tv);
         ImageView imageView = (ImageView)findViewById(R.id.display_profile_icon);
-        imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
         userphone.setText(myDB.getUserPhone());
+
+        if(prefManager.isProfilePicSet())
+        {
+//            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+        }
     }
 
     @Override
@@ -58,6 +65,20 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //On clicking back button, it takes back to main acitivity..
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }
