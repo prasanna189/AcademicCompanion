@@ -211,7 +211,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.navbar_schedule)
         {
-            Toast.makeText(MainActivity.this, "Schedule", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,ScheduleActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.navbar_settings) {
 //            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
