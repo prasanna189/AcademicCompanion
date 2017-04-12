@@ -219,81 +219,81 @@ public class ScheduleActivity extends AppCompatActivity {
 
     public void displayEvent(int eventid, String ename, String date,int status) {
 
-        //layout to which children are added
-//        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
-        LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
-
-
-        //child layouts
-        Button rowButton = new Button(this);
-        TextView tv = new TextView(this);
-        LinearLayout ll = new LinearLayout(this);
-
-
-        //layout params for each view
-
-        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-
-        ll_params.setMargins(24, 24, 24, 24);
-
-
-        LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        );
-
-//        rb_params.setMargins(8, 8, 8, 8);
-
-        LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                4.0f
-        );
-
-        tv_params.setMargins(24, 8, 8, 8);
-
-        tv.setLayoutParams(tv_params);
-        ll.setLayoutParams(ll_params);
-        rowButton.setLayoutParams(rb_params);
-
-
-        rowButton.setId(eventid);
-        rowButton.setText(ename);
-        rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
-
-        rowButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                Button pressed;
-                pressed=((Button)v);
-                button_id=pressed.getId();
-                viewEventDetails(v);
-
-
-            }
-        });
-// Add id to buttons and also on click listner to these buttons
-        tv.setText(date);
-        tv.setTextSize(12);
-
-
-        ll.setBackgroundColor(Color.rgb(224, 242, 241));
-        ll.addView(rowButton);
-        ll.addView(tv);
-        if(status==0)
-        {
-            ll.setBackgroundColor(Color.LTGRAY);
-            rowButton.setBackgroundColor(Color.LTGRAY);
-        }
-        eventLL.addView(ll);
+//        //layout to which children are added
+////        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+//        LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
+//
+//
+//        //child layouts
+//        Button rowButton = new Button(this);
+//        TextView tv = new TextView(this);
+//        LinearLayout ll = new LinearLayout(this);
+//
+//
+//        //layout params for each view
+//
+//        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        );
+//
+//        ll_params.setMargins(24, 24, 24, 24);
+//
+//
+//        LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                1.0f
+//        );
+//
+////        rb_params.setMargins(8, 8, 8, 8);
+//
+//        LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT,
+//                4.0f
+//        );
+//
+//        tv_params.setMargins(24, 8, 8, 8);
+//
+//        tv.setLayoutParams(tv_params);
+//        ll.setLayoutParams(ll_params);
+//        rowButton.setLayoutParams(rb_params);
+//
+//
+//        rowButton.setId(eventid);
+//        rowButton.setText(ename);
+//        rowButton.setTextSize(20);
+//        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+//
+//        rowButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                Button pressed;
+//                pressed=((Button)v);
+//                button_id=pressed.getId();
+//                viewEventDetails(v);
+//
+//
+//            }
+//        });
+//// Add id to buttons and also on click listner to these buttons
+//        tv.setText(date);
+//        tv.setTextSize(12);
+//
+//
+//        ll.setBackgroundColor(Color.rgb(224, 242, 241));
+//        ll.addView(rowButton);
+//        ll.addView(tv);
+//        if(status==0)
+//        {
+//            ll.setBackgroundColor(Color.LTGRAY);
+//            rowButton.setBackgroundColor(Color.LTGRAY);
+//        }
+//        eventLL.addView(ll);
     }
 
 
