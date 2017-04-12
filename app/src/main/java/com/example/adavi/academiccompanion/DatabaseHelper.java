@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static android.R.attr.id;
 import static android.R.attr.type;
+import static com.example.adavi.academiccompanion.R.id.sem_id;
 
 /**
  * Created by pk on 4/6/2017.
@@ -161,12 +162,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         int id=0;
-        Cursor res = db.rawQuery("select if(null(max(timetable_id),0) from timetable", null);
-        if(res.moveToNext())
+        Cursor res = db.rawQuery("select * from timetable", null);
+        while(res.moveToNext())
         {
-            id=res.getInt(0);
+            if(res.getInt(0)>id)
+            {
+                id=res.getInt(0);
+            }
         }
-
+        id=id+1;
         ContentValues contentValues = new ContentValues();
         contentValues.put("timetable_id",id);
         contentValues.put("sem_id",sem_id);
@@ -429,7 +433,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean updatetDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+    public boolean updatetDataTimeTable(int id, int sem_id,int subject_id,String day,String startTime,String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("sem_id",sem_id);
@@ -437,7 +441,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("day",day);
         contentValues.put("startTime",startTime);
         contentValues.put("endTime",endTime);
-        long result=db.update("timetable", contentValues, "subject_id = "+subject_id+" and sem_id = "+sem_id+" ",null);
+        long result=db.update("timetable", contentValues, "timetable_id = "+id+" ",null);
         if(result == -1)
             return false;
         else
