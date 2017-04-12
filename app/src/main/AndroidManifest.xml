@@ -69,7 +69,12 @@
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DisplayAttendance"></activity>
+        <activity android:name=".DisplayAttendance" />
+        <activity android:name=".ViewAttendance" />
+        <activity android:name=".View_Stats" />
+        <activity android:name=".ViewSubjects" />
+        <activity android:name=".ViewResults" />
+        <activity android:name=".ViewFinalAttendance"></activity>
 
         <activity android:name=".TimeTableActivity" />
         <activity android:name=".EditTimeTable" />

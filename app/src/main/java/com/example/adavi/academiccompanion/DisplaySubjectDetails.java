@@ -14,11 +14,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Scroller;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,8 @@ public class DisplaySubjectDetails extends AppCompatActivity {
     String sub_name;
     String gradevalue=null;
     String s;
+    TextView txt;
+    Spinner sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,43 @@ public class DisplaySubjectDetails extends AppCompatActivity {
         s=getIntent().getStringExtra("sub_id");
         sub_name= myDB.getSubjectName(Integer.parseInt(s));
         setTitle(sub_name);
+
+        String[] g={"","AA","AB","BB","BC","CC","CD","DD","W","FF"};
+
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(DisplaySubjectDetails.this,
+                R.layout.grade_spinner,R.id.Grade_list, g);
+
+        sp=new Spinner(this);
+
+        sp.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        sp.setAdapter(adp);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+
+            @Override
+
+            public void onItemSelected(AdapterView<?> parent, View view, int
+                    position, long id) {
+
+                ViewGroup vg=(ViewGroup)view;
+
+                TextView tv=(TextView)vg.findViewById(R.id.Grade_list);
+                gradevalue=tv.getText().toString();
+//                Toast.makeText(AddEventActivity.this, tv.getText().toString(),
+//                        Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+                gradevalue=null;
+            }
+
+        });
+
 
         displaysubjectdetails();
     }
@@ -259,8 +302,12 @@ int i;
 
     public void SetGrade()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Final Grade");
+
+
+
+
 
 // Set up the input
         int count=0;
@@ -276,14 +323,16 @@ int i;
         {
             final EditText input = new EditText(this);
 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            builder.setView(input);
+//            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            //txt=(TextView) findViewById(R.id.Grade_list);
+            builder.setView(sp);
 
 // Set up the buttons
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    gradevalue = input.getText().toString();
+
+//                    gradevalue = txt.getText().toString();
 
                     Cursor c = myDB.getAllData("subject_details");
                     boolean j=false;
