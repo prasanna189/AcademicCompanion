@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class ScheduleActivity extends AppCompatActivity {
 
@@ -92,7 +93,6 @@ public class ScheduleActivity extends AppCompatActivity {
          * fragment.
          */
 
-//        LinearLayout schedule_ll = (LinearLayout)findViewbyId(R.id.schedule_fragment_ll);
 
         private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -116,8 +116,9 @@ public class ScheduleActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-//
-//            TextView tv = new TextView();
+//        LinearLayout schedule_ll = (LinearLayout)rootView.findViewById(R.id.schedule_fragment_ll);
+
+//            TextView tv = (TextView) rootView.findViewById(R.id.schedule_fragment_tv);
 //            tv.setText("hi");
 //            schedule_ll.addView(tv);
 //
@@ -125,8 +126,30 @@ public class ScheduleActivity extends AppCompatActivity {
 ////            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 //
 //            Toast.makeText(getContext(), String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)), Toast.LENGTH_SHORT).show();
-//
+//            Toast.makeText(getContext(), "day's view", Toast.LENGTH_SHORT).show();
+
 //            return schedule_ll;
+
+
+
+
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1)
+            {
+                Toast.makeText(getContext(), "TODAY", Toast.LENGTH_SHORT).show();
+
+
+
+            }
+            else
+            {
+                Toast.makeText(getContext(), "THIS MONTH", Toast.LENGTH_SHORT).show();
+
+
+
+            }
+
+
+
 
 
 
