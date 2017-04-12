@@ -257,8 +257,13 @@ public class AddEventActivity extends AppCompatActivity {
 
     public void displayEventDetails()
     {
+        String date = getIntent().getStringExtra("date");
+        if(date!=null)
+        {
+            eventDate.setText(date);
+        }
 
-          String s=getIntent().getStringExtra("button_event_id");
+        String s=getIntent().getStringExtra("button_event_id");
         if(s!=null)
         {
             Cursor res=myDB.getAllData("event");
