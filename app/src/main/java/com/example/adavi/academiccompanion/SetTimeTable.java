@@ -1,7 +1,9 @@
 package com.example.adavi.academiccompanion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Set;
 
 public class SetTimeTable extends AppCompatActivity {
 
@@ -162,17 +166,44 @@ public class SetTimeTable extends AppCompatActivity {
 
             delete_button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    boolean isDeleted = myDB.deleteDataTimetable(tid);
-                    if(isDeleted)
-                    {
-                        Toast.makeText(SetTimeTable.this,"Delete Successful",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SetTimeTable.this,TimeTableActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                    {
-                        Toast.makeText(SetTimeTable.this,"Delete Unsuccessful",Toast.LENGTH_LONG).show();
-                    }
+
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(
+                            SetTimeTable.this);
+                    alert.setTitle("Confirmation!!");
+                    alert.setMessage("Are you sure to delete subject");
+                    alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //do your work here
+                            dialog.dismiss();
+
+                            boolean isDeleted = myDB.deleteDataTimetable(tid);
+                            if(isDeleted)
+                            {
+                                Toast.makeText(SetTimeTable.this,"Delete Successful",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SetTimeTable.this,TimeTableActivity.class);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.makeText(SetTimeTable.this,"Delete Unsuccessful",Toast.LENGTH_LONG).show();
+                            }
+
+
+                        }
+                    });
+                    alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
 
                 }
             });
