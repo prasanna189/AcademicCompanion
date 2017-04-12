@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIywMFxPZE8l7QQcq5xBtnQqkBJW_PTE_0qYHIFw" />
@@ -74,13 +73,12 @@
         <activity android:name=".View_Stats" />
         <activity android:name=".ViewSubjects" />
         <activity android:name=".ViewResults" />
-        <activity android:name=".ViewFinalAttendance"></activity>
-
+        <activity android:name=".ViewFinalAttendance" />
         <activity android:name=".TimeTableActivity" />
         <activity android:name=".EditTimeTable" />
-        <activity android:name=".SetTimeTable"></activity>
-
-
+        <activity android:name=".SetTimeTable" />
+        <activity android:name=".ViewSubjectMarks" />
+        <activity android:name=".ViewExamDetails"></activity>
     </application>
 
 </manifest>

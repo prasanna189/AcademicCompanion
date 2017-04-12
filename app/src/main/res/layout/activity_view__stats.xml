@@ -17,7 +17,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="75dp"
-                android:text="Subjects"
+                android:text="Marks"
                 android:gravity="center"
                 android:layout_marginTop="30dp"
                 android:onClick="subjects"
