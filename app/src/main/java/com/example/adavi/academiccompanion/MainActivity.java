@@ -217,7 +217,8 @@ public class MainActivity extends AppCompatActivity
 
     public void openExamStats(View view)
     {
-        Intent intent = new Intent(this, )
+        Intent intent = new Intent(this, View_Stats.class);
+        startActivity(intent);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
