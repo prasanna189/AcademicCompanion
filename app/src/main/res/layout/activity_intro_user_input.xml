@@ -57,7 +57,7 @@
             android:shadowDy="2"
             android:tag="Enter your name"
             android:maxLines="1"
-            android:inputType="textNoSuggestions"
+            android:inputType="textCapWords"
             android:imeOptions="actionNext" />
 
 
