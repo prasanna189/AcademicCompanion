@@ -352,7 +352,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return totalmarks;
 
     }
-
+    public int Attendanceid(int sem_id,int sub_id,String date)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res= db.rawQuery("select * from attendance where sem_id ="+sem_id+" and subject_id = "+sub_id+" and date = '"+date+"'",null );
+        if(res.moveToNext())
+        {
+            return res.getInt(0);
+        }
+        else
+        {
+            return -1;
+        }
+    }
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
