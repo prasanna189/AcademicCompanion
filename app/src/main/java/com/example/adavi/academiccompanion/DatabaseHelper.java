@@ -339,6 +339,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public int gettotalmarks(int sem_id,int sub_id)
+    {
+        int totalmarks=0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res=db.rawQuery("select * from marks where sem_id = "+sem_id+" and subject_id = "+sub_id,null);
+        while(res.moveToNext()){
+
+            totalmarks=totalmarks+res.getInt(3);
+        }
+
+        return totalmarks;
+
+    }
+
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
