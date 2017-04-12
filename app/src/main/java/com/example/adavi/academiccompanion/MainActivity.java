@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             m_Text = input.getText().toString();
                             myDB.setCurrentSem(m_Text);
-                            myDB.insertDataSemester(m_Text);
+                            myDB.insertDataSemester(m_Text,"","");
                             sem_array[0]=String.valueOf(myDB.getcurrentsem());
                             Intent intent = new Intent(MainActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -209,11 +209,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(dbmanager);
     }
 
-    public void openTimeTable(View view)
-    {
-        Intent dbmanager = new Intent(this, TimeTableActivity.class);
-        startActivity(dbmanager);
-    }
+//    public void openTimeTable(View view)
+//    {
+//        Intent dbmanager = new Intent(this, TimeTableActivity.class);
+//        startActivity(dbmanager);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

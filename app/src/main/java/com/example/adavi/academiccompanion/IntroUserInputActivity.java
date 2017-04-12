@@ -97,7 +97,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
             myDB.setCurrentSem( semId.getText().toString() );
 
             a = myDB.insertDataUserDetails(nameId.getText().toString(), emailId.getText().toString(), "", semId.getText().toString());
-            c = myDB.insertDataSemester( semId.getText().toString() );
+            c = myDB.insertDataSemester( semId.getText().toString(),"","" );
 
             com.example.adavi.academiccompanion.WelcomeActivity.prefManager.setFirstTimeLaunch(false);
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);

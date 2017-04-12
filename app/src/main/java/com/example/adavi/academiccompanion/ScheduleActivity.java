@@ -13,7 +13,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class ScheduleActivity extends AppCompatActivity {
 
@@ -116,9 +116,10 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
 
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+//            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
+            Toast.makeText(getContext(), String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)), Toast.LENGTH_SHORT).show();
 
 
 
