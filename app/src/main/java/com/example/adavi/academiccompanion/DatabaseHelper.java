@@ -371,7 +371,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from event where date= '"+formattedDate+"' order by startTime ASC",null);
         return res;
     }
-
     public Cursor getEvents(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from event where date= '"+date+"' order by startTime ASC",null);
@@ -581,9 +580,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean deleteDataTimetable (int sub_id,int sem_id,String day,String stime,String etime) {
+    public boolean deleteDataTimetable (int tid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("subject", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and day = "+day+" and startTime = "+stime+"and endTime = "+etime+"",null);
+        long result= db.delete("timetable","timetable_id = "+tid+"",null);
         if(result == -1)
             return false;
         else
