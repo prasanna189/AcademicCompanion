@@ -77,8 +77,17 @@
         <activity android:name=".TimeTableActivity" />
         <activity android:name=".EditTimeTable" />
         <activity android:name=".SetTimeTable" />
-        <activity android:name=".ViewSubjectMarks" />
-        <activity android:name=".ViewExamDetails"></activity>
+        <activity
+            android:name=".DisplayEventsOnADateActivity"
+            android:label="Events"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".AddEventFromScheduleActivity"
+            android:label="Add Event"
+            />
+
+        <activity android:name=".DisplayEventOnScheduleActivity"
+            android:label="Event Details"/>
     </application>
 
 </manifest>

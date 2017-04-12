@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -32,6 +31,9 @@ public class ScheduleActivity extends AppCompatActivity {
     static DatabaseHelper myDB;
     static String formattedDate;
     static String formattedTime;
+    static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+    static int button_id;
 
 
     /**
@@ -55,11 +57,10 @@ public class ScheduleActivity extends AppCompatActivity {
         myDB = new DatabaseHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
+
+
         Calendar c = Calendar.getInstance();
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
-
         formattedDate = df.format(c.getTime());
         formattedTime = tf.format(c.getTime());
 
@@ -143,31 +144,42 @@ public class ScheduleActivity extends AppCompatActivity {
 
             View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
             CalendarView calendarView = (CalendarView)rootView.findViewById(R.id.schedule_fragment_cv);
+            LinearLayout ll = (LinearLayout)rootView.findViewById(R.id.schedule_fragment_ll);
 
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) // TODAY
             {
                 Toast.makeText(getContext(), "TODAY", Toast.LENGTH_SHORT).show();
                 calendarView.setVisibility(View.GONE);
-
-//                displayEventHelper();
-
-
+                displayEventHelper(ll);
             }
             else // this MONTH
             {
                 Toast.makeText(getContext(), "THIS MONTH", Toast.LENGTH_SHORT).show();
 
-
-
                 calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     @Override
                     public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
-//                        dateDisplay.setText("Date: " + i2 + " / " + i1 + " / " + i);
-
-                        Toast.makeText(getContext(), "Selected Date:\n" + "Day = " + i2 + "\n" + "Month = " + i1 + "\n" + "Year = " + i, Toast.LENGTH_LONG).show();
+                        String day ;
+                        String month;
+                        month=String.valueOf(i1+1);
+                        day=String.valueOf(i2);
+                        if(i1<10)
+                        {
+                            month="0"+month;
+                        }
+                        if(i2<10)
+                        {
+                            day="0"+day;
+                        }
+                        String date = String.valueOf(i)+"-"+month+"-"+day;
+//                        Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), DisplayEventsOnADateActivity.class);
+                        intent.putExtra("date",date);
+                        startActivity(intent);
                     }
                 });
+
 
 
             }
@@ -175,137 +187,111 @@ public class ScheduleActivity extends AppCompatActivity {
             return rootView;
         }
 
-    }
 
+        //*******************************
 
-    //*******************************
+        public void  displayEventHelper(LinearLayout ll) {
+            Calendar c = Calendar.getInstance();
+            formattedDate = df.format(c.getTime());
 
-    public void displayEventHelper() {
-        Cursor res = myDB.getRecentEvents();
-        if (res.getCount() == 0) {
-//            eventAlert("No Events", "Go and Add a Event!");
-            return;
+            Cursor res = myDB.getTodayEvents();
+            if (res.getCount() == 0) {
+                Toast.makeText(getContext(), "No Events Today!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            while (res.moveToNext()) {
+                displayEvent(ll, res.getInt(0), res.getString(1), res.getString(2), res.getString(3));
+            }
         }
 
-//        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()) {
-//            buffer.append("Subject: "+res.getString(0)+"\n");
-//            buffer.append("Teacher: "+res.getString(1)+"\n");
-//            buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-            if(res.getString(2).compareTo(formattedDate)>0)
-            {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
-            }
-            else if(res.getString(2).compareTo(formattedDate)==0)
-            {
-                if(res.getString(4).compareTo(formattedTime)>0)
-                {
-                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
-                }
-                else
-                {
-                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
-                }
-            }
-            else
-            {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
-            }
 
-//            buffer.replace(0,buffer.length(),"");
-        }
-    }
+        public  void displayEvent(LinearLayout eventLL, int eventid, String ename, String date, String StartTime) {
 
-
-    public  void displayEvent(int eventid, String ename, String date,int status) {
-
-        //layout to which children are added
+            //layout to which children are added
 //        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
-        LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
 
 
-        //child layouts
-        Button rowButton = new Button(this);
-        TextView tv = new TextView(this);
-        LinearLayout ll = new LinearLayout(this);
+            //child layouts
+            Button rowButton = new Button(getContext());
+            TextView tv = new TextView(getContext());
+            LinearLayout ll = new LinearLayout(getContext());
 
 
-        //layout params for each view
+            //layout params for each view
 
-        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
+            LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
 
-        ll_params.setMargins(24, 24, 24, 24);
+            ll_params.setMargins(24, 24, 24, 24);
 
 
-        LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        );
+            LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.0f
+            );
 
 //        rb_params.setMargins(8, 8, 8, 8);
 
-        LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                4.0f
-        );
+            LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    4.0f
+            );
 
-        tv_params.setMargins(24, 8, 8, 8);
+            tv_params.setMargins(24, 8, 8, 8);
 
-        tv.setLayoutParams(tv_params);
-        ll.setLayoutParams(ll_params);
-        rowButton.setLayoutParams(rb_params);
-
-
-        rowButton.setId(eventid);
-        rowButton.setText(ename);
-        rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
-
-        rowButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v)
-            {
-
-                Button pressed;
-                pressed=((Button)v);
-//                button_id=pressed.getId();
-//                viewEventDetails(v);
+            tv.setLayoutParams(tv_params);
+            ll.setLayoutParams(ll_params);
+            rowButton.setLayoutParams(rb_params);
 
 
-            }
-        });
+            rowButton.setId(eventid);
+            rowButton.setText(ename);
+            rowButton.setTextSize(20);
+            rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+
+            rowButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v)
+                {
+                    Button pressed;
+                    pressed=((Button)v);
+                    button_id=pressed.getId();
+                    viewEventDetails(v);
+                }
+            });
+
 // Add id to buttons and also on click listner to these buttons
-        tv.setText(date);
-        tv.setTextSize(12);
+            tv.setText(StartTime);
+            tv.setTextSize(16);
 
 
-        ll.setBackgroundColor(Color.rgb(224, 242, 241));
-        ll.addView(rowButton);
-        ll.addView(tv);
-        if(status==0)
-        {
-            ll.setBackgroundColor(Color.LTGRAY);
+            ll.setBackgroundColor(Color.rgb(224, 242, 241));
+            ll.addView(rowButton);
+            ll.addView(tv);
+//            ll.setBackgroundColor(Color.LTGRAY);
             rowButton.setBackgroundColor(Color.LTGRAY);
+            eventLL.addView(ll);
         }
-        eventLL.addView(ll);
+
+        public void viewEventDetails(View v)
+        {
+            Intent intent = new Intent(getContext(), DisplayEventOnScheduleActivity.class);
+            String s = Integer.toString(button_id);
+            intent.putExtra("button_event_id",s);
+            intent.putExtra("date",formattedDate);
+            startActivity(intent);
+
+        }
+
+        //**********************************
+
     }
-
-
-
-
-
-
-
-
-    //**********************************
-
-
 
 
 
