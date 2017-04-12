@@ -9,6 +9,7 @@
     tools:context="com.example.adavi.academiccompanion.ScheduleActivity$PlaceholderFragment">
 
     <LinearLayout
+        android:id="@+id/schedule_fragment_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
