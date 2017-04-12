@@ -136,7 +136,7 @@
                 android:layout_weight="1"
                 android:background="@android:drawable/btn_default"
                 android:clickable="true"
-
+                android:onClick="openExamStats"
                 android:layout_margin="16dp">
 
                 <ImageView

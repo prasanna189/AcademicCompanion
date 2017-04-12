@@ -215,6 +215,11 @@ public class MainActivity extends AppCompatActivity
         startActivity(dbmanager);
     }
 
+    public void openExamStats(View view)
+    {
+        Intent intent = new Intent(this, )
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
