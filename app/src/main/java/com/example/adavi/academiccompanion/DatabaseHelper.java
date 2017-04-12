@@ -360,6 +360,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+
     public Cursor getTodayEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
         Calendar c = Calendar.getInstance();
@@ -368,6 +369,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String formattedDate = df.format(c.getTime());
         String formattedTime = tf.format(c.getTime());
         Cursor res = db.rawQuery("select * from event where date= '"+formattedDate+"' order by startTime ASC",null);
+        return res;
+    }
+
+    public Cursor getEvents(String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from event where date= '"+date+"' order by startTime ASC",null);
         return res;
     }
 
