@@ -107,11 +107,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/buttons_ll"
+        android:padding="16dp">
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <Button
             android:id="@+id/save_timetable_button"
@@ -122,6 +135,9 @@
             android:onClick="saveTimeTable"
             android:text="Save"
             android:textAllCaps="true" />
+    </LinearLayout>
+
+
 
     </LinearLayout>
 

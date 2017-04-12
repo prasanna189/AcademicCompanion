@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,7 +124,7 @@ public class SetTimeTable extends AppCompatActivity {
         }
         else
         {
-            int tid=Integer.parseInt(t_id);
+            final int tid=Integer.parseInt(t_id);
             Cursor res= myDB.getAllData("timetable");
             Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
             while(res.moveToNext())
@@ -145,7 +146,36 @@ public class SetTimeTable extends AppCompatActivity {
                     Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
                 }
             }
+            LinearLayout ll = (LinearLayout) findViewById(R.id.buttons_ll);
+            Button delete_button = new Button(this);
 
+            LinearLayout.LayoutParams Button_params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1.0f
+            );
+
+
+            delete_button.setLayoutParams(Button_params);
+            delete_button.setText("DELETE");
+            ll.addView(delete_button);
+
+            delete_button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    boolean isDeleted = myDB.deleteDataTimetable(tid);
+                    if(isDeleted)
+                    {
+                        Toast.makeText(SetTimeTable.this,"Delete Successful",Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SetTimeTable.this,TimeTableActivity.class);
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(SetTimeTable.this,"Delete Unsuccessful",Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            });
         }
     }
 
