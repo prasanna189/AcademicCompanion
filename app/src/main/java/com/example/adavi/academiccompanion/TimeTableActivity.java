@@ -1,8 +1,15 @@
 package com.example.adavi.academiccompanion;
 
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,16 +28,77 @@ public class TimeTableActivity extends AppCompatActivity {
 
     DatabaseHelper myDB = null;
     int sem;
+    Button StartDatePicker;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
-        myDB= new DatabaseHelper(this);
+        StartDatePicker = new Button(this);
+        StartDatePicker.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view)
+            {
+                DateDialog dialog=new DateDialog(view);
+                FragmentTransaction ft =getFragmentManager().beginTransaction();
+                dialog.show(ft, "DatePicker");
+            }
+        });
 
+        boolean flag = false;
+        myDB= new DatabaseHelper(this);
+        sem = myDB.getcurrentsem();
+        Cursor r = myDB.getAllData("semester");
+        while(r.moveToNext())
+        {
+            if(r.getInt(0)==sem)
+            {
+                if(r.getString(1)==null)
+                {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                    builder.setTitle("Enter Semester Start Date:");
+
+                    builder.setView(StartDatePicker);
+                    Calendar cal = Calendar.getInstance();
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+                    final String formattedDate = df.format(cal.getTime());
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            String start_date = StartDatePicker.getText().toString();
+
+
+                                Boolean isUpdated = myDB.updateDataSemester(sem,start_date,"");
+                                if(isUpdated)
+                                {
+                                    Toast.makeText(TimeTableActivity.this, "Start Date Updated", Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(TimeTableActivity.this,"Start Date Update Failed",Toast.LENGTH_LONG).show();
+                                }
+
+
+                        }
+                    });
+
+                    StartDatePicker.setText(formattedDate);
+
+                        builder.show();
+                }
+
+
+
+            }
+        }
 
         Cursor res = myDB.getAllData("timetable");
-        sem = myDB.getcurrentsem();
+
         while(res.moveToNext())
         {
             if(res.getInt(1)==sem)

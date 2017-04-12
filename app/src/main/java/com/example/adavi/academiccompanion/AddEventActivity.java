@@ -321,6 +321,10 @@ public class AddEventActivity extends AppCompatActivity {
             event_etime="";
         }
 
+        String remTime=eventRemainderTime.getText().toString(), remDate=eventRemainderDate.getText().toString();
+
+
+
         if(event_name.equals(""))
         {
             Toast.makeText(AddEventActivity.this, "Enter Event Name", Toast.LENGTH_LONG).show();
@@ -333,21 +337,21 @@ public class AddEventActivity extends AppCompatActivity {
         {
             Toast.makeText(AddEventActivity.this, "Event Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
         }
-        else if(event_stime.compareTo(formattedTime)<0)
+        else if(event_date.compareTo(formattedDate)==0 && event_stime.compareTo(formattedTime)<0 && !event_stime.equals(""))
         {
             Toast.makeText(AddEventActivity.this, "Event Start Time Should be greater than Current Time", Toast.LENGTH_LONG).show();
         }
-        else if(event_etime.compareTo(event_stime)<0)
+        else if(!event_etime.equals("") && event_stime.equals(""))
+        {
+            Toast.makeText(AddEventActivity.this, "Start Time should be entered before entering End Time", Toast.LENGTH_LONG).show();
+        }
+        else if(event_etime.compareTo(event_stime)<0 && !event_etime.equals("")  )
         {
             Toast.makeText(AddEventActivity.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
         }
-        else if(eventRemainderDate.getText().toString().compareTo(formattedDate)<0)
+        else if( !remDate.equals("") && remDate.compareTo(formattedDate) < 0)
         {
             Toast.makeText(AddEventActivity.this, "Remainder Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
-        }
-        else if (eventRemainderTime.getText().toString().compareTo(formattedTime)<0)
-        {
-            Toast.makeText(AddEventActivity.this, "Remainder Time Should be greater than Current Date", Toast.LENGTH_LONG).show();
         }
         else {
 
