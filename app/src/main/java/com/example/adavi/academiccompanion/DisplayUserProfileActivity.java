@@ -32,7 +32,14 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
 
         if(prefM.isProfilePicSet())
         {
-            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            try
+            {
+                imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

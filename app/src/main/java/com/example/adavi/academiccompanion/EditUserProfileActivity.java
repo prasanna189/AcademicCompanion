@@ -38,7 +38,15 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         if(prefManager.isProfilePicSet())
         {
-            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            try
+            {
+                imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                Toast.makeText(EditUserProfileActivity.this,"profile pic not set", Toast.LENGTH_SHORT).show();
+            }
         }
 
         ImageView buttonLoadImage = (ImageView) findViewById(R.id.edit_profile_icon);

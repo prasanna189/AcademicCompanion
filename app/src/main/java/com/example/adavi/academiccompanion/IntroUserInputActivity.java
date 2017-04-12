@@ -49,7 +49,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
             Uri uri = data.getData();
 
-            try {
+            try
+            {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
                 ImageView imageView = (ImageView) findViewById(R.id.user_input_image);
@@ -61,7 +62,8 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
 //                Toast.makeText(IntroUserInputActivity.this, "pic saved", Toast.LENGTH_SHORT).show();
 
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

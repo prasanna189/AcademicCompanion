@@ -70,9 +70,17 @@ public class MainActivity extends AppCompatActivity
 
         if(prefManager.isProfilePicSet())
         {
-            imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            try
+            {
+                imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
-        else{
+        else //profile pic not set
+        {
 
         }
 
