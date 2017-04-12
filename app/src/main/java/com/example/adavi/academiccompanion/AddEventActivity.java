@@ -353,6 +353,14 @@ public class AddEventActivity extends AppCompatActivity {
         {
             Toast.makeText(AddEventActivity.this, "Remainder Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
         }
+        else if(!remDate.equals("") && remDate.compareTo(event_date) > 0)
+        {
+            Toast.makeText(AddEventActivity.this, "Remainder Date Should be less than Event Date", Toast.LENGTH_LONG).show();
+        }
+        else if(!remDate.equals("") && remDate.compareTo(event_date)==0 && remTime.compareTo(event_stime)>0 && !event_stime.equals(""))
+        {
+            Toast.makeText(AddEventActivity.this, "Remainder Time Should be less than Event Time", Toast.LENGTH_LONG).show();
+        }
         else {
 
             String s = getIntent().getStringExtra("button_event_id");
