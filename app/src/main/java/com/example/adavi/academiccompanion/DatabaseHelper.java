@@ -162,14 +162,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         int id=0;
-        Cursor res = db.rawQuery("select * from timetable", null);
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)>id)
-            {
-                id=res.getInt(0);
-            }
-        }
+//        Cursor res = db.rawQuery("select * from timetable", null);
+//        while(res.moveToNext())
+//        {
+//            if(res.getInt(0)>id)
+//            {
+//                id=res.getInt(0);
+//            }
+//        }
         id=id+1;
         ContentValues contentValues = new ContentValues();
         contentValues.put("timetable_id",id);
