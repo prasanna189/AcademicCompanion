@@ -353,7 +353,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
         String formattedDate = df.format(c.getTime());
         String formattedTime = tf.format(c.getTime());
-        Cursor res = db.rawQuery("select * from event where date="+formattedDate+" and startTime >"+formattedTime+" order by startTime ASC",null);
+        Cursor res = db.rawQuery("select * from event where date= '"+formattedDate+"' order by startTime ASC",null);
         return res;
     }
 
