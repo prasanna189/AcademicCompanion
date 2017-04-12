@@ -342,7 +342,7 @@ public class AddEventActivity extends AppCompatActivity {
         }
         else if (eventRemainderTime.getText().toString().compareTo(formattedTime)<0)
         {
-            Toast.makeText(AddEventActivity.this, "Remainder Time Should be greater than Current Time", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddEventActivity.this, "Remainder Time Should be greater than Current Date", Toast.LENGTH_LONG).show();
         }
         else {
 
