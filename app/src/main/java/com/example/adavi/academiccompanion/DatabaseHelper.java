@@ -9,11 +9,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.R.attr.id;
+import static android.R.attr.order;
 import static android.R.attr.type;
 import static com.example.adavi.academiccompanion.R.id.sem_id;
+import static com.example.adavi.academiccompanion.ScheduleActivity.formattedDate;
 
 /**
  * Created by pk on 4/6/2017.
@@ -339,6 +343,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from event order by date and startTime and endTime DESC",null);
+        return res;
+    }
+
+    public Cursor getTodayEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
+        String formattedTime = tf.format(c.getTime());
+        Cursor res = db.rawQuery("select * from event where date="+formattedDate+" and startTime > "+formattedTime+" order by startTime ASC",null);
         return res;
     }
 
