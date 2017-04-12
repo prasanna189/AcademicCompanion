@@ -29,6 +29,7 @@
         android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:text="Edit/View Attendance"
+        android:onClick="ViewAttedance"
        />
 </LinearLayout>
 </android.support.constraint.ConstraintLayout>
