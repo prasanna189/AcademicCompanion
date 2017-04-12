@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScheduleActivity extends AppCompatActivity {
@@ -112,20 +114,24 @@ public class ScheduleActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
+//            View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
 
+            LinearLayout ll;
 
+            TextView tv;
+            tv.setText("hi");
+            ll.addView(tv);
 
 //            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 //            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
             Toast.makeText(getContext(), String.valueOf(getArguments().getInt(ARG_SECTION_NUMBER)), Toast.LENGTH_SHORT).show();
 
+            return ll;
 
 
 
-
-            return rootView;
+//            return rootView;
         }
     }
 
