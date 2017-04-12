@@ -110,25 +110,16 @@
         android:layout_height="wrap_content">
 
 
+
+
+
         <Button
-            android:id="@+id/event_reset_button"
+            android:id="@+id/save_timetable_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_orange_light"
-            android:onClick="reset"
-            android:text="Reset"
-            android:textAllCaps="true" />
-
-
-        <Button
-            android:id="@+id/save_event_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="1"
-            android:onClick="saveEvent"
+            android:onClick="saveTimeTable"
             android:text="Save"
             android:textAllCaps="true" />
 

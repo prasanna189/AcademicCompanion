@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TimeTableActivity extends AppCompatActivity {
 
@@ -34,7 +35,8 @@ public class TimeTableActivity extends AppCompatActivity {
         {
             if(res.getInt(1)==sem)
             {
-                addToTimetable(res.getInt(0),res.getInt(2),res.getString(3),res.getString(5),res.getString(6));
+//                Toast.makeText(TimeTableActivity.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
+                addToTimetable(res.getInt(0),res.getInt(2),res.getString(3),res.getString(4),res.getString(5));
             }
         }
 
@@ -78,10 +80,9 @@ public class TimeTableActivity extends AppCompatActivity {
         TextView tv_sname = new TextView(this);
         TextView tv_stime = new TextView(this);
         TextView tv_etime = new TextView(this);
-        final LinearLayout ll = new LinearLayout(this);
+        LinearLayout ll = new LinearLayout(this);
 
 
-        //layout params for each view
 
         LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -90,12 +91,6 @@ public class TimeTableActivity extends AppCompatActivity {
 
         ll_params.setMargins(24, 24, 24, 24);
 
-
-        LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1.0f
-        );
 
 //        rb_params.setMargins(8, 8, 8, 8);
 
@@ -122,10 +117,11 @@ public class TimeTableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
-                int id=ll.getId();
+                LinearLayout pressed;
+                pressed=((LinearLayout) v);
+                int id=pressed.getId();
                 Intent intent = new Intent(TimeTableActivity.this,SetTimeTable.class);
-                intent.putExtra("timetable_id",id);
+                intent.putExtra("timetable_id",""+id+"");
                 startActivity(intent);
 
 
@@ -188,5 +184,13 @@ public class TimeTableActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this,EditTimeTable.class);
         startActivity(intent);
+    }
+
+
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+
     }
 }
