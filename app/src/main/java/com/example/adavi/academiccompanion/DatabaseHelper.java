@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String day = sdf.format(c.getTime());
 
-        Cursor res = db.rawQuery("select * from timetable where day='"+day+"'",null);
+        Cursor res = db.rawQuery("select * from timetable where day='"+day+"' order by startTime ASC",null);
         int size = res.getCount();
         subject_times = new String[size];
         Cursor res1;
