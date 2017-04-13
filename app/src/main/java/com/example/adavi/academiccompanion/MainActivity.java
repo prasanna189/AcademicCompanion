@@ -266,7 +266,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.navbar_notifications)
         {
-            Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,NotificationAttendance.class);
+            startActivity(intent);
         }
         else if (id == R.id.navbar_about)
         {
@@ -283,11 +285,14 @@ public class MainActivity extends AppCompatActivity
 
     ////**************** NOTIFICATIONS
 
-    void notifyTodaysClasses()
+    public void notifyTodaysClasses()
     {
         String time = prefs.getString("notification_time",null);
         int hours = 7, minutes=0;
+
+
         String[] parts = time.split(":");
+
         String part1 = parts[0];
         String part2 = parts[1];
         if(time != null)
@@ -295,6 +300,7 @@ public class MainActivity extends AppCompatActivity
             hours=Integer.parseInt(part1);
             minutes=Integer.parseInt(part2);
         }
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hours);
         calendar.set(Calendar.MINUTE, minutes);
@@ -304,7 +310,62 @@ public class MainActivity extends AppCompatActivity
         AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
+
+        time = prefs.getString("todays_attendance_notification_time",null);
+        hours = 19;
+        minutes=0;
+        parts = time.split(":");
+
+        part1 = parts[0];
+        part2 = parts[1];
+        if(time != null)
+        {
+            hours=Integer.parseInt(part1);
+            minutes=Integer.parseInt(part2);
+        }
+
+        Toast.makeText(this,prefs.getString("todays_attendance_notification_time",null), Toast.LENGTH_SHORT ).show();
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(Calendar.HOUR_OF_DAY, hours);
+        calendar1.set(Calendar.MINUTE, minutes);
+        calendar1.set(Calendar.SECOND, 0);
+        Intent intent2 = new Intent(MainActivity.this, NotificationAttendance.class);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1,intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
+
     }
+
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//
+//            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    switch (which) {
+//                        case DialogInterface.BUTTON_POSITIVE:
+//                            finishAffinity();
+////                            System.exit(0);
+//                            break;
+//
+//                        case DialogInterface.BUTTON_NEGATIVE:
+//                            break;
+//                    }
+//                }
+//            };
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
+//                    .setNegativeButton("CANCEL", dialogClickListener).show();
+//
+//            return true;
+//        }
+//
+//        return super.onKeyDown(keyCode, event);
+//    }
 
 
 }

@@ -12,12 +12,13 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
+import android.widget.Toast;
 
 /**
  * Created by pk on 4/13/2017.
  */
 
-public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
+public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
 
     DatabaseHelper myDB;
 
@@ -27,7 +28,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
         myDB = new DatabaseHelper(context);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        String time = prefs.getString("notification_time",null);
+        String time = prefs.getString("todays_attendance_notification_time",null);
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
@@ -58,22 +59,22 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
 //        Toast.makeText(context, t+"="+t1, Toast.LENGTH_SHORT).show();
 
 
-        if(prefs.getBoolean("notifications_new_message",false) && t.equals(t1)  )
+        if(prefs.getBoolean("todays_attendance",false) && t.equals(t1)  )
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
-                            .setContentTitle("Today's Classes")
-                            .setContentText("Click to expand!").setPriority(2);
+                            .setContentTitle("Today's Attendance")
+                            .setContentText("Click to enter!").setPriority(2);
 
 
-            String ringtonePreference = prefs.getString("notifications_new_message_ringtone", "DEFAULT_NOTIFICATION_URI");
+            String ringtonePreference = prefs.getString("todays_attendance_ringtone", "DEFAULT_NOTIFICATION_URI");
             Uri uri = Uri.parse(ringtonePreference);
             mBuilder.setSound(uri);
 
             long[] pattern = {1000,1000,1000};
 
-            if(prefs.getBoolean("notifications_new_message_vibrate",false))
+            if(prefs.getBoolean("todays_attendance_vibrate",false))
             {
                 mBuilder.setVibrate(pattern);
             }
@@ -99,7 +100,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             mBuilder.setStyle(inboxStyle);
 
 // Creates an explicit intent for an Activity in your app
-            Intent resultIntent = new Intent(context, TimeTableActivity.class);
+            Intent resultIntent = new Intent(context, NotificationAttendance.class);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -107,12 +108,12 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
 // your application to the Home screen.
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(TimeTableActivity.class);
+            stackBuilder.addParentStack(NotificationAttendance.class);
 // Adds the Intent that starts the Activity to the top of the stack
             stackBuilder.addNextIntent(resultIntent);
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
-                            0,
+                            1,
                             PendingIntent.FLAG_UPDATE_CURRENT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
@@ -120,15 +121,19 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 // mId allows you to update the notification later on.
-            mNotificationManager.notify(0, mBuilder.build());
-//            Toast.makeText(context, "Debug: "+prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
+            mNotificationManager.notify(1, mBuilder.build());
+            Toast.makeText(context, "Debug: "+prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
 
         }
         else
         {
-//            Toast.makeText(context, "Debug: No notification", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Debug: No notification", Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
+
+
 
 }
