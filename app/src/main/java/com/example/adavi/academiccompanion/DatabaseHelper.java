@@ -9,9 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.CharacterIterator;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import static android.R.attr.id;
 import static android.R.attr.order;
@@ -59,6 +62,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public String[] getTodayClasses(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] subject_times;
+        int i=0;
+        Date date = new Date();
+        CharSequence time = DateFormat.format("EEEE", date.getTime());
+        String day = String.valueOf(time);
+        Cursor res = db.rawQuery("select * from timetable where day='"+day+"'",null);
+        int size = res.getCount();
+        subject_times = new String[size];
+        Cursor res1;
+        while(res.moveToNext())
+        {
+            res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
+            subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" "+res.getString(5);
+            i++;
+        }
+        return subject_times;
+    }
 
     public String getDBName()
     {
@@ -365,6 +387,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return -1;
         }
     }
+
+
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
