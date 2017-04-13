@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String day = sdf.format(c.getTime());
 
-        Cursor res = db.rawQuery("select * from timetable where day='"+day+"'",null);
+        Cursor res = db.rawQuery("select * from timetable where day='"+day+"' order by startTime ASC",null);
         int size = res.getCount();
         subject_times = new String[size];
         Cursor res1;
@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         {
             res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
             res1.moveToNext();
-            subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" "+res.getString(5);
+            subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" - "+res.getString(5);
             i++;
         }
         return subject_times;
@@ -391,13 +391,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    public Cursor getTimeTableAsc()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from timetable order by startTime ASC",null);
+        return res;
+    }
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from event order by date and startTime and endTime DESC",null);
+        Cursor res = db.rawQuery("select * from event order by date DESC , startTime DESC , endTime DESC",null);
         return res;
     }
+
+    public Cursor getEventsAsc() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from event order by date , startTime , endTime Asc",null);
+        return res;
+    }
+
 
 
     public Cursor getTodayEvents() {

@@ -97,9 +97,26 @@ public class DisplayEventActivity extends AppCompatActivity {
 
     public void displayEventHelper() {
         Cursor res = myDB.getRecentEvents();
+        Cursor res1 = myDB.getEventsAsc();
         if (res.getCount() == 0) {
             eventAlert("No Events", "Go and Add a Event!");
             return;
+        }
+
+        while(res1.moveToNext())
+        {
+            if(res1.getString(2).compareTo(formattedDate)>0)
+            {
+                displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1);
+            }
+            else if(res1.getString(2).compareTo(formattedDate)==0)
+            {
+                if(res1.getString(3)!=null && res1.getString(3).compareTo(formattedTime)>=0)
+                {
+                    displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1);
+                }
+            }
+
         }
 
 //        StringBuffer buffer = new StringBuffer();
@@ -107,24 +124,36 @@ public class DisplayEventActivity extends AppCompatActivity {
 //            buffer.append("Subject: "+res.getString(0)+"\n");
 //            buffer.append("Teacher: "+res.getString(1)+"\n");
 //            buffer.append("Teacher's Email : "+res.getString(2)+"\n");
-            if(res.getString(2).compareTo(formattedDate)>0)
+//            if(res.getString(2).compareTo(formattedDate)>0)
+//            {
+//                displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
+//            }
+//            else if(res.getString(2).compareTo(formattedDate)==0)
+//            {
+//                if(res.getString(4).compareTo(formattedTime)>0)
+//                {
+//                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
+//                }
+//                else
+//                {
+//                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
+//                }
+//            }
+//            else
+//            {
+//                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
+//            }
+
+            if(res.getString(2).compareTo(formattedDate)<0)
             {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
+                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
             }
             else if(res.getString(2).compareTo(formattedDate)==0)
             {
-                if(res.getString(4).compareTo(formattedTime)>0)
-                {
-                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),1);
-                }
-                else
+                if(res.getString(3)!=null && res.getString(3).compareTo(formattedTime)<0)
                 {
                     displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
                 }
-            }
-            else
-            {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
             }
 
 //            buffer.replace(0,buffer.length(),"");
