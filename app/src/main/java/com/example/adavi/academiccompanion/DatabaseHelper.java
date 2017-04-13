@@ -9,19 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.sql.Date;
-import java.text.CharacterIterator;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-import static android.R.attr.id;
-import static android.R.attr.order;
-import static android.R.attr.type;
-import static com.example.adavi.academiccompanion.R.id.sem_id;
-import static com.example.adavi.academiccompanion.ScheduleActivity.formattedDate;
 
 /**
  * Created by pk on 4/6/2017.
@@ -79,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(res.moveToNext())
         {
             res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
+            res1.moveToNext();
             subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" "+res.getString(5);
             i++;
         }
@@ -548,7 +540,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("date",date);
         contentValues.put("status",status);
         contentValues.put("isExtraClass",is_extra_class);
-       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
+        long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
 
         if(result == -1)
             return false;
