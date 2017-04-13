@@ -163,11 +163,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Cursor res = db.rawQuery("select ifnull(max(attendance_id), 0) from attendance",null);
-        int attendance_id = Integer.parseInt( res.getString(0) );
-        attendance_id = attendance_id + 1;
+        Cursor res = db.rawQuery("select * from attendance",null);
+        int maxattendance_id = 0;
+        while(res.moveToNext())
+        {
+            if(res.getInt(0)>maxattendance_id)
+            {
+                maxattendance_id=res.getInt(0);
+            }
+        }
+        maxattendance_id = maxattendance_id + 1;
 
-        contentValues.put("attendance_id",attendance_id);
+        contentValues.put("attendance_id",maxattendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
