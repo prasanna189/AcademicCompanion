@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,12 +23,13 @@ public class DisplayAttendance extends AppCompatActivity {
         Cursor c = myDB.getAllData("attendance");
         s=getIntent().getStringExtra("subj_id");
 
-        DisplayViewAttendance();
+        //DisplayViewAttendance();
 
     }
-    public void DisplayViewAttendance()
+    public void ViewAttendance(View view)
     {
         Intent intent = new Intent(this, ViewAttendance.class);
+        intent.putExtra("sub_id",s);
         startActivity(intent);
     }
 }

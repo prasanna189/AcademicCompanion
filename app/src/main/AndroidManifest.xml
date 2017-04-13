@@ -68,15 +68,29 @@
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".DisplayAttendance" />
+
         <activity android:name=".ViewAttendance" />
+
         <activity android:name=".View_Stats" />
+
         <activity android:name=".ViewSubjects" />
+
         <activity android:name=".ViewResults" />
+
         <activity android:name=".ViewFinalAttendance" />
+
         <activity android:name=".TimeTableActivity" />
+
         <activity android:name=".EditTimeTable" />
+
         <activity android:name=".SetTimeTable" />
+
+        <activity android:name=".ViewSubjectMarks" />
+
+        <activity android:name=".ViewExamDetails"></activity>
+
         <activity
             android:name=".DisplayEventsOnADateActivity"
             android:label="Events"
