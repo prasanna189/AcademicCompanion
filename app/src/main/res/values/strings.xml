@@ -112,5 +112,6 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_display_events_on_adate">DisplayEventsOnADateActivity</string>
+    <string name="title_activity_app_settings">Settings</string>
 
 </resources>

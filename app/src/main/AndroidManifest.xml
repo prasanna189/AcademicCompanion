@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- permission required to use Alarm Manager -->
+        <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+        <uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
+
+        <!-- Register the Alarm Receiver -->
+        <receiver android:name=".NotifyTodaySubjectsActivity" />
+
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIywMFxPZE8l7QQcq5xBtnQqkBJW_PTE_0qYHIFw" />
@@ -80,14 +89,16 @@
         <activity
             android:name=".DisplayEventsOnADateActivity"
             android:label="Events"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".AddEventFromScheduleActivity"
-            android:label="Add Event"
-            />
-
-        <activity android:name=".DisplayEventOnScheduleActivity"
-            android:label="Event Details"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddEventFromScheduleActivity"
+            android:label="Add Event" />
+        <activity
+            android:name=".DisplayEventOnScheduleActivity"
+            android:label="Event Details" />
+        <activity
+            android:name=".AppSettingsActivity"
+            android:label="@string/title_activity_app_settings"></activity>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
+        <TextView
             android:id="@+id/backup_now_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,9 +20,9 @@
             android:padding="8dp"
             android:textSize="16sp"
             android:onClick="backupNow"
-            android:background="@color/AliceBlue"/>
+            android:clickable="true"/>
 
-        <Button
+        <TextView
             android:id="@+id/restore_now_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:onClick="restoreNow"
-            android:background="@color/AliceBlue"/>
+            android:clickable="true" />
 
 
     </LinearLayout>

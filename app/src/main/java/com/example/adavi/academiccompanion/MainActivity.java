@@ -1,20 +1,20 @@
 package com.example.adavi.academiccompanion;
 
-import android.app.NotificationManager;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
@@ -36,13 +36,14 @@ public class MainActivity extends AppCompatActivity
     ArrayAdapter<Integer> adapter;
     private String m_Text = "";
     public static PrefManager prefManager;
+    SharedPreferences prefs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         prefManager = new PrefManager(this);
-
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDB = new DatabaseHelper(this);
@@ -167,9 +168,6 @@ public class MainActivity extends AppCompatActivity
 
         notifyTodaysClasses();
 
-
-
-
     }
 
 
@@ -256,7 +254,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.navbar_settings) {
 //            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this,SettingsActivity.class);
+            Intent intent = new Intent(this,AppSettingsActivity.class);
             startActivity(intent);
 
         }
@@ -287,56 +285,26 @@ public class MainActivity extends AppCompatActivity
 
     void notifyTodaysClasses()
     {
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.main_app_icon_dark)
-                        .setContentTitle("Today's Classes")
-                        .setContentText("Click to expand!").setPriority(2);
-
-        NotificationCompat.InboxStyle inboxStyle =
-                new NotificationCompat.InboxStyle();
-
-        String[] events = myDB.getTodayClasses();
-
-        if(events.length != 0)
+        String time = prefs.getString("notification_time",null);
+        int hours = 7, minutes=0;
+        String[] parts = time.split(":");
+        String part1 = parts[0];
+        String part2 = parts[1];
+        if(time != null)
         {
-            inboxStyle.setBigContentTitle("Today's Classes are : ");
-
-            for (int i=0; i < events.length; i++) {
-                inboxStyle.addLine(events[i]);
-            }
+            hours=Integer.parseInt(part1);
+            minutes=Integer.parseInt(part2);
         }
-        else
-        {
-            inboxStyle.setBigContentTitle("No Classes Today.");
-            inboxStyle.addLine("Take a break.");
-        }
-
-
-// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, TimeTableActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(TimeTableActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        mBuilder.setStyle(inboxStyle);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(0, mBuilder.build());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
+
 
 }
