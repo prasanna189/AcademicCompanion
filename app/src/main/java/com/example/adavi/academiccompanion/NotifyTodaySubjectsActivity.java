@@ -26,7 +26,19 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
         myDB = new DatabaseHelper(context);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if(prefs.getBoolean("notifications_new_message",false))
+        String time = prefs.getString("notification_time",null);
+        int hours = 7, minutes=0;
+        String[] parts = time.split(":");
+        String part1 = parts[0];
+        String part2 = parts[1];
+        if(time != null)
+        {
+            hours=Integer.parseInt(part1);
+            minutes=Integer.parseInt(part2);
+            if(hours<10)
+        }
+
+        if(prefs.getBoolean("notifications_new_message",false) &&  )
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -89,7 +101,6 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
 
 // mId allows you to update the notification later on.
             mNotificationManager.notify(0, mBuilder.build());
-
             Toast.makeText(context, prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
 
 
