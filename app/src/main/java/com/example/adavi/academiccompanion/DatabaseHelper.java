@@ -391,13 +391,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+    public Cursor getTimeTableAsc()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from timetable order by startTime ASC",null);
+        return res;
+    }
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from event order by date and startTime and endTime DESC",null);
         return res;
     }
+
+    public Cursor getEventsAsc() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from event order by date and startTime and endTime Asc",null);
+        return res;
+    }
+
 
 
     public Cursor getTodayEvents() {
