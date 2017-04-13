@@ -35,7 +35,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
         {
             hours=Integer.parseInt(part1);
             minutes=Integer.parseInt(part2);
-            if(hours<10)
+//            if(hours<10)
         }
 
         if(prefs.getBoolean("notifications_new_message",false)   )
