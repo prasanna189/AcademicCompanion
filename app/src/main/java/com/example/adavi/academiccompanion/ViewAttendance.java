@@ -38,6 +38,8 @@ public class ViewAttendance extends AppCompatActivity {
     RadioButton rb[];
     DatabaseHelper myDB;
     String s;
+    boolean j;
+
     int len;
     Spinner AttendanceList;
     ArrayAdapter<String> adapter;
@@ -52,13 +54,14 @@ public class ViewAttendance extends AppCompatActivity {
 
         AttendanceList=(Spinner) findViewById(R.id.attendance_spinner);
 
-        String [] subject_array={"All","Present","Absent","ExtraClass"};
+        String [] subject_array={"All","Present","Absent","Class Not Conducted"};
 
         adapter=new ArrayAdapter<String>(this,
                 R.layout.attendance_filter,R.id.Attendance_list, subject_array);
 
         AttendanceList.setAdapter(adapter);
-
+        filter="All";
+       //AttendanceList.setSelection(adapter.getPosition(filter));
         AttendanceList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
 
@@ -70,44 +73,50 @@ public class ViewAttendance extends AppCompatActivity {
                 ViewGroup vg=(ViewGroup)view;
 
                 TextView tv=(TextView)vg.findViewById(R.id.Attendance_list);
-                filter=tv.getText().toString();
 
+
+                filter=tv.getText().toString();
+                Toast.makeText(ViewAttendance.this,"Gone", Toast.LENGTH_SHORT).show();
+                display(filter);
+                Toast.makeText(ViewAttendance.this,filter, Toast.LENGTH_SHORT).show();
             }
 
             @Override
 
             public void onNothingSelected(AdapterView<?> parent) {
 
-
-                filter=null;
+                filter="All";
+                display(filter);
             }
 
         });
-    //        LinearLayout ll=(LinearLayout)findViewById(R.id.att);
-    //
-    //        Button submit =new Button(this);
-    //        submit.setText("SAVE");
-    //        ll.addView(submit);
-    //        submit.setOnClickListener(new View.OnClickListener() {
-    //            @Override
-    //            public void onClick(View v)
-    //            {
-    //
-    //                Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
-    //                intent.putExtra("subj_id",s);
-    //
-    //                startActivity(intent);
-    //
-    //            }
-    //        });
 
-        display();
+       // Toast.makeText(ViewAttendance.this,filter, Toast.LENGTH_SHORT).show();
+//            LinearLayout ll=(LinearLayout)findViewById(R.id.att);
+//
+//            Button submit =new Button(this);
+//            submit.setText("SAVE");
+//            ll.addView(submit);
+//            submit.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v)
+//                {
+//
+//                    Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
+//                    intent.putExtra("subj_id",s);
+//
+//                    startActivity(intent);
+//
+//                }
+//            });
+
+
 
        // displayfilter(filter);
 
     }
 
-    public void display()
+    public void display(String filter)
     {
         String startdate="";
         Cursor res=myDB.getAllData("semester");
@@ -132,6 +141,7 @@ public class ViewAttendance extends AppCompatActivity {
 
 
         LinearLayout ll=(LinearLayout)findViewById(R.id.att);
+        ll.removeAllViews();
         String sdate=null;
         Cursor cur = myDB.getAllData("attendance");
         while(cur.moveToNext())
@@ -172,7 +182,7 @@ public class ViewAttendance extends AppCompatActivity {
         else
         {
             Toast.makeText(ViewAttendance.this,startdate, Toast.LENGTH_SHORT).show();
-            List<Date> dates = getDates(startdate, formattedDate);
+           List<Date> dates = getDates(startdate, formattedDate);
 
             for(Date date:dates)
             {
@@ -256,72 +266,137 @@ public class ViewAttendance extends AppCompatActivity {
                             break;
                         }
                     }
-
-                    TextView tv =new TextView(this);
-                    tv.setText(df.format(date));
-                    tv.setTextSize(30);
-
-
-                    ll.addView(tv);
-
-                    rg[p] = new RadioGroup(this);
-                    rg[p].setOrientation(RadioGroup.VERTICAL);
-
-                    rb[q] = new RadioButton(this);
-                    rb[q].setText("Present");
-                    rb[q].setId(Integer.parseInt("1"));
-                    rg[p].addView(rb[q]);
-                    if(status.equals("Present"))
+                    if(filter.equals("All"))
                     {
-                        rb[q].setChecked(true);
-                        flag=1;
-                    }
+                        TextView tv =new TextView(this);
+                        tv.setText(df.format(date));
+                        tv.setTextSize(30);
 
-                    q++;
-                    rb[q] = new RadioButton(this);
-                    rb[q].setText("Absent");
-                    rb[q].setId(Integer.parseInt("2"));
-                    rg[p].addView(rb[q]);
-                    if(status.equals("Absent"))
+
+                        ll.addView(tv);
+
+                        rg[p] = new RadioGroup(this);
+                        rg[p].setOrientation(RadioGroup.VERTICAL);
+
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Present");
+                        rb[q].setId(Integer.parseInt("1"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Present"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Absent");
+                        rb[q].setId(Integer.parseInt("2"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Absent"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Class Not Conducted");
+                        rb[q].setId(Integer.parseInt("3"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Class Not Conducted"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Not Approved");
+                        rb[q].setId(Integer.parseInt("4"));
+                        rg[p].addView(rb[q]);
+                        if(flag==0)
+                        {
+                            rb[q].setChecked(true);
+                        }
+
+                        q++;
+                        rb[q]=new RadioButton(this);
+                        rb[q].setId(id);
+                        q++;
+
+
+                        ll.addView(rg[p]);
+                        p++;
+
+                    }
+                    else if(status.equals(filter))
                     {
-                        rb[q].setChecked(true);
-                        flag=1;
+                        TextView tv =new TextView(this);
+                        tv.setText(df.format(date));
+                        tv.setTextSize(30);
+
+
+                        ll.addView(tv);
+
+                        rg[p] = new RadioGroup(this);
+                        rg[p].setOrientation(RadioGroup.VERTICAL);
+
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Present");
+                        rb[q].setId(Integer.parseInt("1"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Present"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Absent");
+                        rb[q].setId(Integer.parseInt("2"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Absent"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Class Not Conducted");
+                        rb[q].setId(Integer.parseInt("3"));
+                        rg[p].addView(rb[q]);
+                        if(status.equals("Class Not Conducted"))
+                        {
+                            rb[q].setChecked(true);
+                            flag=1;
+                        }
+
+                        q++;
+                        rb[q] = new RadioButton(this);
+                        rb[q].setText("Not Approved");
+                        rb[q].setId(Integer.parseInt("4"));
+                        rg[p].addView(rb[q]);
+                        if(flag==0)
+                        {
+                            rb[q].setChecked(true);
+                        }
+
+                        q++;
+                        rb[q]=new RadioButton(this);
+                        rb[q].setId(id);
+                        q++;
+
+
+                        ll.addView(rg[p]);
+                        p++;
                     }
-
-                    q++;
-                    rb[q] = new RadioButton(this);
-                    rb[q].setText("Class Not Conducted");
-                    rb[q].setId(Integer.parseInt("3"));
-                    rg[p].addView(rb[q]);
-                    if(status.equals("Class Not Conducted"))
-                    {
-                        rb[q].setChecked(true);
-                        flag=1;
-                    }
-
-                    q++;
-                    rb[q] = new RadioButton(this);
-                    rb[q].setText("Not Approved");
-                    rb[q].setId(Integer.parseInt("4"));
-                    rg[p].addView(rb[q]);
-                    if(flag==0)
-                    {
-                        rb[q].setChecked(true);
-                    }
-
-                    q++;
-                    rb[q]=new RadioButton(this);
-                    rb[q].setId(id);
-                    q++;
-
-
-                    ll.addView(rg[p]);
-                    p++;
-
                 }
             }
-
         }
+
         Button submit =new Button(this);
         submit.setText("SAVE");
         ll.addView(submit);
@@ -329,14 +404,6 @@ public class ViewAttendance extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
-//               // Toast.makeText(ViewAttendance.this,, Toast.LENGTH_SHORT).show();
-//                if (rg[0].getCheckedRadioButtonId() == -1)
-//                {
-//                    Toast.makeText(ViewAttendance.this,"Nothing Is Checked", Toast.LENGTH_SHORT).show();
-//                }
-//                else
-                {
                     int r;
                     String radioText="";
 
@@ -345,7 +412,6 @@ public class ViewAttendance extends AppCompatActivity {
                         if (rb[r].isChecked()  && (r+1)%5!=0)
                         {
 //                            Toast.makeText(ViewAttendance.this,"Nothing Is Checked", Toast.LENGTH_SHORT).show();
-
 
                             RadioButton id = (RadioButton) findViewById(rb[r].getId());
                              radioText = rb[r].getText().toString();
@@ -365,32 +431,29 @@ public class ViewAttendance extends AppCompatActivity {
                                     break;
                                 }
                             }
-                          //  Toast.makeText(ViewAttendance.this,date, Toast.LENGTH_SHORT).show();
 
-                            boolean j=myDB.updatetDataAttendance(id,myDB.getcurrentsem(),Integer.parseInt(s),date,radioText,-1);
+
+                             j=myDB.updatetDataAttendance(id,myDB.getcurrentsem(),Integer.parseInt(s),date,radioText,-1);
+//                            Toast.makeText(ViewAttendance.this,"a", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
+//                            Toast.makeText(ViewAttendance.this,"b", Toast.LENGTH_SHORT).show();
+//                                intent.putExtra("subj_id",s);
+//                            Toast.makeText(ViewAttendance.this,"c", Toast.LENGTH_SHORT).show();
+//                                startActivity(intent);
+//
+                        }
+                    }
                             if(j)
                             {
-                                Toast.makeText(ViewAttendance.this,"Updated Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ViewAttendance.this,"Update Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
                                 intent.putExtra("subj_id",s);
-                                //Toast.makeText(ViewAttendance.this,"Updated Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
-
                             }
                             else
                             {
                                 Toast.makeText(ViewAttendance.this,"Updation Failed", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    }
-
-
-                }
-                Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
-                                intent.putExtra("subj_id",s);
-//                                //Toast.makeText(ViewAttendance.this,"Updated Successful", Toast.LENGTH_SHORT).show();
-                                startActivity(intent);
-
             }
         });
 
@@ -430,22 +493,7 @@ public class ViewAttendance extends AppCompatActivity {
         }
         return dates;
     }
-//    public void displayfilter(String attfilter){
-//
-//        LinearLayout ll=(LinearLayout)findViewById(R.id.att);
-//        Cursor res=myDB.getAllData("attendance");
-//        while(res.moveToNext())
-//        {
-//            if(res.getString(4).equals(attfilter))
-//            {
-//                TextView tv=new TextView(this);
-//                tv.setText(res.getString(3));
-//
-//                ll.addView(tv);
-//
-//            }
-//        }
-//    }
+
 
     @Override
     public void onBackPressed() {
