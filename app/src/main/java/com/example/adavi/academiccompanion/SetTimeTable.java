@@ -237,43 +237,106 @@ public class SetTimeTable extends AppCompatActivity {
                 subject_id = c.getInt(0);
             }
         }
-        if(t_id!=null)
+        String stime = editStime.getText().toString();
+        String etime = editEtime.getText().toString();
+
+        if(stime.equals(""))
         {
-            int timetable_id = Integer.parseInt(t_id);
-            Cursor res = myDB.getAllData("timetable");
-            while(res.moveToNext())
-            {
-                if(timetable_id==res.getInt(0));
-                {
-                    boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0),res.getInt(1),subject_id,res.getString(3),editStime.getText().toString(),editEtime.getText().toString());
-                    if(isUpdated)
-                    {
-                        Toast.makeText(SetTimeTable.this,"TimeTable Updated",Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(this,TimeTableActivity.class);
-                        startActivity(intent);
-                    }
-                    else
-                    {
-                        Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
+            Toast.makeText(SetTimeTable.this, "Enter Start Time", Toast.LENGTH_LONG).show();
+        }
+        else if(stime.compareTo(etime)>0 && !etime.equals(""))
+        {
+            Toast.makeText(SetTimeTable.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
+        }
+        else if(!checkTimings(stime,etime,day))
+        {
+            Toast.makeText(SetTimeTable.this, "Timings already exists", Toast.LENGTH_LONG).show();
         }
         else
         {
 
-            boolean isInserted = myDB.insertDataTimeTable(sem,subject_id,day,editStime.getText().toString(),editEtime.getText().toString());
-            if(isInserted)
+            if(t_id!=null)
             {
-                Toast.makeText(SetTimeTable.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, TimeTableActivity.class);
-                startActivity(intent);
+                int timetable_id = Integer.parseInt(t_id);
+                Cursor res = myDB.getAllData("timetable");
+                while(res.moveToNext())
+                {
+                    if(timetable_id==res.getInt(0));
+                    {
+                        boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0),res.getInt(1),subject_id,res.getString(3),editStime.getText().toString(),editEtime.getText().toString());
+                        if(isUpdated)
+                        {
+                            Toast.makeText(SetTimeTable.this,"TimeTable Updated",Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this,TimeTableActivity.class);
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
             }
             else
             {
-                Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
+
+                boolean isInserted = myDB.insertDataTimeTable(sem,subject_id,day,editStime.getText().toString(),editEtime.getText().toString());
+                if(isInserted)
+                {
+                    Toast.makeText(SetTimeTable.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, TimeTableActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
+                }
             }
         }
+
+    }
+
+    boolean checkTimings(String stime,String etime,String day)
+    {
+        boolean flag=true;
+        Cursor c_tt=myDB.getAllData("timetable");
+        while(c_tt.moveToNext())
+        {
+            if(c_tt.getInt(1)==sem && c_tt.getString(3).equals(day))
+            {
+                if(c_tt.getString(5)==null)
+                {
+                    if(c_tt.getString(4).equals(stime))
+                    {
+                        flag =false;
+                    }
+                    if(stime.compareTo(c_tt.getString(4))<0 && etime.compareTo(c_tt.getString(4))>0 && !etime.equals(""))
+                    {
+                        flag=false;
+                    }
+                }
+                else
+                {
+                    if(c_tt.getString(4).compareTo(stime)<0 && c_tt.getString(5).compareTo(stime)>0)
+                    {
+                        flag=false;
+                    }
+                    if(c_tt.getString(4).compareTo(stime)<0 && c_tt.getString(5).compareTo(stime)>0 && !etime.equals(""))
+                    {
+                        flag=false;
+                    }
+                    if(stime.compareTo(c_tt.getString(4))<0 && etime.compareTo(c_tt.getString(4))>0 && !etime.equals(""))
+                    {
+                        flag=false;
+                    }
+                    if(stime.compareTo(c_tt.getString(5))<0 && etime.compareTo(c_tt.getString(5))>0 && !etime.equals(""))
+                    {
+                        flag=false;
+                    }
+                }
+            }
+        }
+        return flag;
     }
 
 
