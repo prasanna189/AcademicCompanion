@@ -32,6 +32,7 @@ public class EditTimeTable extends AppCompatActivity {
     //
             Button sundayButton = new Button(this);
             sundayButton.setPadding(0,8,0,0);
+
             sundayButton.setBackgroundResource(R.drawable.ic_action_name);
 
             Button mondayButton = new Button(this);
@@ -67,7 +68,7 @@ public class EditTimeTable extends AppCompatActivity {
             saturdayll=(LinearLayout)findViewById(R.id.edit_saturday_layout);
             sundayll=(LinearLayout)findViewById(R.id.edit_sunday_layout);
 
-            LinearLayout.LayoutParams button_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams button_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
 
 
             mondayButton.setLayoutParams(button_params);
@@ -78,6 +79,7 @@ public class EditTimeTable extends AppCompatActivity {
             saturdayButton.setLayoutParams(button_params);
             sundayButton.setLayoutParams(button_params);
             sub_tv.setLayoutParams(button_params);
+            sub_tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
 
             sub_tv.setText(res.getString(1));
