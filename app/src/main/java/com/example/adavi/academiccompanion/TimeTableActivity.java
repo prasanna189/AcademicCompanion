@@ -97,7 +97,7 @@ public class TimeTableActivity extends AppCompatActivity {
             }
         }
 
-        Cursor res = myDB.getAllData("timetable");
+        Cursor res = myDB.getTimeTableAsc();
 
         while(res.moveToNext())
         {
