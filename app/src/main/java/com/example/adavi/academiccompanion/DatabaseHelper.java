@@ -79,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(res.moveToNext())
         {
             res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
+            res1.moveToNext();
             subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" "+res.getString(5);
             i++;
         }
