@@ -9,19 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.sql.Date;
-import java.text.CharacterIterator;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-import static android.R.attr.id;
-import static android.R.attr.order;
-import static android.R.attr.type;
-import static com.example.adavi.academiccompanion.R.id.sem_id;
-import static com.example.adavi.academiccompanion.ScheduleActivity.formattedDate;
 
 /**
  * Created by pk on 4/6/2017.
@@ -79,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while(res.moveToNext())
         {
             res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
+            res1.moveToNext();
             subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" "+res.getString(5);
             i++;
         }
@@ -170,11 +163,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Cursor res = db.rawQuery("select ifnull(max(attendance_id), 0) from attendance",null);
-        int attendance_id = Integer.parseInt( res.getString(0) );
-        attendance_id = attendance_id + 1;
+        Cursor res = db.rawQuery("select * from attendance",null);
+        int maxattendance_id = 0;
+        while(res.moveToNext())
+        {
+            if(res.getInt(0)>maxattendance_id)
+            {
+                maxattendance_id=res.getInt(0);
+            }
+        }
+        maxattendance_id = maxattendance_id + 1;
 
-        contentValues.put("attendance_id",attendance_id);
+        contentValues.put("attendance_id",maxattendance_id);
         contentValues.put("sem_id",sem_id);
         contentValues.put("subject_id",subject_id);
         contentValues.put("date",date);
@@ -377,7 +377,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return totalmarks;
 
     }
-    public int Attendanceid(int sem_id,int sub_id,String date)
+    public int getAttendanceId(int sem_id,int sub_id,String date)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res= db.rawQuery("select * from attendance where sem_id ="+sem_id+" and subject_id = "+sub_id+" and date = '"+date+"'",null );
