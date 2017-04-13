@@ -38,7 +38,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             if(hours<10)
         }
 
-        if(prefs.getBoolean("notifications_new_message",false) &&  )
+        if(prefs.getBoolean("notifications_new_message",false)   )
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
