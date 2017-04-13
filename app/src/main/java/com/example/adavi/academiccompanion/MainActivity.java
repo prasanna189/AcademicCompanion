@@ -309,6 +309,7 @@ public class MainActivity extends AppCompatActivity
         else
         {
             inboxStyle.setBigContentTitle("No Classes Today.");
+            inboxStyle.addLine("Take a break.");
         }
 
 
