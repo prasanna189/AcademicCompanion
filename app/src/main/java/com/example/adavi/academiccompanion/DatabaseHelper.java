@@ -9,19 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.sql.Date;
-import java.text.CharacterIterator;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-
-import static android.R.attr.id;
-import static android.R.attr.order;
-import static android.R.attr.type;
-import static com.example.adavi.academiccompanion.R.id.sem_id;
-import static com.example.adavi.academiccompanion.ScheduleActivity.formattedDate;
 
 /**
  * Created by pk on 4/6/2017.
