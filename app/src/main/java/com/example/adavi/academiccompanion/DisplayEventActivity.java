@@ -229,7 +229,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         tv.setTextSize(12);
 
 
-        ll.setBackgroundColor(Color.rgb(224, 242, 241));
+//        ll.setBackgroundColor(Color.rgb(224, 242, 241));
         ll.addView(rowButton);
         ll.addView(tv);
         if(status==0)
