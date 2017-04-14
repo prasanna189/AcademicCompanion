@@ -44,6 +44,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setTitle("Events");
         setSupportActionBar(toolbar);
         myDB = new DatabaseHelper(this);
         activity_type=null;

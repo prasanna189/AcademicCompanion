@@ -35,6 +35,7 @@ public class TimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
 
+        setTitle("Timetable");
         StartDatePicker = new Button(this);
         StartDatePicker.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view)

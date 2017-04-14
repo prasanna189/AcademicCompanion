@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,12 +42,23 @@ public class AddEventActivity extends AppCompatActivity {
 
 //    s=getIntent().getStringExtra("button_event_id");
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
         subject_name=null;
         myDB= new DatabaseHelper(this);
+
+        String s=getIntent().getStringExtra("button_event_id");
+        if(s==null)
+        {
+            setTitle("Add Event");
+        }
+        else
+        {
+            setTitle("Edit Event");
+        }
 
 //        eventType=(TextView) findViewById(R.id.event_type_text_view);
         eventType=(Spinner) findViewById(R.id.event_type_spinner);
@@ -71,6 +84,7 @@ public class AddEventActivity extends AppCompatActivity {
 
         event_type= getIntent().getStringExtra("activity_type");
 //        eventType.setText(event_type);
+
 
        eventDate.setOnClickListener(new View.OnClickListener(){
            public void onClick(View view)
@@ -168,6 +182,7 @@ public class AddEventActivity extends AppCompatActivity {
 //        });
 
         eventSubject=(Spinner)findViewById(R.id.event_subject_spinner);
+
 
 //          Subject Spinner
         int sem=myDB.getcurrentsem();
@@ -380,6 +395,7 @@ public class AddEventActivity extends AppCompatActivity {
                     flag = false;
                 }
 
+
             }
             if (flag) {
                 if (s == null) {
@@ -387,14 +403,19 @@ public class AddEventActivity extends AppCompatActivity {
                     if (subject_id == -1 && !activity_sub_name.equals("")) {
                         Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
                     } else {
-                        boolean isInserted;
+                        boolean isInserted,extraInsert=true;
                         isInserted = myDB.insertDataEvent(event_name, event_date, event_stime, event_etime,
                                 subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
-                        if (isInserted == true) {
+                        if(event_type.equals("Extra Class"))
+                        {
+                            extraInsert=myDB.insertDataAttendance(myDB.getcurrentsem(),subject_id,event_date,"Not Approved",1);
+                        }
+
+                        if (isInserted && extraInsert) {
                             Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventActivity.class);
                             startActivity(intent);

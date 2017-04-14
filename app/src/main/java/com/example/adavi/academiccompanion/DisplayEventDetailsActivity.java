@@ -45,6 +45,7 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
             if(res.getInt(0)==event_id)
             {
                 display_event_name.setText(res.getString(1));
+                setTitle(res.getString(1));
                 display_event_date.setText(res.getString(2));
                 display_event_start_time.setText(res.getString(3));
                 display_event_end_time.setText(res.getString(4));

@@ -113,6 +113,7 @@ public class SetTimeTable extends AppCompatActivity {
         String t_id=getIntent().getStringExtra("timetable_id");
         if(t_id==null)
         {
+            setTitle("Set Timings");
             String id=getIntent().getStringExtra("subject_id");
             int subject_id=Integer.parseInt(id);
             Cursor c = myDB.getAllData("subject");
@@ -128,6 +129,7 @@ public class SetTimeTable extends AppCompatActivity {
         }
         else
         {
+            setTitle("Edit Timings");
             final int tid=Integer.parseInt(t_id);
             Cursor res= myDB.getAllData("timetable");
             Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();

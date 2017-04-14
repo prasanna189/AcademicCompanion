@@ -22,7 +22,7 @@ public class EditTimeTable extends AppCompatActivity {
         setContentView(R.layout.activity_edit_time_table);
 
         myDB= new DatabaseHelper(this);
-
+        setTitle("Edit Timetable");
         sem=myDB.getcurrentsem();
 
         Cursor res= myDB.getCurrentSemSubjects(sem);

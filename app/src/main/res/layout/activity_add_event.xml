@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="#FFFFFF"
             android:padding="16dp"
             android:overScrollMode="always"
             >
@@ -28,10 +29,8 @@
                 android:textSize="20sp"
                 android:textColor="@color/Black"
                 android:text="Event Type:"
-                android:paddingTop="16dp"
                 android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
-
                 android:clickable="true"
 
                 />
@@ -63,6 +62,8 @@
                 android:id="@+id/event_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
 
                 />
 
@@ -82,8 +83,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/apptheme_edit_text_holo_light"
                 android:hint="Set Date"
-                android:textAlignment="textStart"
                 android:gravity="start"
+                android:textAlignment="textStart"
+                android:padding="16dp"
+                android:textSize="14sp"
 
                 />
 
@@ -117,8 +120,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/apptheme_edit_text_holo_light"
                         android:hint="Set Start Time"
-                        android:textAlignment="textStart"
                         android:gravity="start"
+                        android:textAlignment="textStart"
+                        android:padding="16dp"
+                        android:textSize="14sp"
 
                         />
 
@@ -137,7 +142,7 @@
                         android:text="End Time :"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:paddingTop="16dp"
+                        android:paddingTop="14dp"
 
                         />
 
@@ -147,8 +152,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/apptheme_edit_text_holo_light"
                         android:hint="Set End Time"
-                        android:textAlignment="textStart"
                         android:gravity="start"
+                        android:textAlignment="textStart"
+                        android:padding="16dp"
+                        android:textSize="14sp"
 
                         />
 
@@ -188,7 +195,8 @@
                 android:layout_height="50dp"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:hint="Notes or Books"
-
+                android:inputType="textNoSuggestions"
+                android:imeOptions="actionNext"
                 />
 
             <TextView
