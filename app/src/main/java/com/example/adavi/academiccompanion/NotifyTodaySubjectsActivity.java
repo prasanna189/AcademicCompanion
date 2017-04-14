@@ -112,7 +112,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
                             1000,
-                            PendingIntent.FLAG_ONE_SHOT
+                            PendingIntent.FLAG_UPDATE_CURRENT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 

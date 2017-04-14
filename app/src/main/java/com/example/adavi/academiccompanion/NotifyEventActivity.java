@@ -100,7 +100,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
                             id,
-                            PendingIntent.FLAG_ONE_SHOT
+                            PendingIntent.FLAG_UPDATE_CURRENT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 

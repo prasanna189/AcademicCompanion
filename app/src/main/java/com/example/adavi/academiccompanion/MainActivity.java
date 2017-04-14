@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity
         calendar.set(Calendar.MINUTE, minutes);
         calendar.set(Calendar.SECOND, 0);
         Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000,intent1, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity
         calendar1.set(Calendar.MINUTE, minutes);
         calendar1.set(Calendar.SECOND, 0);
         Intent intent2 = new Intent(MainActivity.this, NotifyTodayAttendanceActivity.class);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1001,intent2, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1001,intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
 
