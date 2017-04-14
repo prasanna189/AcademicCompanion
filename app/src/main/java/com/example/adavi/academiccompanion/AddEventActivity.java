@@ -429,11 +429,13 @@ public class AddEventActivity extends AppCompatActivity {
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
                             calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-                            calendar.set(Calendar.DAY_OF_MONTH,Calendar.DAY_OF_MONTH);
+                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
                             cal.setTime(dt2);
                             calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
                             calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
                             calendar.set(Calendar.SECOND, 0);
+//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
                             Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
                             intent1.putExtra("Event_Name", event_name);
                             intent1.putExtra("id",""+id+"");
