@@ -412,7 +412,7 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
                         if(!remDate.equals("") && !remTime.equals(""))
                         {
                             SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm:ss");
+                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
 
                             Date dt1=format1.parse(remDate);
                             Date dt2=format2.parse(remTime);

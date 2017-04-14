@@ -26,7 +26,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context, "Hi", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String Id = intent.getStringExtra("id");
@@ -113,7 +113,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
         }
         else
         {
-            Toast.makeText(context, "Debug: Event No notification", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
         }
 
     }
