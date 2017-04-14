@@ -18,7 +18,7 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
 
     TextView display_event_name, display_event_type, display_event_date, display_event_start_time,
             display_event_end_time, display_event_subject, display_event_description,
-            display_event_remainder_time;
+            display_event_remainder_time,display_event_remainder_date;
 
     DatabaseHelper myDB = null;
     @Override
@@ -35,6 +35,7 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
         display_event_end_time=(TextView)findViewById(R.id.display_event_end_time);
         display_event_subject=(TextView)findViewById(R.id.display_event_subject);
         display_event_description=(TextView)findViewById(R.id.display_event_description);
+        display_event_remainder_date=(TextView)findViewById(R.id.display_event_remainder_date);
         display_event_remainder_time=(TextView)findViewById(R.id.display_event_remainder_time);
 
         String s=getIntent().getStringExtra("button_event_id");
@@ -52,13 +53,14 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
 //                display_event_subject.setText(res.getString(5));
                 if(res.getString(5).equals("-1"))
                 {
-                    display_event_subject.setText("No Subject");
+                    display_event_subject.setText("-none-");
                 }
                 else
                 {
                     display_event_subject.setText(myDB.getSubjectName(res.getInt(5)));
                 }
                 display_event_description.setText(res.getString(6));
+                display_event_remainder_date.setText(res.getString(9));
                 display_event_remainder_time.setText(res.getString(7));
                 display_event_type.setText(res.getString(8));
 

@@ -1,6 +1,8 @@
 package com.example.adavi.academiccompanion;
 
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
@@ -22,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -316,8 +320,8 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
 
-    void saveEvent(View view)
-    {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void saveEvent(View view) throws ParseException {
         boolean flag=true;
         String event_name=eventName.getText().toString();
         String event_date=eventDate.getText().toString();
@@ -364,6 +368,10 @@ public class AddEventActivity extends AppCompatActivity {
         {
             Toast.makeText(AddEventActivity.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
         }
+        else if((remDate.equals("") && !remTime.equals("")) || (!remDate.equals("") && remTime.equals("")))
+        {
+            Toast.makeText(AddEventActivity.this, "Both Remainder Date and Time should be preasent", Toast.LENGTH_LONG).show();
+        }
         else if( !remDate.equals("") && remDate.compareTo(formattedDate) < 0)
         {
             Toast.makeText(AddEventActivity.this, "Remainder Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
@@ -402,12 +410,45 @@ public class AddEventActivity extends AppCompatActivity {
 
                     if (subject_id == -1 && !activity_sub_name.equals("")) {
                         Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-                    } else {
-                        boolean isInserted,extraInsert=true;
-                        isInserted = myDB.insertDataEvent(event_name, event_date, event_stime, event_etime,
+                    }
+                    else {
+                        boolean extraInsert=true;
+                        int id;
+                        id = myDB.insertDataEvent(event_name, event_date, event_stime, event_etime,
                                 subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
+                        if(!remDate.equals("") && !remTime.equals(""))
+                        {
+                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm:ss");
+                            Date dt1=format1.parse(remDate);
+                            Date dt2=format2.parse(remTime);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(dt1);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH,Calendar.DAY_OF_MONTH);
+                            cal.setTime(dt2);
+                            calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+                            calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+                            calendar.set(Calendar.SECOND, 0);
+                            Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
+                            intent1.putExtra("Event_Name", event_name);
+                            intent1.putExtra("id",""+id+"");
+                            intent1.putExtra("Event_Date",event_date);
+                            intent1.putExtra("Event_Type",event_type);
+                            intent1.putExtra("Subject",activity_sub_name);
+                            intent1.putExtra("Start_Time", event_stime);
+                            intent1.putExtra("End_Time", event_etime);
+                            intent1.putExtra("Remainder_Time", remTime);
+                            intent1.putExtra("Remainder_date", remDate);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
+                            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//
+                        }
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
                         if(event_type.equals("Extra Class"))
@@ -415,7 +456,7 @@ public class AddEventActivity extends AppCompatActivity {
                             extraInsert=myDB.insertDataAttendance(myDB.getcurrentsem(),subject_id,event_date,"Not Approved",1);
                         }
 
-                        if (isInserted && extraInsert) {
+                        if (id>0 && extraInsert) {
                             Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventActivity.class);
                             startActivity(intent);

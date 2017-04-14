@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -168,9 +169,9 @@ public class DisplayEventActivity extends AppCompatActivity {
 
 
         //child layouts
-        Button rowButton = new Button(this);
+        Button rowButton = new Button(new ContextThemeWrapper(this, R.style.MyButton), null, 0);
         TextView tv = new TextView(this);
-        LinearLayout ll = new LinearLayout(this);
+        LinearLayout ll = new LinearLayout(this,null,R.style.MyButton);
 
 
         //layout params for each view
@@ -204,19 +205,19 @@ public class DisplayEventActivity extends AppCompatActivity {
         rowButton.setLayoutParams(rb_params);
 
 
-        rowButton.setId(eventid);
+        ll.setId(eventid);
         rowButton.setText(ename);
         rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+//        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
 
-        rowButton.setOnClickListener(new View.OnClickListener() {
+        ll.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v)
             {
 
-                Button pressed;
-                pressed=((Button)v);
+                LinearLayout pressed;
+                pressed=((LinearLayout)v);
                 button_id=pressed.getId();
                 viewEventDetails(v);
 
