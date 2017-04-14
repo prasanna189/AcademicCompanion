@@ -55,9 +55,6 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
         String t;
         t = part1+":"+part2;
 
-//        Toast.makeText(context, t+"="+t1, Toast.LENGTH_SHORT).show();
-
-
         if(prefs.getBoolean("notifications_new_message",false) && t.equals(t1)  )
         {
             NotificationCompat.Builder mBuilder =
@@ -113,7 +110,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
                             0,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_ONE_SHOT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 

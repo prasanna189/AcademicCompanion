@@ -59,7 +59,7 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
 //        Toast.makeText(context, t+"="+t1, Toast.LENGTH_SHORT).show();
 
 
-        if(prefs.getBoolean("todays_attendance",false) && t.equals(t1)  )
+        if(prefs.getBoolean("todays_attendance",false) && t.equals(t1))
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -79,28 +79,8 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
                 mBuilder.setVibrate(pattern);
             }
 
-            NotificationCompat.InboxStyle inboxStyle =
-                    new NotificationCompat.InboxStyle();
-
-            String[] events = myDB.getTodayClasses();
-
-            if(events.length != 0)
-            {
-                inboxStyle.setBigContentTitle("Today's Classes are : ");
-
-                for (int i=0; i < events.length; i++) {
-                    inboxStyle.addLine(events[i]);
-                }
-            }
-            else
-            {
-                inboxStyle.setBigContentTitle("No Classes Today.");
-                inboxStyle.addLine("Take a break.");
-            }
-            mBuilder.setStyle(inboxStyle);
-
 // Creates an explicit intent for an Activity in your app
-            Intent resultIntent = new Intent(context, NotificationAttendance.class);
+            Intent resultIntent = new Intent(context, MainActivity.class);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -108,18 +88,17 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
 // your application to the Home screen.
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(NotificationAttendance.class);
+            stackBuilder.addParentStack(MainActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
             stackBuilder.addNextIntent(resultIntent);
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
                             1,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_ONE_SHOT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 
             NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
 // mId allows you to update the notification later on.
             mNotificationManager.notify(1, mBuilder.build());
             Toast.makeText(context, "Debug: "+prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
@@ -131,9 +110,6 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
         }
 
     }
-
-
-
 
 
 }

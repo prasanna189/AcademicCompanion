@@ -1,5 +1,7 @@
 package com.example.adavi.academiccompanion;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 //just testing
 
@@ -284,85 +289,88 @@ public class MainActivity extends AppCompatActivity
 
     public void notifyTodaysClasses()
     {
-//        String time = prefs.getString("notification_time",null);
-//        int hours = 7, minutes=0;
-//
-//
-//        String[] parts = time.split(":");
-//
-//        String part1 = parts[0];
-//        String part2 = parts[1];
-//        if(time != null)
-//        {
-//            hours=Integer.parseInt(part1);
-//            minutes=Integer.parseInt(part2);
-//        }
 
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.HOUR_OF_DAY, hours);
-//        calendar.set(Calendar.MINUTE, minutes);
-//        calendar.set(Calendar.SECOND, 0);
-//        Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
-//        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-//
-//
-//        time = prefs.getString("todays_attendance_notification_time",null);
-//        hours = 19;
-//        minutes=0;
-//        parts = time.split(":");
-//
-//        part1 = parts[0];
-//        part2 = parts[1];
-//        if(time != null)
-//        {
-//            hours=Integer.parseInt(part1);
-//            minutes=Integer.parseInt(part2);
-//        }
-//
+        //alarm manager for today's classes
+
+        String time = prefs.getString("notification_time",null);
+        int hours = 7, minutes=0;
+
+
+        String[] parts = time.split(":");
+
+        String part1 = parts[0];
+        String part2 = parts[1];
+        if(time != null)
+        {
+            hours=Integer.parseInt(part1);
+            minutes=Integer.parseInt(part2);
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        //alarm manager for today's attendance
+
+        time = prefs.getString("todays_attendance_notification_time",null);
+        hours = 19;
+        minutes=0;
+        parts = time.split(":");
+
+        part1 = parts[0];
+        part2 = parts[1];
+        if(time != null)
+        {
+            hours=Integer.parseInt(part1);
+            minutes=Integer.parseInt(part2);
+        }
+
 //        Toast.makeText(this,prefs.getString("todays_attendance_notification_time",null), Toast.LENGTH_SHORT ).show();
-//
-//        Calendar calendar1 = Calendar.getInstance();
-//        calendar1.set(Calendar.HOUR_OF_DAY, hours);
-//        calendar1.set(Calendar.MINUTE, minutes);
-//        calendar1.set(Calendar.SECOND, 0);
-//        Intent intent2 = new Intent(MainActivity.this, NotificationAttendance.class);
-//        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1,intent2, PendingIntent.FLAG_UPDATE_CURRENT);
-//        AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
-//        am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(Calendar.HOUR_OF_DAY, hours);
+        calendar1.set(Calendar.MINUTE, minutes);
+        calendar1.set(Calendar.SECOND, 0);
+        Intent intent2 = new Intent(MainActivity.this, NotifyTodayAttendanceActivity.class);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1,intent2, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
 
     }
 
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//
-//            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    switch (which) {
-//                        case DialogInterface.BUTTON_POSITIVE:
-//                            finishAffinity();
-////                            System.exit(0);
-//                            break;
-//
-//                        case DialogInterface.BUTTON_NEGATIVE:
-//                            break;
-//                    }
-//                }
-//            };
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
-//                    .setNegativeButton("CANCEL", dialogClickListener).show();
-//
-//            return true;
-//        }
-//
-//        return super.onKeyDown(keyCode, event);
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            finishAffinity();
+                            System.exit(0);
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
+                    .setNegativeButton("CANCEL", dialogClickListener).show();
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
