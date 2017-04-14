@@ -243,9 +243,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("remainderDate",remainderDate);
         long result = db.insert("event",null ,contentValues);
         if(result == -1)
-            return event_id;
-        else
             return -1;
+        else
+            return event_id;
     }
 
 
