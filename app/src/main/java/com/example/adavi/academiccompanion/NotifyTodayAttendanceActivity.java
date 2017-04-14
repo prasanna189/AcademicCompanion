@@ -68,7 +68,7 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
                             .setContentTitle("Today's Attendance")
-                            .setContentText("Click to enter!").setPriority(2);
+                            .setContentText("Click to enter!").setPriority(2).setAutoCancel(true);
 
 
             String ringtonePreference = prefs.getString("todays_attendance_ringtone", "DEFAULT_NOTIFICATION_URI");

@@ -64,7 +64,7 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
                             .setContentTitle("Today's Classes")
-                            .setContentText("Click to expand!").setPriority(2);
+                            .setContentText("Click to expand!").setPriority(2).setAutoCancel(true);
 
 
             String ringtonePreference = prefs.getString("notifications_new_message_ringtone", "DEFAULT_NOTIFICATION_URI");

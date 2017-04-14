@@ -149,13 +149,13 @@ public class ScheduleActivity extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) // TODAY
             {
-                Toast.makeText(getContext(), "TODAY", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "TODAY", Toast.LENGTH_SHORT).show();
                 calendarView.setVisibility(View.GONE);
                 displayEventHelper(ll);
             }
             else // this MONTH
             {
-                Toast.makeText(getContext(), "THIS MONTH", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "THIS MONTH", Toast.LENGTH_SHORT).show();
 
                 calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     @Override

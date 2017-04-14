@@ -27,8 +27,6 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.util.Date;
 
-import static android.R.attr.id;
-
 public class AddEventActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
 //    TextView eventType;
@@ -419,39 +417,39 @@ public class AddEventActivity extends AppCompatActivity {
                                 subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
-//                        if(!remDate.equals("") && !remTime.equals(""))
-//                        {
-//                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-//                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
-//                            Date dt1=format1.parse(remDate);
-//                            Date dt2=format2.parse(remTime);
-//                            Calendar cal = Calendar.getInstance();
-//                            cal.setTime(dt1);
-//                            Calendar calendar = Calendar.getInstance();
-//                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
-//                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-//                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
-////                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
-//                            cal.setTime(dt2);
-//                            calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-//                            calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-//                            calendar.set(Calendar.SECOND, 0);
-////                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
-//                            Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
-//                            intent1.putExtra("Event_Name", event_name);
-//                            intent1.putExtra("id",""+id+"");
-//                            intent1.putExtra("Event_Date",event_date);
-//                            intent1.putExtra("Event_Type",event_type);
-//                            intent1.putExtra("Subject",activity_sub_name);
-//                            intent1.putExtra("Start_Time", event_stime);
-//                            intent1.putExtra("End_Time", event_etime);
-//                            intent1.putExtra("Remainder_Time", remTime);
-//                            intent1.putExtra("Remainder_date", remDate);
-//                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
-//                            AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
-//                            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-////
-//                        }
+                        if(!remDate.equals("") && !remTime.equals(""))
+                        {
+                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
+                            Date dt1=format1.parse(remDate);
+                            Date dt2=format2.parse(remTime);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(dt1);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
+                            cal.setTime(dt2);
+                            calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+                            calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+                            calendar.set(Calendar.SECOND, 0);
+//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
+                            Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
+                            intent1.putExtra("Event_Name", event_name);
+                            intent1.putExtra("id",""+id+"");
+                            intent1.putExtra("Event_Date",event_date);
+                            intent1.putExtra("Event_Type",event_type);
+                            intent1.putExtra("Subject",activity_sub_name);
+                            intent1.putExtra("Start_Time", event_stime);
+                            intent1.putExtra("End_Time", event_etime);
+                            intent1.putExtra("Remainder_Time", remTime);
+                            intent1.putExtra("Remainder_date", remDate);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
+                            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//
+                        }
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
                         if(event_type.equals("Extra Class"))
@@ -478,52 +476,87 @@ public class AddEventActivity extends AppCompatActivity {
                                 eventRemainderDate.getText().toString());
 
                         if (isUpdated) {
-                            Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(AddEventActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
                             intent.putExtra("button_event_id", s);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
                         }
+
+                        if(!remDate.equals("") && !remTime.equals(""))
+                        {
+                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
+                            Date dt1=format1.parse(remDate);
+                            Date dt2=format2.parse(remTime);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(dt1);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
+                            cal.setTime(dt2);
+                            calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+                            calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+                            calendar.set(Calendar.SECOND, 0);
+            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
+                            Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
+                            intent1.putExtra("Event_Name", event_name);
+                            intent1.putExtra("id",""+s+"");
+                            intent1.putExtra("Event_Date",event_date);
+                            intent1.putExtra("Event_Type",event_type);
+                            intent1.putExtra("Subject",activity_sub_name);
+                            intent1.putExtra("Start_Time", event_stime);
+                            intent1.putExtra("End_Time", event_etime);
+                            intent1.putExtra("Remainder_Time", remTime);
+                            intent1.putExtra("Remainder_date", remDate);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
+                            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            //
+                        }
+
                     }
                 }
             }
 
             //paste here
 
-            if(!remDate.equals("") && !remTime.equals(""))
-            {
-                SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
-                Date dt1=format1.parse(remDate);
-                Date dt2=format2.parse(remTime);
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(dt1);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
-                calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-                calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
-//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
-                cal.setTime(dt2);
-                calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-                calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-                calendar.set(Calendar.SECOND, 0);
-//                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
-                Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
-                intent1.putExtra("Event_Name", event_name);
-                intent1.putExtra("id",""+id+"");
-                intent1.putExtra("Event_Date",event_date);
-                intent1.putExtra("Event_Type",event_type);
-                intent1.putExtra("Subject",activity_sub_name);
-                intent1.putExtra("Start_Time", event_stime);
-                intent1.putExtra("End_Time", event_etime);
-                intent1.putExtra("Remainder_Time", remTime);
-                intent1.putExtra("Remainder_date", remDate);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
-                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-//
-            }
+//            if(!remDate.equals("") && !remTime.equals(""))
+//            {
+//                SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+//                SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
+//                Date dt1=format1.parse(remDate);
+//                Date dt2=format2.parse(remTime);
+//                Calendar cal = Calendar.getInstance();
+//                cal.setTime(dt1);
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
+//                calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
+//                calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+////                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
+//                cal.setTime(dt2);
+//                calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+//                calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+//                calendar.set(Calendar.SECOND, 0);
+////                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
+//                Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
+//                intent1.putExtra("Event_Name", event_name);
+//                intent1.putExtra("id",""+id+"");
+//                intent1.putExtra("Event_Date",event_date);
+//                intent1.putExtra("Event_Type",event_type);
+//                intent1.putExtra("Subject",activity_sub_name);
+//                intent1.putExtra("Start_Time", event_stime);
+//                intent1.putExtra("End_Time", event_etime);
+//                intent1.putExtra("Remainder_Time", remTime);
+//                intent1.putExtra("Remainder_date", remDate);
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+//                AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
+//                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+////
+//            }
         }
 
 

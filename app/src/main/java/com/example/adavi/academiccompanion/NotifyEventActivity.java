@@ -55,7 +55,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
                             .setContentTitle(intent.getStringExtra("Event_Type"))
-                            .setContentText("Click for Event Details").setPriority(2);
+                            .setContentText("Click for Event Details").setPriority(2).setAutoCancel(true);
 
 
             String ringtonePreference = prefs.getString("events_notification_ringtone", "DEFAULT_NOTIFICATION_URI");

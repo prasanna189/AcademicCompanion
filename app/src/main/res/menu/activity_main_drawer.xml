@@ -18,7 +18,7 @@
         <item
             android:id="@+id/navbar_notifications"
             android:icon="@drawable/notifications_icon"
-            android:title="Notifications" />
+            android:title="Today's Attendance" />
         <item
             android:id="@+id/navbar_settings"
             android:icon="@drawable/settings_icon"
