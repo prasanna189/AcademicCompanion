@@ -86,46 +86,61 @@ public class NotificationAttendance extends AppCompatActivity {
         {
             if(res.getString(3).equals(currenDay) && res.getInt(1)==myDB.getcurrentsem())
             {
-                boolean i= myDB.insertDataAttendance(res.getInt(1),res.getInt(2),currenDate,"",-1);
-                String sname=myDB.getSubjectName(res.getInt(2));
+                Cursor k=myDB.getAllData("attendance");
+                int flag=0;
+                while(k.moveToNext()&&flag==0)
+                {
+                    if(res.getInt(2)==k.getInt(2) && k.getString(3).equals(currenDate) && !(k.getString(4).equals("Not Approved")))
+                    {
+                        flag=1;
+                    }
+                }
+                if(flag==0)
+                {
+                    boolean i= myDB.insertDataAttendance(res.getInt(1),res.getInt(2),currenDate,"Not Approved",-1);
+                    String sname=myDB.getSubjectName(res.getInt(2));
 
-                int id=myDB.getAttendanceId(myDB.getcurrentsem(),res.getInt(2),currenDate);
+                    int id=myDB.getAttendanceId(myDB.getcurrentsem(),res.getInt(2),currenDate);
 
-                TextView tv=new TextView(this);
-                tv.setText(sname);
-                rg[p] = new RadioGroup(this);
-                rg[p].setOrientation(RadioGroup.VERTICAL);
-                rb[q] = new RadioButton(this);
-                rb[q].setText("Present");
+                    TextView tv=new TextView(this);
+                    tv.setText(sname);
+                    rg[p] = new RadioGroup(this);
+                    rg[p].setOrientation(RadioGroup.VERTICAL);
+                    rb[q] = new RadioButton(this);
+                    rb[q].setText("Present");
 
-                rb[q].setId(Integer.parseInt("1"));
-                rg[p].addView(rb[q]);
-                q++;
-                rb[q] = new RadioButton(this);
-                rb[q].setText("Absent");
-                rb[q].setId(Integer.parseInt("2"));
-                rg[p].addView(rb[q]);
+                    rb[q].setId(Integer.parseInt("1"));
+                    rg[p].addView(rb[q]);
+                    q++;
+                    rb[q] = new RadioButton(this);
+                    rb[q].setText("Absent");
+                    rb[q].setId(Integer.parseInt("2"));
+                    rg[p].addView(rb[q]);
 
-                q++;
-                rb[q] = new RadioButton(this);
-                rb[q].setText("Class Not Conducted");
-                rb[q].setId(Integer.parseInt("3"));
-                rg[p].addView(rb[q]);
+                    q++;
+                    rb[q] = new RadioButton(this);
+                    rb[q].setText("Class Not Conducted");
+                    rb[q].setId(Integer.parseInt("3"));
+                    rg[p].addView(rb[q]);
 
-                q++;
-                rb[q] = new RadioButton(this);
-                rb[q].setText("Not Approved");
-                rb[q].setId(Integer.parseInt("4"));
-                rg[p].addView(rb[q]);
+                    q++;
+                    rb[q] = new RadioButton(this);
+                    rb[q].setText("Not Approved");
+                    rb[q].setId(Integer.parseInt("4"));
+                    rb[q].setChecked(true);
+                    rg[p].addView(rb[q]);
 
-                q++;
-                rb[q]=new RadioButton(this);
-                rb[q].setId(id);
-                q++;
+                    q++;
+                    rb[q]=new RadioButton(this);
+                    rb[q].setId(id);
+                    q++;
 
-                cll.addView(tv);
-                cll.addView(rg[p]);
-                p++;
+                    cll.addView(tv);
+                    cll.addView(rg[p]);
+                    p++;
+
+                }
+
 
             }
         }
