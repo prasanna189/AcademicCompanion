@@ -10,7 +10,7 @@
     android:background="#FFFFFF">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
@@ -64,6 +64,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+
                 android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:clickable="true"
@@ -76,7 +77,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/events_blue_green"
+                    android:src="@drawable/events_orange"
                     />
 
                 <TextView
@@ -86,6 +87,7 @@
                     android:layout_below="@id/home_events_iv"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical"
+
                     android:text="Events"
                     android:textColor="#000000"
                     android:textSize="18sp"
@@ -118,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/time_sandal"
+                    android:src="@drawable/time_orange"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
@@ -159,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
+
                     android:text="Exam Stats"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/home_examstats_iv"
