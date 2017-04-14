@@ -7,7 +7,7 @@
     tools:context="com.example.adavi.academiccompanion.TimeTableActivity">
 
 
-    <LinearLayout
+    <ScrollView
         android:id="@+id/display_timetable_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -141,6 +141,6 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
