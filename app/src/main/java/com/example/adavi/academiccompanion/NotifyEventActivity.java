@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +26,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,intent.getStringExtra("Event_Type")+ intent.getStringExtra("Event_Date")+intent.getStringExtra("Event_Name")+intent.getStringExtra("Start_Time"), Toast.LENGTH_SHORT).show();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String Id = intent.getStringExtra("id");
@@ -35,9 +35,9 @@ public class NotifyEventActivity extends BroadcastReceiver {
         {
             id = Integer.parseInt(Id);
         }
-
-
-        String rdate = intent.getStringExtra("Remainder_Date");
+//
+//
+        String rdate = intent.getStringExtra("Remainder_date");
         String rtime = intent.getStringExtra("Remainder_Time");
 
         Calendar c = Calendar.getInstance();
@@ -46,9 +46,10 @@ public class NotifyEventActivity extends BroadcastReceiver {
         String cdate = df.format(c.getTime());
         String ctime = tf.format(c.getTime());
 
+        Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
 
-
-        if(prefs.getBoolean("events_notification",false)  && rdate.equals(cdate) && rtime.equals(ctime))
+//
+        if(prefs.getBoolean("events_notification",false) && rdate.equals(cdate) && rtime.equals(ctime) )//
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -85,7 +86,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
             mBuilder.setStyle(inboxStyle);
 
 // Creates an explicit intent for an Activity in your app
-            Intent resultIntent = new Intent(context, TimeTableActivity.class);
+            Intent resultIntent = new Intent(context, DisplayEventDetailsActivity.class);
             resultIntent.putExtra("button_event_id",intent.getStringExtra("id"));
 
 // The stack builder object will contain an artificial back stack for the
@@ -94,7 +95,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
 // your application to the Home screen.
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 // Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(TimeTableActivity.class);
+            stackBuilder.addParentStack(DisplayEventDetailsActivity.class);
 // Adds the Intent that starts the Activity to the top of the stack
             stackBuilder.addNextIntent(resultIntent);
             PendingIntent resultPendingIntent =
@@ -109,7 +110,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
 // mId allows you to update the notification later on.
             mNotificationManager.notify(id, mBuilder.build());
             Toast.makeText(context, "Event Debug", Toast.LENGTH_SHORT).show();
-
+//
         }
         else
         {
