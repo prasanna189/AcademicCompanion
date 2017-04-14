@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static android.R.attr.id;
+
 
 /**
  * Created by pk on 4/6/2017.
@@ -630,6 +632,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+    public boolean deleteDataAttendanceonsubdelete (int semid,int subid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result= db.delete("attendance", "sem_id = "+semid+" and subject_id ="+subid,null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
 
     public boolean deleteDataTimetable (int tid) {
         SQLiteDatabase db = this.getWritableDatabase();
