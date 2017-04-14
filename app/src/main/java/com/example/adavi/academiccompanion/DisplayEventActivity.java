@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -40,6 +42,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     String formattedDate;
     String formattedTime;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +87,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
                 TextView txt=(TextView)vg.findViewById(R.id.txtitem);
                 activity_type=txt.getText().toString();
-                Toast.makeText(DisplayEventActivity.this,txt.getText().toString(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(DisplayEventActivity.this,txt.getText().toString(),Toast.LENGTH_LONG).show();
                 dialog.dismiss();
 //                dialog.cancel();
                 openAddEvent();
@@ -113,7 +116,7 @@ public class DisplayEventActivity extends AppCompatActivity {
             }
             else if(res1.getString(2).compareTo(formattedDate)==0)
             {
-                if(res1.getString(3)!=null && res1.getString(3).compareTo(formattedTime)>=0)
+                if((res1.getString(3)!=null && res1.getString(3).compareTo(formattedTime)>=0) || res1.getString(3).equals(""))
                 {
                     displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1);
                 }
@@ -152,7 +155,7 @@ public class DisplayEventActivity extends AppCompatActivity {
             }
             else if(res.getString(2).compareTo(formattedDate)==0)
             {
-                if(res.getString(3)!=null && res.getString(3).compareTo(formattedTime)<0)
+                if(res.getString(3)!=null && res.getString(3).compareTo(formattedTime)<0 && !res.getString(3).equals(""))
                 {
                     displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
                 }
