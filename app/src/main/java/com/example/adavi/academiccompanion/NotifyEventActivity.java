@@ -49,7 +49,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
         Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
 
 //
-        if(prefs.getBoolean("events_notification",false) && rdate.equals(cdate) && rtime.equals(ctime) )//
+        if(prefs.getBoolean("events_notification",false) && rdate.equals(cdate) && rtime.equals(ctime) )
         {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -81,7 +81,6 @@ public class NotifyEventActivity extends BroadcastReceiver {
             inboxStyle.addLine(intent.getStringExtra("Event_Date"));
             inboxStyle.addLine("Time : "+intent.getStringExtra("Start_Time")+" - "+intent.getStringExtra("End_Time"));
             inboxStyle.addLine(intent.getStringExtra("Description"));
-
 
             mBuilder.setStyle(inboxStyle);
 

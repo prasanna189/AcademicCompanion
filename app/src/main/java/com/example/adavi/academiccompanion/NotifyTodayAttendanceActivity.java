@@ -35,11 +35,14 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
 
 
         int hours = 7, minutes=0;
-        String[] parts = time.split(":");
-        String part1 = parts[0];
-        String part2 = parts[1];
+        String[] parts;
+        String part1="", part2="";
+        String t="";
         if(time != null)
         {
+            parts = time.split(":");
+            part1 = parts[0];
+            part2 = parts[1];
             hours=Integer.parseInt(part1);
             minutes=Integer.parseInt(part2);
             if(hours<10)
@@ -51,9 +54,10 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
             {
                 part2 = "0"+String.valueOf(minutes);
             }
+
         }
-        String t;
         t = part1+":"+part2;
+
 
 //        Toast.makeText(context, t+"="+t1, Toast.LENGTH_SHORT).show();
 
