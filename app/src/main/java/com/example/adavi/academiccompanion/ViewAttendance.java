@@ -39,6 +39,7 @@ public class ViewAttendance extends AppCompatActivity {
     DatabaseHelper myDB;
     String s;
     boolean j;
+    int coun=0;
 
     int len;
     Spinner AttendanceList;
@@ -91,40 +92,15 @@ public class ViewAttendance extends AppCompatActivity {
 
         });
 
-       // Toast.makeText(ViewAttendance.this,filter, Toast.LENGTH_SHORT).show();
-//            LinearLayout ll=(LinearLayout)findViewById(R.id.att);
-//
-//            Button submit =new Button(this);
-//            submit.setText("SAVE");
-//            ll.addView(submit);
-//            submit.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v)
-//                {
-//
-//                    Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
-//                    intent.putExtra("subj_id",s);
-//
-//                    startActivity(intent);
-//
-//                }
-//            });
-
-
-
-       // displayfilter(filter);
 
     }
 
-    public void display(String filter)
-    {
-        String startdate="";
-        Cursor res=myDB.getAllData("semester");
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)==myDB.getcurrentsem())
-            {
-                 startdate=res.getString(1);
+    public void display(String filter) {
+        String startdate = "";
+        Cursor res = myDB.getAllData("semester");
+        while (res.moveToNext()) {
+            if (res.getInt(0) == myDB.getcurrentsem()) {
+                startdate = res.getString(1);
             }
         }
 
@@ -136,39 +112,31 @@ public class ViewAttendance extends AppCompatActivity {
         String formattedDate = df.format(c.getTime());
 
 
+        // java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(ViewAttendance.this);
 
-       // java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(ViewAttendance.this);
 
-
-        LinearLayout ll=(LinearLayout)findViewById(R.id.att);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.att);
         ll.removeAllViews();
-        String sdate=null;
+        String sdate = null;
         Cursor cur = myDB.getAllData("attendance");
-        while(cur.moveToNext())
-        {
-            if(cur.getString(2).equals(s))
-            {
-                sdate=cur.getString(3);
+        while (cur.moveToNext()) {
+            if (cur.getString(2).equals(s)) {
+                sdate = cur.getString(3);
             }
         }
-        if(sdate!=null)
-        {
+        if (sdate != null) {
             List<Date> dates = getDates(sdate, formattedDate);
-            int count=0;
-            for(Date date:dates)
-            {
-                count=count+1;
-                if(count!=1)
-                {
-                    String day=dayformat.format(date);
-                    Cursor tt=myDB.getAllData("timetable");
+            int count = 0;
+            for (Date date : dates) {
+                count = count + 1;
+                if (count != 1) {
+                    String day = dayformat.format(date);
+                    Cursor tt = myDB.getAllData("timetable");
 
-                    while(tt.moveToNext())
-                    {
+                    while (tt.moveToNext()) {
 
-                        if(myDB.getcurrentsem()==tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day))
-                        {
-                            boolean i= myDB.insertDataAttendance(tt.getInt(1),tt.getInt(2),df.format(date),"",-1);
+                        if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
+                            boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "", -1);
                         }
                     }
 
@@ -178,49 +146,42 @@ public class ViewAttendance extends AppCompatActivity {
             }
 
 
-        }
-        else
-        {
-            Toast.makeText(ViewAttendance.this,startdate, Toast.LENGTH_SHORT).show();
-           List<Date> dates = getDates(startdate, formattedDate);
+        } else {
+            Toast.makeText(ViewAttendance.this, startdate, Toast.LENGTH_SHORT).show();
+            List<Date> dates = getDates(startdate, formattedDate);
 
-            for(Date date:dates)
-            {
-                    String day=dayformat.format(date);
-                    Cursor tt=myDB.getAllData("timetable");
+            for (Date date : dates) {
+                String day = dayformat.format(date);
+                Cursor tt = myDB.getAllData("timetable");
 
-                    while(tt.moveToNext())
-                    {
+                while (tt.moveToNext()) {
 
-                        if(myDB.getcurrentsem()==tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day))
-                        {
-                            boolean i= myDB.insertDataAttendance(tt.getInt(1),tt.getInt(2),df.format(date),"",-1);
-                        }
+                    if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
+                        boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "", -1);
                     }
+                }
 
             }
 
         }
 
 
-         List<Date> dates = getDates(startdate, formattedDate);
-        int getcount=0;
-        for(Date date:dates)
-        {
-            String day=dayformat.format(date);
-            Cursor tt=myDB.getAllData("timetable");
+        List<Date> dates = getDates(startdate, formattedDate);
+        int getcount = 0;
+        for (Date date : dates) {
+            String day = dayformat.format(date);
+            Cursor tt = myDB.getAllData("timetable");
 
-            while(tt.moveToNext())
-            {
+            while (tt.moveToNext()) {
 
-                if(myDB.getcurrentsem()==tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day))
-                {
+                if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
                     getcount++;
 
                 }
             }
 
         }
+
 
 //        Button submit =new Button(this);
 //                submit.setText("SAVE");
@@ -237,10 +198,30 @@ public class ViewAttendance extends AppCompatActivity {
 //
 //                    }
 //                });
+        if (filter.equals("All")) {
+
 
         rg = new RadioGroup[getcount];
-        rb = new RadioButton[getcount*5];
-        len=getcount*5;
+        rb = new RadioButton[getcount * 5];
+            len=getcount*5;
+    }
+    else
+        {
+            Cursor b = myDB.getAllData("attendance");
+            while(b.moveToNext())
+            {
+                if(b.getString(4).equals(filter))
+                {
+                    coun++;
+                }
+            }
+
+            rg = new RadioGroup[coun];
+            rb = new RadioButton[coun * 5];
+            len=coun*5;
+
+
+        }
 
         int p=0,q=0;
         for(Date date:dates)
@@ -407,7 +388,10 @@ public class ViewAttendance extends AppCompatActivity {
                     int r;
                     String radioText="";
 
-                    for (r = 0; r < len; r++)
+
+
+
+                for (r = 0; r < len; r++)
                     {
                         if (rb[r].isChecked()  && (r+1)%5!=0)
                         {
@@ -419,6 +403,7 @@ public class ViewAttendance extends AppCompatActivity {
                         }
                         else if((r+1)%5==0)
                         {
+
                             int id=rb[r].getId();
 //                            Toast.makeText(ViewAttendance.this,Integer.toString(id), Toast.LENGTH_SHORT).show();
                             String date="";
@@ -434,21 +419,20 @@ public class ViewAttendance extends AppCompatActivity {
 
 
                              j=myDB.updatetDataAttendance(id,myDB.getcurrentsem(),Integer.parseInt(s),date,radioText,-1);
-//                            Toast.makeText(ViewAttendance.this,"a", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
-//                            Toast.makeText(ViewAttendance.this,"b", Toast.LENGTH_SHORT).show();
-//                                intent.putExtra("subj_id",s);
-//                            Toast.makeText(ViewAttendance.this,"c", Toast.LENGTH_SHORT).show();
-//                                startActivity(intent);
-//
+                            //Toast.makeText(ViewAttendance.this,"b", Toast.LENGTH_SHORT).show();
+
+
                         }
                     }
                             if(j)
                             {
+
                                 Toast.makeText(ViewAttendance.this,"Update Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ViewAttendance.this, DisplayAttendance.class);
                                 intent.putExtra("subj_id",s);
                                 startActivity(intent);
+
+
                             }
                             else
                             {
@@ -456,11 +440,6 @@ public class ViewAttendance extends AppCompatActivity {
                             }
             }
         });
-
-
-
-
-
 
     }
     private static List<Date> getDates(String dateString1, String dateString2)
