@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+//import android.net.ParseException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.util.Date;
 
 
 public class NotificationAttendance extends AppCompatActivity {
@@ -39,16 +43,28 @@ public class NotificationAttendance extends AppCompatActivity {
         Button btn=new Button(this);
 
         LinearLayout cll=new LinearLayout(this);
-        cll.setOrientation(LinearLayout.HORIZONTAL);
+        cll.setOrientation(LinearLayout.VERTICAL);
 
-        Calendar c= Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dayformat = new SimpleDateFormat("EEEE");
 
         String currenDate = df.format(c.getTime());
-        String currenDay=dayformat.format(currenDate);
+        String d;
+        Date x=null;
+        try {
+            x=df.parse(currenDate);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+
+        String currenDay=dayformat.format(x);
+
+        Toast.makeText(NotificationAttendance.this,currenDate, Toast.LENGTH_SHORT).show();
+        Toast.makeText(NotificationAttendance.this,currenDay, Toast.LENGTH_SHORT).show();
         Cursor res=myDB.getAllData("timetable");
         int count=0;
         while(res.moveToNext())
@@ -58,7 +74,7 @@ public class NotificationAttendance extends AppCompatActivity {
                 count++;
             }
         }
-
+        Toast.makeText(NotificationAttendance.this,Integer.toString(count), Toast.LENGTH_SHORT).show();
         rg = new RadioGroup[count];
         rb = new RadioButton[count*5];
         len=count*5;
@@ -107,13 +123,13 @@ public class NotificationAttendance extends AppCompatActivity {
                 rb[q].setId(id);
                 q++;
 
-
-                pll.addView(rg[p]);
+                cll.addView(tv);
+                cll.addView(rg[p]);
                 p++;
 
             }
         }
-
+        pll.addView(cll);
         btn.setText("Submit");
         pll.addView(btn);
 
@@ -156,26 +172,20 @@ public class NotificationAttendance extends AppCompatActivity {
                 }
                 if(j)
                 {
-                    Toast.makeText(NotificationAttendance.this,"Update Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificationAttendance.this,"Task Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NotificationAttendance.this, MainActivity.class);
-
-                    finish();
-                    //dates.clear();
-
-                    //Toast.makeText(ViewAttendance.this,"Updated Successful", Toast.LENGTH_SHORT).show();
+                    //finish();
                     startActivity(intent);
 
 
                 }
                 else
                 {
-                    Toast.makeText(NotificationAttendance.this,"Updation Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificationAttendance.this,"Task UnSuccessful", Toast.LENGTH_SHORT).show();
                 }
 
 
             }
         });
-
-
     }
 }
