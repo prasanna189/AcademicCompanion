@@ -296,12 +296,11 @@ public class MainActivity extends AppCompatActivity
         int hours = 7, minutes=0;
 
 
-        String[] parts = time.split(":");
-
-        String part1 = parts[0];
-        String part2 = parts[1];
         if(time != null)
         {
+            String[] parts = time.split(":");
+            String part1 = parts[0];
+            String part2 = parts[1];
             hours=Integer.parseInt(part1);
             minutes=Integer.parseInt(part2);
         }
@@ -340,13 +339,13 @@ public class MainActivity extends AppCompatActivity
 
         time = prefs.getString("todays_attendance_notification_time",null);
         hours = 19;
-        minutes=0;
-        parts = time.split(":");
+        minutes=9;
 
-        part1 = parts[0];
-        part2 = parts[1];
         if(time != null)
         {
+            String[] parts = time.split(":");
+            String part1 = parts[0];
+            String part2 = parts[1];
             hours=Integer.parseInt(part1);
             minutes=Integer.parseInt(part2);
         }
