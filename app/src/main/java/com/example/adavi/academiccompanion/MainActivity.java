@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -284,6 +285,9 @@ public class MainActivity extends AppCompatActivity
 
     public void notifyTodaysClasses()
     {
+
+//        //alarm manager for today's classes
+//
 //        String time = prefs.getString("notification_time",null);
 //        int hours = 7, minutes=0;
 //
@@ -297,16 +301,17 @@ public class MainActivity extends AppCompatActivity
 //            hours=Integer.parseInt(part1);
 //            minutes=Integer.parseInt(part2);
 //        }
-
+//
 //        Calendar calendar = Calendar.getInstance();
 //        calendar.set(Calendar.HOUR_OF_DAY, hours);
 //        calendar.set(Calendar.MINUTE, minutes);
 //        calendar.set(Calendar.SECOND, 0);
 //        Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
 //        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
 //        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 //
+//        //alarm manager for today's attendance
 //
 //        time = prefs.getString("todays_attendance_notification_time",null);
 //        hours = 19;
@@ -321,48 +326,60 @@ public class MainActivity extends AppCompatActivity
 //            minutes=Integer.parseInt(part2);
 //        }
 //
-//        Toast.makeText(this,prefs.getString("todays_attendance_notification_time",null), Toast.LENGTH_SHORT ).show();
+////        Toast.makeText(this,prefs.getString("todays_attendance_notification_time",null), Toast.LENGTH_SHORT ).show();
 //
 //        Calendar calendar1 = Calendar.getInstance();
 //        calendar1.set(Calendar.HOUR_OF_DAY, hours);
 //        calendar1.set(Calendar.MINUTE, minutes);
 //        calendar1.set(Calendar.SECOND, 0);
-//        Intent intent2 = new Intent(MainActivity.this, NotificationAttendance.class);
-//        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1,intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+//        Intent intent2 = new Intent(MainActivity.this, NotifyTodayAttendanceActivity.class);
+//        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1,intent2, PendingIntent.FLAG_ONE_SHOT);
 //        AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
 //        am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
 
     }
 
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if (keyCode == KeyEvent.KEYCODE_BACK) {
-//
-//            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    switch (which) {
-//                        case DialogInterface.BUTTON_POSITIVE:
-//                            finishAffinity();
-////                            System.exit(0);
-//                            break;
-//
-//                        case DialogInterface.BUTTON_NEGATIVE:
-//                            break;
-//                    }
-//                }
-//            };
-//
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
-//                    .setNegativeButton("CANCEL", dialogClickListener).show();
-//
-//            return true;
-//        }
-//
-//        return super.onKeyDown(keyCode, event);
-//    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
 
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            finishAffinity();
+                            System.exit(0);
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+
+                        case DialogInterface.BUTTON_NEUTRAL:
+
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            String[] strTo = {"academic.companion.adavi@gmail.com" };
+                            intent.putExtra(Intent.EXTRA_EMAIL, strTo);
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Academic Companion App");
+                            intent.putExtra(Intent.EXTRA_TEXT, "");
+                            intent.setType("message/rfc822");
+                            intent.setPackage("com.google.android.gm");
+                            startActivity(intent);
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
+                    .setNegativeButton("CANCEL", dialogClickListener).setNeutralButton("SEND FEEDBACK", dialogClickListener).show();
+
+            Toast.makeText(MainActivity.this,"We would love to get your feedback!",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
