@@ -9,12 +9,17 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DisplayAttendance extends AppCompatActivity {
     DatabaseHelper myDB;
     String s;
-   // int flag=0;
+    int total=0;
+    int absent=0;
+    int present=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +28,7 @@ public class DisplayAttendance extends AppCompatActivity {
        // Cursor c = myDB.getAllData("attendance");
         s=getIntent().getStringExtra("subj_id");
 
-        //DisplayViewAttendance();
+        DisplayViewAttendance();
 
     }
     public void ViewAttendance(View view)
@@ -32,6 +37,41 @@ public class DisplayAttendance extends AppCompatActivity {
         intent.putExtra("subj_id",s);
         startActivity(intent);
     }
+
+    public void DisplayViewAttendance()
+    {
+        LinearLayout ll=(LinearLayout)findViewById(R.id.attendance);
+        Cursor res=myDB.getAllData("attendance");
+        while(res.moveToNext())
+        {
+            if(res.getInt(1)==myDB.getcurrentsem() && res.getString(2).equals(s))
+            {
+                if(res.getString(4).equals("Present"))
+                {
+                    present++;
+                }
+                else if(res.getString(4).equals("Absent"))
+                {
+                    absent++;
+                }
+            }
+        }
+        total=present+absent;
+
+        TextView p=new TextView(this);
+        TextView t=new TextView(this);
+
+        p.setText(Integer.toString(present));
+        p.setTextSize(20);
+
+        t.setText("/"+total);
+        t.setTextSize(20);
+
+        ll.addView(p);
+        ll.addView(t);
+
+    }
+
     @Override
     public void onBackPressed() {
 

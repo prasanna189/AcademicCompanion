@@ -234,6 +234,7 @@ int i;
             public void onClick(View v)
             {
 
+
                 Button pressed;
                 pressed=((Button)v);
                 i=pressed.getId();
@@ -247,6 +248,7 @@ int i;
         });
 
         attendance.setId(Integer.parseInt(s));
+
         attendance.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -255,12 +257,31 @@ int i;
 
                 Button pressed;
                 pressed=((Button)v);
+                int flag1=0;
                 i=pressed.getId();
+                Cursor c = myDB.getAllData("subject_details");
+                while(c.moveToNext() && flag1==0)
+                {
+                    if(c.getString(1).equals(Integer.toString(i)) && (c.getString(7).equals("0")))
+                    {
+                        flag1=1;
+                    }
 
-                Intent intent = new Intent(DisplaySubjectDetails.this, DisplayAttendance.class);
-                String subjectid=Integer.toString(i);
-                intent.putExtra("subj_id",subjectid);
-                startActivity(intent);
+                }
+                if(flag1==1)
+                {
+
+                    Intent intent = new Intent(DisplaySubjectDetails.this, DisplayAttendance.class);
+                    String subjectid=Integer.toString(i);
+                    intent.putExtra("subj_id",subjectid);
+                    startActivity(intent);
+
+                }
+                else
+                {
+                    Toast.makeText(DisplaySubjectDetails.this, "Grade is Finalised, Cannot Show attendance", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -434,12 +455,14 @@ int i;
                         boolean subnamedelete = myDB.deleteDataSubject(s);
                         boolean subdetailsdelete=false;
                         boolean submarksdelete=false;
+                        boolean subattdelete=false;
                         while(res.moveToNext())
                         {
                             if(res.getString(1).equals(s))
                             {
                                 subdetailsdelete= myDB.deleteDataSubjectDetails(Integer.parseInt(s),res.getInt(0));
                                 submarksdelete=myDB.deleteMarksOnSubDelete(Integer.parseInt(s),myDB.getcurrentsem());
+                                subattdelete=myDB.deleteDataAttendanceonsubdelete(myDB.getcurrentsem(),Integer.parseInt(s));
                             }
                         }
 
