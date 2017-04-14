@@ -216,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime, String eventType, String remainderDate) {
+    public int insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime, String eventType, String remainderDate) {
         SQLiteDatabase db = this.getWritableDatabase();
         int event_id=0;
         Cursor res = db.rawQuery("SELECT ifnull(max(event_id),0) FROM event", null);
@@ -243,9 +243,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("remainderDate",remainderDate);
         long result = db.insert("event",null ,contentValues);
         if(result == -1)
-            return false;
+            return event_id;
         else
-            return true;
+            return -1;
     }
 
 
