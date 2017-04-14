@@ -147,29 +147,48 @@ public class AddNewSubjectActivity extends AppCompatActivity {
             }
             else
             {
-                int sem=myDB.getcurrentsem();
-
-                int flag=0;
-                String cre=credits.getText().toString();
-                int c=Integer.parseInt(cre);
-
-                String minat=minattendance.getText().toString();
-                int minatt=Integer.parseInt(minat);
-                if(lab.isChecked())
+                int flag1=0;
+                String sname=editsname.getText().toString();
+                Cursor res=myDB.getAllData("subject_details");
+                while(res.moveToNext() && flag1==0)
                 {
-                    flag=1;
+                    if(myDB.getSubjectName(res.getInt(1)).equals(sname) && res.getInt(0)==myDB.getcurrentsem())
+                    {
+                        flag1=1;
+                    }
                 }
-                int sub_id = myDB.insertDataSubject(editsname.getText().toString());
+                if(flag1==0)
+                {
+                    int sem=myDB.getcurrentsem();
 
-                boolean isInserted = myDB.insertDataSubjectDetails(sem,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
+                    int flag=0;
+                    String cre=credits.getText().toString();
+                    int c=Integer.parseInt(cre);
 
-                if (isInserted == true) {
-                    Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, DisplaySubjectsActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_SHORT).show();
+                    String minat=minattendance.getText().toString();
+                    int minatt=Integer.parseInt(minat);
+                    if(lab.isChecked())
+                    {
+                        flag=1;
+                    }
+                    int sub_id = myDB.insertDataSubject(editsname.getText().toString());
+
+                    boolean isInserted = myDB.insertDataSubjectDetails(sem,sub_id,editpname.getText().toString(),editpemail.getText().toString(),minatt,"Running",c,"0",flag,description.getText().toString());
+
+                    if (isInserted == true) {
+                        Toast.makeText(AddNewSubjectActivity.this, "Subject Saved", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, DisplaySubjectsActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(AddNewSubjectActivity.this, "Subject not Saved", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
+                else
+                {
+                    Toast.makeText(AddNewSubjectActivity.this,"Subject Already Exits", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         }

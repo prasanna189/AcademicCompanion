@@ -8,6 +8,8 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.net.ParseException;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,7 +57,7 @@ public class ViewAttendance extends AppCompatActivity {
 
         AttendanceList=(Spinner) findViewById(R.id.attendance_spinner);
 
-        String [] subject_array={"All","Present","Absent","Class Not Conducted"};
+        String [] subject_array={"All","Present","Absent","Class Not Conducted","Not Approved"};
 
         adapter=new ArrayAdapter<String>(this,
                 R.layout.attendance_filter,R.id.Attendance_list, subject_array);
@@ -66,6 +68,7 @@ public class ViewAttendance extends AppCompatActivity {
         AttendanceList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
 
             public void onItemSelected(AdapterView<?> parent, View view, int
@@ -77,11 +80,12 @@ public class ViewAttendance extends AppCompatActivity {
 
 
                 filter=tv.getText().toString();
-                Toast.makeText(ViewAttendance.this,"Gone", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ViewAttendance.this,"Gone", Toast.LENGTH_SHORT).show();
                 display(filter);
                 Toast.makeText(ViewAttendance.this,filter, Toast.LENGTH_SHORT).show();
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -95,6 +99,7 @@ public class ViewAttendance extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void display(String filter) {
         String startdate = "";
         Cursor res = myDB.getAllData("semester");
@@ -207,6 +212,7 @@ public class ViewAttendance extends AppCompatActivity {
     }
     else
         {
+            coun=0;
             Cursor b = myDB.getAllData("attendance");
             while(b.moveToNext())
             {
@@ -442,6 +448,7 @@ public class ViewAttendance extends AppCompatActivity {
         });
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private static List<Date> getDates(String dateString1, String dateString2)
     {
         ArrayList<Date> dates = new ArrayList<Date>();

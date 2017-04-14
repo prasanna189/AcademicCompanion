@@ -25,7 +25,7 @@ public class AddNewSubjectMarks extends AppCompatActivity {
         examtype = (EditText) findViewById(R.id.examtype_edittext);
         maxmarks = (EditText) findViewById(R.id.maxmarks_edittext);
         marks = (EditText) findViewById(R.id.marksobtained_edittext);
-
+        s=getIntent().getStringExtra("subject_id");
         buttonSaveMarks = (Button) findViewById(R.id.save_marks_button);
 
 
@@ -56,6 +56,31 @@ public class AddNewSubjectMarks extends AppCompatActivity {
 
                 }
             }
+        }
+    }
+    public void save(View view)
+    {
+        int flag=0;
+        //String s=getIntent().getStringExtra("subj_id");
+        String sname=examtype.getText().toString();
+       // Toast.makeText(AddNewSubjectMarks.this,s, Toast.LENGTH_SHORT).show();
+
+
+        Cursor res=myDB.getAllData("marks");
+        while(res.moveToNext() && flag==0)
+        {
+            if(res.getString(2).equals(sname) && res.getInt(0)==myDB.getcurrentsem() && res.getString(1).equals(s))
+            {
+                flag=1;
+            }
+        }
+        if(flag==0)
+        {
+            SaveMarks(view);
+        }
+        else
+        {
+            Toast.makeText(AddNewSubjectMarks.this,"Exam Already Exits", Toast.LENGTH_SHORT).show();
         }
     }
 

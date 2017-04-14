@@ -120,11 +120,12 @@ public class DisplayExamDetails extends AppCompatActivity {
         {
             if(res.getString(1).equals(s) && (res.getString(7).equals("0")))
             {
+                flag=1;
                 Intent intent = new Intent(this, AddNewSubjectMarks.class);
                 intent.putExtra("subj_id",s);
                 intent.putExtra("exam_type",examtype);
                 startActivity(intent);
-                flag=1;
+
             }
 
         }
