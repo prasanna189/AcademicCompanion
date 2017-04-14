@@ -286,8 +286,8 @@ public class MainActivity extends AppCompatActivity
     public void notifyTodaysClasses()
     {
 
-        //alarm manager for today's classes
-
+//        //alarm manager for today's classes
+//
 //        String time = prefs.getString("notification_time",null);
 //        int hours = 7, minutes=0;
 //
@@ -355,13 +355,25 @@ public class MainActivity extends AppCompatActivity
 
                         case DialogInterface.BUTTON_NEGATIVE:
                             break;
+
+                        case DialogInterface.BUTTON_NEUTRAL:
+
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.putExtra(Intent.EXTRA_EMAIL, "spkforwork@gmail.com");
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Academic Companion App");
+                            intent.putExtra(Intent.EXTRA_TEXT, "");
+                            intent.setType("message/rfc822");
+                            intent.setPackage("com.google.android.gm");
+                            startActivity(intent);
                     }
                 }
             };
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
-                    .setNegativeButton("CANCEL", dialogClickListener).show();
+                    .setNegativeButton("CANCEL", dialogClickListener).setNeutralButton("SEND FEEDBACK", dialogClickListener).show();
+
+            Toast.makeText(MainActivity.this,"We would love to get your feedback!",Toast.LENGTH_SHORT).show();
 
             return true;
         }
