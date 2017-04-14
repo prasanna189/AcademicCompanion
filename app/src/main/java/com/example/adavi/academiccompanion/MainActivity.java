@@ -359,7 +359,8 @@ public class MainActivity extends AppCompatActivity
                         case DialogInterface.BUTTON_NEUTRAL:
 
                             Intent intent = new Intent(Intent.ACTION_SEND);
-                            intent.putExtra(Intent.EXTRA_EMAIL, "spkforwork@gmail.com");
+                            String[] strTo = {"academic.companion.adavi@gmail.com" };
+                            intent.putExtra(Intent.EXTRA_EMAIL, strTo);
                             intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Academic Companion App");
                             intent.putExtra(Intent.EXTRA_TEXT, "");
                             intent.setType("message/rfc822");
