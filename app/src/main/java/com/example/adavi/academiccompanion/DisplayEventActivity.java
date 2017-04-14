@@ -172,9 +172,9 @@ public class DisplayEventActivity extends AppCompatActivity {
 
 
         //child layouts
-        Button rowButton = new Button(new ContextThemeWrapper(this, R.style.MyButton), null, 0);
+        Button rowButton = new Button(this);
         TextView tv = new TextView(this);
-        LinearLayout ll = new LinearLayout(this,null,R.style.MyButton);
+        LinearLayout ll = new LinearLayout(this);
 
 
         //layout params for each view
@@ -211,7 +211,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.setId(eventid);
         rowButton.setText(ename);
         rowButton.setTextSize(20);
-//        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
 
         ll.setOnClickListener(new View.OnClickListener() {
 

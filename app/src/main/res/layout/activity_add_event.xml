@@ -266,7 +266,8 @@
                     android:layout_weight="1"
                     android:onClick="saveEvent"
                     android:text="Save"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    style="@style/ButtonTheme"/>
 
             </LinearLayout>
 
