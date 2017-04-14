@@ -141,7 +141,7 @@ public class ViewAttendance extends AppCompatActivity {
                     while (tt.moveToNext()) {
 
                         if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
-                            boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "", -1);
+                            boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "Not Approved", -1);
                         }
                     }
 
@@ -162,7 +162,7 @@ public class ViewAttendance extends AppCompatActivity {
                 while (tt.moveToNext()) {
 
                     if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
-                        boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "", -1);
+                        boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "Not Approved", -1);
                     }
                 }
 
