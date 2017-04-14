@@ -92,14 +92,14 @@ public class NotifyTodayAttendanceActivity extends BroadcastReceiver {
             stackBuilder.addNextIntent(resultIntent);
             PendingIntent resultPendingIntent =
                     stackBuilder.getPendingIntent(
-                            1,
+                            1001,
                             PendingIntent.FLAG_ONE_SHOT
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 
             NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-            mNotificationManager.notify(1, mBuilder.build());
+            mNotificationManager.notify(1001, mBuilder.build());
 //            Toast.makeText(context, "Debug: "+prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
 
         }
