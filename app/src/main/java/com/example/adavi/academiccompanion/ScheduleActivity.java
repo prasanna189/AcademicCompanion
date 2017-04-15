@@ -58,7 +58,8 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-
+//        setupActionBar();
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         Calendar c = Calendar.getInstance();
         formattedDate = df.format(c.getTime());
@@ -87,6 +88,25 @@ public class ScheduleActivity extends AppCompatActivity {
 //        });
 
     }
+
+//
+//    private void setupActionBar() {
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            // Show the Up button in the action bar.
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//        }
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == android.R.id.home) {
+//            startActivity(new Intent(this, MainActivity.class));
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
 //    @Override
@@ -196,7 +216,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
             Cursor res = myDB.getTodayEvents();
             if (res.getCount() == 0) {
-                Toast.makeText(getContext(), "No Events Today!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No Events Today!", Toast.LENGTH_LONG).show();
                 return;
             }
 

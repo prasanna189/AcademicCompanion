@@ -21,7 +21,7 @@
         android:layout_height="72dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/main_app_icon_dark"
-        android:paddingTop="16dp"
+        android:layout_marginTop="16dp"
         app:border_color="@color/White"
         app:border_width="2dp" />
 
@@ -31,13 +31,13 @@
         android:layout_height="wrap_content"
         android:text="adavi"
         android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/navbar_useremail_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:text="adavi@gmail.com" />
 
 </LinearLayout>

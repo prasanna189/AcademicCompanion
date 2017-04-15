@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {
-                Toast.makeText(MainActivity.this,"hi",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this,"hi",Toast.LENGTH_SHORT).show();
             }
         });
 //        spinner.setSelection(adapter.getPosition(0));
@@ -313,25 +313,6 @@ public class MainActivity extends AppCompatActivity
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-//        int i=0;
-
-//        for(i=22;i<40;i++)
-//        {
-//            Calendar calendar2 = Calendar.getInstance();
-//            calendar2.set(Calendar.HOUR_OF_DAY, 18);
-//            calendar2.set(Calendar.MINUTE, i);
-//            calendar2.set(Calendar.SECOND, 0);
-//            Intent intent3 = new Intent(MainActivity.this, NotifyEventActivity.class);
-//            intent3.putExtra("id",i);
-//            intent3.putExtra("Event_Name","pk");
-//            intent3.putExtra("Event_Type","Type : "+String.valueOf(i));
-//            intent3.putExtra("Remainder_Time","18:"+String.valueOf(i));
-//            intent3.putExtra("Remainder_Date","2017-04-14");
-//            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, i,intent3, PendingIntent.FLAG_ONE_SHOT);
-//            AlarmManager am3 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
-//            am3.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
-//        }
 
 
 

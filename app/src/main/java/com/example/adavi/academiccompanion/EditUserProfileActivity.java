@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -45,7 +44,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             catch(Exception e)
             {
                 e.printStackTrace();
-                Toast.makeText(EditUserProfileActivity.this,"profile pic not set", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditUserProfileActivity.this,"Profile pic not set", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -82,7 +81,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(EditUserProfileActivity.this, "Update not successful.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(EditUserProfileActivity.this, "Update not successful.", Toast.LENGTH_SHORT).show();
         }
     }
 

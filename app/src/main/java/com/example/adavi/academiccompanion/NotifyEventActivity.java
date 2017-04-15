@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +25,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context,intent.getStringExtra("Event_Type")+ intent.getStringExtra("Event_Date")+intent.getStringExtra("Event_Name")+intent.getStringExtra("Start_Time"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context,intent.getStringExtra("Event_Type")+ intent.getStringExtra("Event_Date")+intent.getStringExtra("Event_Name")+intent.getStringExtra("Start_Time"), Toast.LENGTH_SHORT).show();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String Id = intent.getStringExtra("id");
@@ -46,7 +45,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
         String cdate = df.format(c.getTime());
         String ctime = tf.format(c.getTime());
 
-        Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
 
 //
         if(prefs.getBoolean("events_notification",false) && rdate.equals(cdate) && rtime.equals(ctime) )
@@ -108,12 +107,12 @@ public class NotifyEventActivity extends BroadcastReceiver {
 
 // mId allows you to update the notification later on.
             mNotificationManager.notify(id, mBuilder.build());
-            Toast.makeText(context, "Event Debug", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "Event Debug", Toast.LENGTH_SHORT).show();
 //
         }
         else
         {
-            Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
         }
 
     }
