@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.example.adavi.academiccompanion.R.id.center_vertical;
 import static com.example.adavi.academiccompanion.R.id.toolbar;
 import static com.example.adavi.academiccompanion.R.id.txtitem;
 
@@ -100,6 +102,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void displayEventHelper() {
         Cursor res = myDB.getRecentEvents();
         Cursor res1 = myDB.getEventsAsc();
@@ -165,54 +168,61 @@ public class DisplayEventActivity extends AppCompatActivity {
         }
     }
 
-    public void displayEvent(int eventid, String ename, String date,int status) {
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void displayEvent(int eventid, String ename, String date, int status) {
 
         //layout to which children are added
         LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
 
 
         //child layouts
-        Button rowButton = new Button(this);
+        TextView rowButton = new TextView(this);
         TextView tv = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
-
+        ll.setBackgroundResource(R.drawable.button_sample1);
 
         //layout params for each view
 
         LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                200
         );
 
-        ll_params.setMargins(24, 24, 24, 24);
+        ll_params.setMargins(0, 0, 0, 0);
 
 
         LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 1.0f
         );
 
-//        rb_params.setMargins(8, 8, 8, 8);
+//        rb_params.setMargins(8, 24, 8, 8);
 
         LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                4.0f
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                3.0f
         );
 
-        tv_params.setMargins(24, 8, 8, 8);
-
+        tv_params.setMargins(24, 24, 24, 24);
+        rb_params.setMargins(24,24,24,24);
         tv.setLayoutParams(tv_params);
         ll.setLayoutParams(ll_params);
         rowButton.setLayoutParams(rb_params);
+        rowButton.setGravity(center_vertical);
+        rowButton.setPadding(0,32,0,32);
+        rowButton.setTextColor(Color.BLACK);
+        rowButton.setAllCaps(true);
 
-
+        tv.setPadding(0,32,0,32);
+        tv.setTypeface(null, Typeface.BOLD);
         ll.setId(eventid);
         rowButton.setText(ename);
         rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
-
+        rowButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+//        rowButton.setBackgroundResource(R.drawable.button_sample1);
         ll.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -229,7 +239,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         });
 // Add id to buttons and also on click listner to these buttons
         tv.setText(date);
-        tv.setTextSize(12);
+        tv.setTextSize(16);
 
 
 //        ll.setBackgroundColor(Color.rgb(224, 242, 241));
