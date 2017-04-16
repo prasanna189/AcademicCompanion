@@ -4,7 +4,7 @@
     <item android:id="@+id/edit_subject"
         android:icon="@drawable/pencil_edit_icon_light"
         android:title="Edit"
-    app:showAsAction="always"/>
+       app:showAsAction="always"/>
 
     <item android:id="@+id/delete_subject"
         android:icon="@drawable/trash_icon_light"
