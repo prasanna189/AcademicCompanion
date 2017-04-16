@@ -125,7 +125,7 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(
                 DisplayEventDetailsActivity.this);
         alert.setTitle("Confirmation!!");
-        alert.setMessage("Are you sure to delete subject");
+        alert.setMessage("Are you sure to delete Event ?");
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
             @Override
