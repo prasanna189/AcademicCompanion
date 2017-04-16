@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.color.white;
 import static android.R.id.edit;
 import static android.R.id.input;
 
@@ -128,31 +130,59 @@ int i;
 
 
         sname.setText("Subject Name");
+        sname.setTypeface(null, Typeface.BOLD_ITALIC);
         sname.setTextSize(20);
+        sname.setPadding(20,15,0,15);
+        sname.setTextColor(Color.parseColor("#FF4081"));
+
 
         pname.setText("Professor's Name");
+        pname.setTypeface(null, Typeface.BOLD_ITALIC);
         pname.setTextSize(20);
+        pname.setPadding(20,15,0,15);
+        pname.setTextColor(Color.parseColor("#FF4081"));
 
         pemail.setText("Professor's Email");
+        pemail.setTypeface(null, Typeface.BOLD_ITALIC);
         pemail.setTextSize(20);
+        pemail.setPadding(20,15,0,15);
+        pemail.setTextColor(Color.parseColor("#FF4081"));
 
         min_att.setText("Minimum Attendance");
         min_att.setTextSize(20);
+        min_att.setTypeface(null, Typeface.BOLD_ITALIC);
+        min_att.setPadding(20,15,0,15);
+        min_att.setTextColor(Color.parseColor("#FF4081"));
 
         status.setText("Status");
         status.setTextSize(20);
+        status.setTypeface(null, Typeface.BOLD_ITALIC);
+        status.setPadding(20,15,0,15);
+        status.setTextColor(Color.parseColor("#FF4081"));
 
         credits.setText("Credits");
         credits.setTextSize(20);
+        credits.setTypeface(null, Typeface.BOLD_ITALIC);
+        credits.setPadding(20,15,0,15);
+        credits.setTextColor(Color.parseColor("#FF4081"));
 
         grade.setText("Grade");
         grade.setTextSize(20);
+        grade.setTypeface(null, Typeface.BOLD_ITALIC);
+        grade.setPadding(20,15,0,15);
+        grade.setTextColor(Color.parseColor("#FF4081"));
 
         lab.setText("Lab");
         lab.setTextSize(20);
+        lab.setTypeface(null, Typeface.BOLD_ITALIC);
+        lab.setPadding(20,15,0,15);
+        lab.setTextColor(Color.parseColor("#FF4081"));
 
         desc.setText("Description");
         desc.setTextSize(20);
+        desc.setTypeface(null, Typeface.BOLD_ITALIC);
+        desc.setPadding(20,15,0,15);
+        desc.setTextColor(Color.parseColor("#FF4081"));
 
         Cursor res=myDB.getAllData("subject_details");
         String s=getIntent().getStringExtra("sub_id");
@@ -162,45 +192,68 @@ int i;
             {
                 snamevalue.setText(sub_name);
                 snamevalue.setTextSize(20);
+                snamevalue.setPadding(20,5,0,5);
+//                snamevalue.setTypeface(null,Typeface.BOLD);
+
 
                 pnamevalue.setText(res.getString(2));
                 pnamevalue.setTextSize(20);
+                pnamevalue.setPadding(20,5,0,5);
+//                pnamevalue.setTypeface(null,Typeface.BOLD);
 
                 pemailvalue.setText(res.getString(3));
                 pemailvalue.setTextSize(20);
+                pemailvalue.setPadding(20,5,0,5);
+//                pemailvalue.setTypeface(null,Typeface.BOLD);
 
                 min_attvalue.setText(res.getString(4));
                 min_attvalue.setTextSize(20);
+                min_attvalue.setPadding(20,5,0,5);
+//                min_attvalue.setTypeface(null,Typeface.BOLD);
 
                 statusvalue.setText(res.getString(5));
                 statusvalue.setTextSize(20);
+                statusvalue.setPadding(20,5,0,5);
+//                statusvalue.setTypeface(null,Typeface.BOLD);
 
                 creditsvalue.setText(res.getString(6));
                 creditsvalue.setTextSize(20);
+                creditsvalue.setPadding(20,5,0,5);
+//                creditsvalue.setTypeface(null,Typeface.BOLD);
 
                 if(res.getString(7).equals("0"))
                 {
                     gradevalue.setText("Yet To Confirm");
                     gradevalue.setTextSize(20);
+                    gradevalue.setPadding(20,5,0,5);
+//                    gradevalue.setTypeface(null,Typeface.BOLD);
                 }
                 else {
                     gradevalue.setText(res.getString(7));
                     gradevalue.setTextSize(20);
+                    gradevalue.setPadding(20,5,0,5);
+//                    gradevalue.setTypeface(null,Typeface.BOLD);
                 }
 
                 if(res.getInt(8)==1)
                 {
                     labvalue.setText("Yes");
                     labvalue.setTextSize(20);
+                    labvalue.setPadding(20,5,0,5);
+                    //labvalue.setTypeface(null,Typeface.BOLD);
                 }
                 else
                 {
                     labvalue.setText("No");
                     labvalue.setTextSize(20);
+                    labvalue.setPadding(20,5,0,5);
+                   // labvalue.setTypeface(null,Typeface.NORMAL);
                 }
 
                 descvalue.setText(res.getString(9));
                 descvalue.setTextSize(20);
+                descvalue.setPadding(20,5,0,5);
+                //descvalue.setTypeface(null,Typeface.NORMAL);
             }
         }
 
@@ -224,10 +277,21 @@ int i;
         ll.addView(desc);
         ll.addView(descvalue);
 
+        LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
+        );
         marks.setText("Marks");
         marks.setId(Integer.parseInt(s));
+        marks.setLayoutParams(rb_params);
+        rb_params.setMargins(75,10,50,10);
+       // marks.setPadding(5,10,25,10);
+
+        marks.setWidth(0);
 
         attendance.setText("Attendance");
+        attendance.setLayoutParams(rb_params);
         marks.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -343,17 +407,13 @@ int i;
         if(count>0)
         {
             final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-//            input.setInputType(InputType.TYPE_CLASS_TEXT);
-            //txt=(TextView) findViewById(R.id.Grade_list);
+
             builder.setView(sp);
 
 // Set up the buttons
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
-//                    gradevalue = txt.getText().toString();
 
                     Cursor c = myDB.getAllData("subject_details");
                     boolean j=false;

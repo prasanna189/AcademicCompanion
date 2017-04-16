@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/edit_subject"
         android:icon="@drawable/pencil_edit_icon_light"
-        android:title="edit"
+        android:title="Edit"
     app:showAsAction="always"/>
 
     <item android:id="@+id/delete_subject"
         android:icon="@drawable/trash_icon_light"
-        android:title="delete"
+        android:title="Delete"
         app:showAsAction="always"/>
     <item android:id="@+id/final_grade"
-        android:title="add grade"
+        android:title="Add Grade"
         app:showAsAction="never"/>
     </menu>

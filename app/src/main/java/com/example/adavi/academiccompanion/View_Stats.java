@@ -13,6 +13,7 @@ public class View_Stats extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__stats);
         myDb=new DatabaseHelper(this);
+        setTitle("Semester Statistics");
     }
 
     public void subjects(View view)
