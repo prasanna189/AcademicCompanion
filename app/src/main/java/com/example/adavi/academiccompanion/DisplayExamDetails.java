@@ -3,6 +3,8 @@ package com.example.adavi.academiccompanion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,14 +56,39 @@ public class DisplayExamDetails extends AppCompatActivity {
         );
         ll.setLayoutParams(ll_params);
         ll.setOrientation(LinearLayout.VERTICAL);
+
         subject.setText("Subject Name");
         subject.setTextSize(20);
+        subject.setPadding(20,15,0,15);
+        subject.setTypeface(null, Typeface.BOLD_ITALIC);
+        subject.setTextColor(Color.parseColor("#FF4081"));
+
+
+
         exam.setText("Exam Type");
         exam.setTextSize(20);
+        exam.setPadding(20,15,0,15);
+        exam.setTypeface(null, Typeface.BOLD_ITALIC);
+        exam.setTextColor(Color.parseColor("#FF4081"));
+
+
+
         marks.setText("Marks Obtained");
         marks.setTextSize(20);
+        marks.setPadding(20,15,0,15);
+        marks.setTypeface(null, Typeface.BOLD_ITALIC);
+        marks.setTextColor(Color.parseColor("#FF4081"));
+
+
+
         max_marks.setText("MAX MARKS");
         max_marks.setTextSize(20);
+        max_marks.setTypeface(null, Typeface.BOLD_ITALIC);
+        max_marks.setPadding(20,15,0,15);
+        max_marks.setTextColor(Color.parseColor("#FF4081"));
+
+
+
 
         Cursor res=myDB.getAllData("marks");
         while(res.moveToNext())
@@ -70,12 +97,23 @@ public class DisplayExamDetails extends AppCompatActivity {
             {
                 subjectvalue.setText(subname);
                 subjectvalue.setTextSize(20);
+                subjectvalue.setPadding(20,5,0,5);
+
+
                 examvalue.setText(res.getString(2));
                 examvalue.setTextSize(20);
+                examvalue.setPadding(20,5,0,5);
+
+
                 marksvalue.setText(res.getString(3));
                 marksvalue.setTextSize(20);
+                marksvalue.setPadding(20,5,0,5);
+
+
                 max_marksvalue.setText(res.getString(4));
                 max_marksvalue.setTextSize(20);
+                max_marksvalue.setPadding(20,5,0,5);
+
             }
         }
 

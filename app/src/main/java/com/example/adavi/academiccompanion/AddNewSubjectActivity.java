@@ -30,6 +30,7 @@ public class AddNewSubjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_subject);
         myDB = new DatabaseHelper(this);
 
+        setTitle("Add Subjects");
 
         editsname = (EditText) findViewById(R.id.sname_edittext);
         editpname = (EditText) findViewById(R.id.pname_edittext);

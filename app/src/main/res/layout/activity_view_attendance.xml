@@ -8,25 +8,30 @@
 
 
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="368dp"
     android:layout_height="wrap_content"
     android:id="@+id/attendance_view"
     android:orientation="vertical"
-    >
+    tools:layout_editor_absoluteY="0dp"
+    tools:layout_editor_absoluteX="8dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Attendance Filter"
-        android:textSize="15sp"
-        android:paddingLeft="100dp"
-        android:paddingBottom="30dp"/>
+        android:text="Attendance Details"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:textColor="@color/dot_dark_screen1"
+       />
 
     <Spinner
         android:id="@+id/attendance_spinner"
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+       />
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

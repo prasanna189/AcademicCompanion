@@ -25,6 +25,9 @@ public class ViewSubjectMarks extends AppCompatActivity {
         setContentView(R.layout.activity_view_subject_marks);
 
         myDB= new DatabaseHelper(this);
+
+        setTitle("Marks");
+
         str=getIntent().getStringExtra("sub_id");
 
 

@@ -27,6 +27,8 @@ public class ViewResults extends AppCompatActivity {
         setContentView(R.layout.activity_view_results);
         myDB=new DatabaseHelper(this);
 
+        setTitle("Results");
+
         subjectLL1 = (LinearLayout) findViewById(R.id.View_Results_1);
         subjectLL2 = (LinearLayout) findViewById(R.id.View_Results_2);
         subjectLL3 = (LinearLayout) findViewById(R.id.View_Results_3);

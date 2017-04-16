@@ -285,6 +285,7 @@ int i;
         marks.setText("Marks");
         marks.setId(Integer.parseInt(s));
         marks.setLayoutParams(rb_params);
+
         rb_params.setMargins(75,10,50,10);
        // marks.setPadding(5,10,25,10);
 

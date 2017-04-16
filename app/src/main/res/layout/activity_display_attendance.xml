@@ -6,27 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.example.adavi.academiccompanion.DisplayAttendance">
 <LinearLayout
-    android:layout_width="368dp"
-    android:layout_height="495dp"
-    tools:layout_editor_absoluteY="8dp"
-    tools:layout_editor_absoluteX="0dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:gravity="center"
     android:orientation="vertical">
 <LinearLayout
     android:id="@+id/attendance"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+
     android:orientation="horizontal">
     <TextView
+        android:id="@+id/display_attendance_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Classes Attended - "
-        android:padding="25dp"
-        android:textSize="20sp"/>
+        android:text="Classes Attended  :  0/0  "
+        android:layout_marginTop="56dp"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        />
      />
     </LinearLayout>
     <Button
-        android:layout_margin="120dp"
-        android:layout_width="142dp"
+        android:layout_margin="30dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Edit/View Attendance"
         android:onClick="ViewAttendance"

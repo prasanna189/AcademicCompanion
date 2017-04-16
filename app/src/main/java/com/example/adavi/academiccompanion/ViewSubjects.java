@@ -20,6 +20,8 @@ public class ViewSubjects extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_subjects);
         myDB=new DatabaseHelper(this);
+        setTitle("Subjects");
+
         semid=myDB.getcurrentsem();
         displaySubjectsHelper();
     }

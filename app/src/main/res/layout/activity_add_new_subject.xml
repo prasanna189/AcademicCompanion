@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Subject Name"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -33,7 +34,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Professor's Name"
+            android:text="Professor Name"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -48,7 +50,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Professor's Email"
+            android:text="Professor Email"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -66,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="credits"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -82,6 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Minimum Attendance"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -98,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Description"
+            android:textSize="20sp"
             android:textColor="#000000"/>
 
         <EditText
@@ -115,6 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lab"
+            android:textSize="20sp"
             />
 
         <LinearLayout

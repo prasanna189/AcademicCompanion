@@ -1,6 +1,7 @@
 package com.example.adavi.academiccompanion;
 
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class ViewFinalAttendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_final_attendance);
         myDB=new DatabaseHelper(this);
-
+        setTitle("Attendance");
         subjectLL1 = (LinearLayout) findViewById(R.id.View_att_1);
         subjectLL2 = (LinearLayout) findViewById(R.id.View_att_2);
         subjectLL3 = (LinearLayout) findViewById(R.id.View_att_3);
@@ -34,15 +35,24 @@ public class ViewFinalAttendance extends AppCompatActivity {
         Cursor res = myDB.getAllData("subject_details");
         TextView t1 = new TextView(this);
         t1.setText("SUBJECT");
-        t1.setTextSize(20);
+        t1.setTextSize(16);
+        t1.setTypeface(null, Typeface.BOLD);
 
         TextView t2 = new TextView(this);
-        t2.setText("PRESENT");
-        t2.setTextSize(20);
+        t2.setText("PRESENT   ");
+        t2.setTextSize(16);
+        t2.setTypeface(null, Typeface.BOLD);
+
 
         TextView t3 = new TextView(this);
         t3.setText("TOTAL CLASSES");
-        t3.setTextSize(20);
+        t3.setTextSize(16);
+        t3.setTypeface(null, Typeface.BOLD);
+
+
+        t1.setPadding(10,10,0,10);
+        t2.setPadding(0,10,0,10);
+        t3.setPadding(0,10,0,10);
 
         subjectLL1.addView(t1);
         subjectLL2.addView(t2);
@@ -83,16 +93,16 @@ public class ViewFinalAttendance extends AppCompatActivity {
 
         TextView t1 = new TextView(this);
         t1.setText(sname);
-        t1.setTextSize(20);
+        t1.setTextSize(15);
 
         TextView t2 = new TextView(this);
         t2.setText(Integer.toString(pre));
-        t2.setTextSize(20);
+        t2.setTextSize(15);
 
 
         TextView t3 = new TextView(this);
         t3.setText(Integer.toString(total));
-        t3.setTextSize(20);
+        t3.setTextSize(15);
 
 
 

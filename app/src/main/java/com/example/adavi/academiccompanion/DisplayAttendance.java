@@ -25,8 +25,11 @@ public class DisplayAttendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_attendance);
         myDB=new DatabaseHelper(this);
+
        // Cursor c = myDB.getAllData("attendance");
         s=getIntent().getStringExtra("subj_id");
+        String sname=myDB.getSubjectName(Integer.parseInt(s));
+        setTitle(sname+"  Attendance");
 
         DisplayViewAttendance();
 
@@ -40,7 +43,7 @@ public class DisplayAttendance extends AppCompatActivity {
 
     public void DisplayViewAttendance()
     {
-        LinearLayout ll=(LinearLayout)findViewById(R.id.attendance);
+        TextView tv=(TextView) findViewById(R.id.display_attendance_tv);
         Cursor res=myDB.getAllData("attendance");
         while(res.moveToNext())
         {
@@ -57,18 +60,17 @@ public class DisplayAttendance extends AppCompatActivity {
             }
         }
         total=present+absent;
+//
+//        TextView p=new TextView(this);
+//        TextView t=new TextView(this);
+//
+//        p.setText(Integer.toString(present));
+//        p.setTextSize(20);
+//
+//        t.setText("/"+total);
+//        t.setTextSize(20);
 
-        TextView p=new TextView(this);
-        TextView t=new TextView(this);
-
-        p.setText(Integer.toString(present));
-        p.setTextSize(20);
-
-        t.setText("/"+total);
-        t.setTextSize(20);
-
-        ll.addView(p);
-        ll.addView(t);
+        tv.setText("Classes Attended : "+Integer.toString(present)+"/"+total);
 
     }
 

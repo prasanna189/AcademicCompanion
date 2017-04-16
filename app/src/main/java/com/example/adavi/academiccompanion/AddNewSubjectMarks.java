@@ -22,6 +22,8 @@ public class AddNewSubjectMarks extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_subject_marks);
         myDB = new DatabaseHelper(this);
 
+        setTitle("Add Exam");
+
         examtype = (EditText) findViewById(R.id.examtype_edittext);
         maxmarks = (EditText) findViewById(R.id.maxmarks_edittext);
         marks = (EditText) findViewById(R.id.marksobtained_edittext);

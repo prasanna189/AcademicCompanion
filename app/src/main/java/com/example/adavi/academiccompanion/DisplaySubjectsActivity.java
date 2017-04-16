@@ -115,6 +115,7 @@ String s,sub_name;
         tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(tv_params);
         ll.setLayoutParams(ll_params);
+
         rowButton.setLayoutParams(rb_params);
 
         rowButton.setId(sub_id);
