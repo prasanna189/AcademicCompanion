@@ -8,10 +8,9 @@
     tools:context="com.example.adavi.academiccompanion.HelpActivity">
 
     <ScrollView
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="You can add subject by cliking + button at the bottom right of the screen. After adding subjects, subjects will be shown in two types : Completed and Running. Running subjects are the subjects which are still going on and you have not added final grade for them. Completed subjects are the subjects for which you have added final grade. You can't further change your marks in that subject if you have already given final grade for that subject." />
+                android:text="You can add a subject by clicking + button at the bottom right of the screen. After adding subjects, subjects will be shown in two types : Completed and Running. Running subjects are the subjects which are still going on and you have not added final grade for them. Completed subjects are the subjects for which you have added final grade. You can't further change your marks in that subject if you have already given final grade for that subject." />
 
             <TextView
                 android:layout_width="match_parent"
@@ -58,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="For the first time, when you click Time Table, you will be asked to enter a semester start date. This is required for correctly storing you attendance.You can clik edit button at the top right and you will be shown a grid like screen with subjects as row headers and days as column headers. By cliking on a particular cell, you can add time for that row header class on column header day. After that you can view you time table whenever you need. "/>
+                android:text="For the first time, when you click Time Table, you will be asked to enter a semester start date. This is required for correctly storing you attendance.You can click edit button at the top right and you will be shown a grid like screen with subjects as row headers and days as column headers. By clicking on a particular cell, you can add time for that row header class on column header day. After that you can view your time table whenever you need. "/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -133,8 +132,28 @@
                 android:layout_margin="4dp"
                 android:text="You can easily add attendance for today's classes here without going to every subject and adding attencdance for each individual subject." />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Missed Adding Attendance"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="If you have missed your notification to fill today's attendance, you can still add your attendance for today's classes by clicking Today's Attendance in navigation drawer. If you have failed to add yesterday's attendance, you can still go to individual subject and add attendance for that subject." />
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="@color/Red"
+                android:text="Couldn't find what you are looking for? \nClick here to send developers your query."
+                android:onClick="sendQuery"/>
 
         </LinearLayout>
 

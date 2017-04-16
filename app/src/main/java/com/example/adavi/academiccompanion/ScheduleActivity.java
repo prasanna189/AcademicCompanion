@@ -197,15 +197,32 @@ public class ScheduleActivity extends AppCompatActivity {
                         Intent intent = new Intent(getContext(), DisplayEventsOnADateActivity.class);
                         intent.putExtra("date",date);
                         startActivity(intent);
-                    }
+
+                }
                 });
 
 
+                //testing with caldroid
+
+//                CaldroidFragment caldroidFragment = new CaldroidFragment();
+//                Bundle args = new Bundle();
+////                args.putString(CaldroidFragment.DIALOG_TITLE,"Click on a Date");
+//                args.putInt(CaldroidFragment.THEME_RESOURCE, R.style.CaldroidDefaultDark);
+//                args.putInt(CaldroidFragment.START_DAY_OF_WEEK, CaldroidFragment.TUESDAY);
+//                Calendar cal = Calendar.getInstance();
+//                args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+//                args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+//                caldroidFragment.setArguments(args);
+//
+//                FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+//                t.replace(R.id.schedule_fragment_cv, caldroidFragment);
+//                t.commit();
 
             }
 
             return rootView;
         }
+
 
 
         //*******************************

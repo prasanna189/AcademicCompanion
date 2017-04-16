@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -77,6 +78,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         if(flag == true)//insertion successful
         {
             Intent intent = new Intent(this,MainActivity.class);
+            Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
         else

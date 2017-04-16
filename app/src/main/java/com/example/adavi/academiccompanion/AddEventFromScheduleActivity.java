@@ -421,7 +421,8 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
                             calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-                            calendar.set(Calendar.DAY_OF_MONTH,Calendar.DAY_OF_MONTH);
+                            calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
+
                             cal.setTime(dt2);
                             calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
                             calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
@@ -442,6 +443,7 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
                             AlarmManager am = (AlarmManager) AddEventFromScheduleActivity.this.getSystemService(AddEventFromScheduleActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 //
+
                         }
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
@@ -470,12 +472,13 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
                                 eventRemainderDate.getText().toString());
 
                         if (isUpdated) {
-                            Toast.makeText(AddEventFromScheduleActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(AddEventFromScheduleActivity.this, "Event Updated.", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventOnScheduleActivity.class);
                             intent.putExtra("button_event_id", s);
+                            intent.putExtra("date",event_date);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(AddEventFromScheduleActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(AddEventFromScheduleActivity.this, "Event not Updated.", Toast.LENGTH_LONG).show();
                         }
 
                         if(!remDate.equals("") && !remTime.equals("")) {

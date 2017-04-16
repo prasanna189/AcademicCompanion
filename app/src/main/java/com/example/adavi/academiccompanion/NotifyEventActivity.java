@@ -25,6 +25,8 @@ public class NotifyEventActivity extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+//        Toast.makeText(context, "hello pk", Toast.LENGTH_SHORT).show();
+
 //        Toast.makeText(context,intent.getStringExtra("Event_Type")+ intent.getStringExtra("Event_Date")+intent.getStringExtra("Event_Name")+intent.getStringExtra("Start_Time"), Toast.LENGTH_SHORT).show();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -112,7 +114,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
         }
         else
         {
-//            Toast.makeText(context, intent.getStringExtra("Event_Name"), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, "else", Toast.LENGTH_SHORT).show();
         }
 
     }
