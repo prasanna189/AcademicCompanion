@@ -105,7 +105,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         Cursor res = myDB.getRecentEvents();
         Cursor res1 = myDB.getEventsAsc();
         if (res1.getCount() == 0) {
-            eventAlert("No Events", "Go and Add a Event!");
+            eventAlert("No Events", "Go and Add an Event!");
             return;
         }
 
@@ -129,13 +129,13 @@ public class DisplayEventActivity extends AppCompatActivity {
         {
             if(res1.getString(2).compareTo(formattedDate)>0)
             {
-                displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8));
+                displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8),res1.getString(3));
             }
             else if(res1.getString(2).compareTo(formattedDate)==0)
             {
                 if((res1.getString(3)!=null && res1.getString(3).compareTo(formattedTime)>=0) || res1.getString(3).equals(""))
                 {
-                    displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8));
+                    displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8),res1.getString(3));
                 }
             }
 
@@ -178,13 +178,13 @@ public class DisplayEventActivity extends AppCompatActivity {
 
             if(res.getString(2).compareTo(formattedDate)<0)
             {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8));
+                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8),res.getString(3));
             }
             else if(res.getString(2).compareTo(formattedDate)==0)
             {
                 if(res.getString(3)!=null && res.getString(3).compareTo(formattedTime)<0 && !res.getString(3).equals(""))
                 {
-                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8));
+                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8),res.getString(3));
                 }
             }
 
@@ -193,7 +193,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void displayEvent(int eventid, String ename, String date, int status,String etype) {
+    public void displayEvent(int eventid, String ename, String date, int status,String etype,String time) {
 
         //layout to which children are added
         LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
@@ -332,7 +332,9 @@ public class DisplayEventActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        Toast.makeText(DisplayEventActivity.this,format2.format(dt1) , Toast.LENGTH_LONG).show();
+
+
+//        Toast.makeText(DisplayEventActivity.this,format21.format(dt2) , Toast.LENGTH_LONG).show();
 
         LinearLayout ll = new LinearLayout(this);
         LinearLayout ll1 = new LinearLayout(this);
@@ -399,7 +401,16 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         tv1.setText(ename);
         tv2.setText(etype);
-        tv3.setText(format2.format(dt1));
+        if(time!=null)
+        {
+
+            tv3.setText(time+"       "+format2.format(dt1));
+        }
+        else
+        {
+            tv3.setText(format2.format(dt1));
+        }
+
         ll.setId(eventid);
 
         ll1.addView(tv2);
@@ -424,6 +435,21 @@ public class DisplayEventActivity extends AppCompatActivity {
         builder.show();
     }
 
+//    public static String Convert24to12(String time)
+//    {
+//        String convertedTime ="";
+//        try {
+//            SimpleDateFormat displayFormat = new SimpleDateFormat("hh:mm aa");
+//            SimpleDateFormat parseFormat = new SimpleDateFormat("HH:mm:ss");
+//            Date date = parseFormat.parse(time);
+//            convertedTime=displayFormat.format(date);
+//            System.out.println("convertedTime : "+convertedTime);
+//        } catch (final ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return convertedTime;
+//        //Output will be 10:23 PM
+//    }
 
     public void openAddEvent(){
 

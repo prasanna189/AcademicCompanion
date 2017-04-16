@@ -132,17 +132,17 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:paddingLeft="8dp"
-                    >
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingTop="14dp"
                         android:text="End Time :"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        android:paddingTop="14dp"
 
                         />
 
@@ -151,10 +151,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/apptheme_edit_text_holo_light"
-                        android:hint="Set End Time"
                         android:gravity="start"
-                        android:textAlignment="textStart"
+                        android:hint="Set End Time"
                         android:padding="16dp"
+                        android:textAlignment="textStart"
                         android:textSize="14sp"
 
                         />
@@ -267,7 +267,6 @@
                     android:onClick="saveEvent"
                     android:text="Save"
                     android:textAllCaps="true"
-                    android:background="@drawable/button_sample1"
 
                     />
 
