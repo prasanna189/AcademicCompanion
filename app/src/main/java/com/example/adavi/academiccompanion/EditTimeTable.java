@@ -2,6 +2,10 @@ package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +20,7 @@ public class EditTimeTable extends AppCompatActivity {
     DatabaseHelper myDB;
     int sem;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +73,7 @@ public class EditTimeTable extends AppCompatActivity {
             saturdayll=(LinearLayout)findViewById(R.id.edit_saturday_layout);
             sundayll=(LinearLayout)findViewById(R.id.edit_sunday_layout);
 
-            LinearLayout.LayoutParams button_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
+            LinearLayout.LayoutParams button_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 125);
 
 
             mondayButton.setLayoutParams(button_params);
@@ -83,7 +88,11 @@ public class EditTimeTable extends AppCompatActivity {
 
 
             sub_tv.setText(res.getString(1));
+            sub_tv.setTypeface(null, Typeface.BOLD);
+            sub_tv.setPadding(0,28,0,0);
+            sub_tv.setTextColor(Color.BLACK);
             subjectll.addView(sub_tv);
+            sub_tv.setTextSize(15);
             mondayButton.setId(res.getInt(0));
             tuesdayButton.setId(res.getInt(0));
             wednesdayButton.setId(res.getInt(0));
