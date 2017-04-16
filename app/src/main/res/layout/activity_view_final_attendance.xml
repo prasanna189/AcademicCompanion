@@ -27,6 +27,13 @@
             android:padding="15dp"
             android:textColor="@color/dot_dark_screen1"
             android:textAlignment="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Red color indicates attendance less than required"
+            android:paddingLeft="25dp"
+            android:paddingBottom="20dp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +61,15 @@
 
             <LinearLayout
                 android:id="@+id/View_att_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/View_att_4"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

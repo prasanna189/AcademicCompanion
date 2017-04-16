@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -131,6 +132,12 @@ int i;
         TextView labvalue = new TextView(this);
         TextView descvalue = new TextView(this);
 
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1.0f
+        );
+
 //        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
 //                LinearLayout.LayoutParams.MATCH_PARENT,
 //                LinearLayout.LayoutParams.WRAP_CONTENT
@@ -141,68 +148,85 @@ int i;
 
         sname.setText("Subject Name : ");
         sname.setTextColor(Color.BLACK);
-        sname.setTypeface(null, Typeface.BOLD_ITALIC);
+        sname.setTypeface(null, Typeface.BOLD);
         sname.setTextSize(20);
         sname.setPadding(20,15,0,15);
+        sname.setLayoutParams(param);
+        sname.setGravity(Gravity.CENTER_VERTICAL);
 
 //        sname.setTextColor(Color.parseColor("#FF4081"));
 
 
         pname.setText("Professor Name : ");
         pname.setTextColor(Color.BLACK);
-        pname.setTypeface(null, Typeface.BOLD_ITALIC);
+        pname.setTypeface(null, Typeface.BOLD);
         pname.setTextSize(20);
         pname.setPadding(20,15,0,15);
+        pname.setLayoutParams(param);
+        pname.setGravity(Gravity.CENTER_VERTICAL);
 //        pname.setTextColor(Color.parseColor("#FF4081"));
 
         pemail.setText("Professor Email : ");
         pemail.setTextColor(Color.BLACK);
-        pemail.setTypeface(null, Typeface.BOLD_ITALIC);
+        pemail.setTypeface(null, Typeface.BOLD);
         pemail.setTextSize(20);
         pemail.setPadding(20,15,0,15);
+        pemail.setLayoutParams(param);
+        pemail.setGravity(Gravity.CENTER_VERTICAL);
 //        pemail.setTextColor(Color.parseColor("#FF4081"));
 
-        min_att.setText("Minimum Attendance : ");
+        min_att.setText("Min Attendance : ");
         min_att.setTextColor(Color.BLACK);
         min_att.setTextSize(20);
-        min_att.setTypeface(null, Typeface.BOLD_ITALIC);
+        min_att.setTypeface(null, Typeface.BOLD);
         min_att.setPadding(20,15,0,15);
+        min_att.setLayoutParams(param);
+        min_att.setGravity(Gravity.CENTER_VERTICAL);
 //        min_att.setTextColor(Color.parseColor("#FF4081"));
 
         status.setText("Status : ");
         status.setTextColor(Color.BLACK);
         status.setTextSize(20);
-        status.setTypeface(null, Typeface.BOLD_ITALIC);
+        status.setTypeface(null, Typeface.BOLD);
         status.setPadding(20,15,0,15);
+        status.setLayoutParams(param);
+        status.setGravity(Gravity.CENTER_VERTICAL);
 //        status.setTextColor(Color.parseColor("#FF4081"));
 
         credits.setText("Credits : ");
         credits.setTextColor(Color.BLACK);
         credits.setTextSize(20);
-        credits.setTypeface(null, Typeface.BOLD_ITALIC);
+        credits.setTypeface(null, Typeface.BOLD);
         credits.setPadding(20,15,0,15);
+        credits.setLayoutParams(param);
+        credits.setGravity(Gravity.CENTER_VERTICAL);
 //        credits.setTextColor(Color.parseColor("#FF4081"));
 
         grade.setText("Grade : ");
         grade.setTextColor(Color.BLACK);
         grade.setTextSize(20);
-        grade.setTypeface(null, Typeface.BOLD_ITALIC);
+        grade.setTypeface(null, Typeface.BOLD);
         grade.setPadding(20,15,0,15);
+        grade.setLayoutParams(param);
+        grade.setGravity(Gravity.CENTER_VERTICAL);
 //        grade.setTextColor(Color.parseColor("#FF4081"));
 
         lab.setText("Lab : ");
         lab.setTextColor(Color.BLACK);
         lab.setTextSize(20);
-        lab.setTypeface(null, Typeface.BOLD_ITALIC);
+        lab.setTypeface(null, Typeface.BOLD);
         lab.setPadding(20,15,0,15);
+        lab.setLayoutParams(param);
+        lab.setGravity(Gravity.CENTER_VERTICAL);
 //        lab.setTextColor(Color.parseColor("#FF4081"));
 
         desc.setText("Description : ");
         desc.setTextColor(Color.BLACK);
         desc.setTextSize(20);
-        desc.setTypeface(null, Typeface.BOLD_ITALIC);
+        desc.setTypeface(null, Typeface.BOLD);
         desc.setPadding(20,15,0,15);
-
+        desc.setLayoutParams(param);
+        desc.setGravity(Gravity.CENTER_VERTICAL);
 
         Cursor res=myDB.getAllData("subject_details");
         String s=getIntent().getStringExtra("sub_id");
@@ -214,6 +238,8 @@ int i;
                 snamevalue.setTextSize(20);
                 snamevalue.setTextColor(Color.BLACK);
                 snamevalue.setPadding(20,5,0,5);
+                snamevalue.setLayoutParams(param);
+                snamevalue.setGravity(Gravity.CENTER_VERTICAL);
 //                snamevalue.setTypeface(null,Typeface.BOLD);
 
 
@@ -221,6 +247,8 @@ int i;
                 pnamevalue.setTextColor(Color.BLACK);
                 pnamevalue.setTextSize(20);
                 pnamevalue.setPadding(20,5,0,5);
+                pnamevalue.setLayoutParams(param);
+                pnamevalue.setGravity(Gravity.CENTER_VERTICAL);
 //                pnamevalue.setTypeface(null,Typeface.BOLD);
 
                 if(res.getString(3).length()!=0)
@@ -229,6 +257,8 @@ int i;
                     pemailvalue.setTextColor(Color.BLACK);
                     pemailvalue.setTextSize(20);
                     pemailvalue.setPadding(20,5,0,5);
+                    pemailvalue.setLayoutParams(param);
+                    pemailvalue.setGravity(Gravity.CENTER_VERTICAL);
                 }
                 else
                 {
@@ -236,6 +266,8 @@ int i;
                     pemailvalue.setTextColor(Color.BLACK);
                     pemailvalue.setTextSize(20);
                     pemailvalue.setPadding(20,5,0,5);
+                    pemailvalue.setLayoutParams(param);
+                    pemailvalue.setGravity(Gravity.CENTER_VERTICAL);
                 }
 
 //                pemailvalue.setTypeface(null,Typeface.BOLD);
@@ -244,18 +276,24 @@ int i;
                 min_attvalue.setTextColor(Color.BLACK);
                 min_attvalue.setTextSize(20);
                 min_attvalue.setPadding(20,5,0,5);
+                min_attvalue.setLayoutParams(param);
+                min_attvalue.setGravity(Gravity.CENTER_VERTICAL);
 //                min_attvalue.setTypeface(null,Typeface.BOLD);
 
                 statusvalue.setText(res.getString(5));
                 statusvalue.setTextSize(20);
                 statusvalue.setTextColor(Color.BLACK);
                 statusvalue.setPadding(20,5,0,5);
+                statusvalue.setLayoutParams(param);
+                statusvalue.setGravity(Gravity.CENTER_VERTICAL);
 //                statusvalue.setTypeface(null,Typeface.BOLD);
 
                 creditsvalue.setText(res.getString(6));
                 creditsvalue.setTextColor(Color.BLACK);
                 creditsvalue.setTextSize(20);
                 creditsvalue.setPadding(20,5,0,5);
+                creditsvalue.setLayoutParams(param);
+                creditsvalue.setGravity(Gravity.CENTER_VERTICAL);
 //                creditsvalue.setTypeface(null,Typeface.BOLD);
 
                 if(res.getString(7).equals("0"))
@@ -263,20 +301,24 @@ int i;
                     gradevalue.setText("Yet To Confirm");
                     gradevalue.setTextSize(20);
                     gradevalue.setPadding(20,5,0,5);
+                    gradevalue.setLayoutParams(param);
 //                    gradevalue.setTypeface(null,Typeface.BOLD);
                 }
                 else {
                     gradevalue.setText(res.getString(7));
                     gradevalue.setTextSize(20);
                     gradevalue.setPadding(20,5,0,5);
+                    gradevalue.setLayoutParams(param);
 //                    gradevalue.setTypeface(null,Typeface.BOLD);
                 }
                 gradevalue.setTextColor(Color.BLACK);
+                gradevalue.setGravity(Gravity.CENTER_VERTICAL);
                 if(res.getInt(8)==1)
                 {
                     labvalue.setText("Yes");
                     labvalue.setTextSize(20);
                     labvalue.setPadding(20,5,0,5);
+                    labvalue.setLayoutParams(param);
                     //labvalue.setTypeface(null,Typeface.BOLD);
                 }
                 else
@@ -284,22 +326,27 @@ int i;
                     labvalue.setText("No");
                     labvalue.setTextSize(20);
                     labvalue.setPadding(20,5,0,5);
+                    labvalue.setLayoutParams(param);
                    // labvalue.setTypeface(null,Typeface.NORMAL);
                 }
                 labvalue.setTextColor(Color.BLACK);
+                labvalue.setGravity(Gravity.CENTER_VERTICAL);
                 if(res.getString(9).length()!=0)
                 {
                     descvalue.setText(res.getString(9));
                     descvalue.setTextSize(20);
                     descvalue.setPadding(20,5,0,5);
+                    descvalue.setLayoutParams(param);
                 }
                 else
                 {
                     descvalue.setText("none");
                     descvalue.setTextSize(20);
                     descvalue.setPadding(20,5,0,5);
+                    descvalue.setLayoutParams(param);
                 }
                 descvalue.setTextColor(Color.BLACK);
+                descvalue.setGravity(Gravity.CENTER_VERTICAL);
                 //descvalue.setTypeface(null,Typeface.NORMAL);
             }
         }
@@ -577,6 +624,7 @@ int i;
                         boolean subdetailsdelete=false;
                         boolean submarksdelete=false;
                         boolean subattdelete=false;
+                        boolean subtimetabledelete=false;
                         while(res.moveToNext())
                         {
                             if(res.getString(1).equals(s))
@@ -584,10 +632,11 @@ int i;
                                 subdetailsdelete= myDB.deleteDataSubjectDetails(Integer.parseInt(s),res.getInt(0));
                                 submarksdelete=myDB.deleteMarksOnSubDelete(Integer.parseInt(s),myDB.getcurrentsem());
                                 subattdelete=myDB.deleteDataAttendanceonsubdelete(myDB.getcurrentsem(),Integer.parseInt(s));
+                                subtimetabledelete=myDB.deleteTimeTableonSubjectDelete(myDB.getcurrentsem(),Integer.parseInt(s));
                             }
                         }
 
-                        if(subnamedelete && subdetailsdelete && submarksdelete)
+                        if(subattdelete && subdetailsdelete && submarksdelete && subnamedelete && subtimetabledelete)
                         {
                             Toast.makeText(DisplaySubjectDetails.this, "Successfully Deleted", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DisplaySubjectDetails.this, DisplaySubjectsActivity.class);
