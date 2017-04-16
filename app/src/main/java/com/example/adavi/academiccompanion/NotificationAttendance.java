@@ -71,7 +71,7 @@ public class NotificationAttendance extends AppCompatActivity {
             Cursor time=myDB.getAllData("timetable");
             while(time.moveToNext() )
             {
-                if(time.getInt(1)==myDB.getcurrentsem() &&)
+                if(time.getInt(1)==myDB.getcurrentsem() )
                 {
                     co++;
                 }

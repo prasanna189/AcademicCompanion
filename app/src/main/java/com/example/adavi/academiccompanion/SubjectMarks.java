@@ -101,6 +101,7 @@ public class SubjectMarks extends AppCompatActivity {
         //tv_params.setMargins(24, 8, 8, 8);
         tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(tv_params);
+
         ll.setLayoutParams(ll_params);
 
         rowButton.setLayoutParams(rb_params);
@@ -109,7 +110,6 @@ public class SubjectMarks extends AppCompatActivity {
 
         rowButton.setText(examtype);
         rowButton.setTextSize(20);
-
         rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
         rowButton.setTextColor(Color.parseColor("#263238"));
 
@@ -189,6 +189,7 @@ public class SubjectMarks extends AppCompatActivity {
 
         subjectLLtotal.addView(abc);
     }
+
     public void viewMarksDetails(View v)
     {
         Intent intent = new Intent(this, DisplayExamDetails.class);

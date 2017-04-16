@@ -124,6 +124,7 @@ String s,sub_name;
         rowButton.setTextSize(20);
         rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
         rowButton.setTextColor(Color.parseColor("#263238"));
+
         rowButton.setOnClickListener( new View.OnClickListener() {
 
             @Override

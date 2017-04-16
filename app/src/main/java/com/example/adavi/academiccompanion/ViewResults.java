@@ -1,6 +1,7 @@
 package com.example.adavi.academiccompanion;
 
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -88,14 +89,17 @@ public class ViewResults extends AppCompatActivity {
         TextView t1 = new TextView(this);
         t1.setText("SUBJECT");
         t1.setTextSize(20);
+        t1.setTypeface(null, Typeface.BOLD);
 
         TextView t2 = new TextView(this);
         t2.setText("MARKS");
         t2.setTextSize(20);
+        t2.setTypeface(null, Typeface.BOLD);
 
         TextView t3 = new TextView(this);
         t3.setText("GRADE");
         t3.setTextSize(20);
+        t3.setTypeface(null, Typeface.BOLD);
 
         subjectLL1.addView(t1);
         subjectLL2.addView(t2);

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -74,7 +75,7 @@ public class ViewSubjects extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        ll_params.setMargins(24, 24, 24, 24);
+        ll_params.setMargins(20, 20, 20, 20);
 
 
         LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
@@ -87,21 +88,24 @@ public class ViewSubjects extends AppCompatActivity {
 
         LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 4.0f
         );
 
-        tv_params.setMargins(24, 8, 8, 8);
-
+       // tv_params.setMargins(24, 8, 8, 8);
+        tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(tv_params);
         ll.setLayoutParams(ll_params);
+
         rowButton.setLayoutParams(rb_params);
 
         rowButton.setId(sub_id);
 
         rowButton.setText(sname);
         rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+        rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
+        rowButton.setTextColor(Color.parseColor("#263238"));
+
         rowButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -117,6 +121,20 @@ public class ViewSubjects extends AppCompatActivity {
 
             }
         });
+
+        if(status.equals("Completed"))
+        {
+            tv.setText(status);
+            tv.setTextSize(12);
+            tv.setBackgroundColor(Color.parseColor("#EF9A9A"));
+//            tv.setTextAlignment();
+        }
+        else
+        {
+            tv.setText(status);
+            tv.setTextSize(12);
+            tv.setBackgroundColor(Color.parseColor("#80CBC4"));
+        }
 
 
         tv.setText(status);

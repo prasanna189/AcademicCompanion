@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.R.color.black;
 import static android.R.color.white;
 import static android.R.id.edit;
 import static android.R.id.input;
@@ -95,7 +96,16 @@ int i;
 
         LinearLayout subjectLL = (LinearLayout) findViewById(R.id.subject_details);
 
-        LinearLayout ll = new LinearLayout(this);
+        LinearLayout ll1 = (LinearLayout)findViewById(R.id.s1);
+        LinearLayout ll2 = (LinearLayout)findViewById(R.id.s2);
+        LinearLayout ll3 = (LinearLayout)findViewById(R.id.s3);
+        LinearLayout ll4 = (LinearLayout)findViewById(R.id.s4);
+        LinearLayout ll5 = (LinearLayout)findViewById(R.id.s5);
+        LinearLayout ll6 = (LinearLayout)findViewById(R.id.s6);
+        LinearLayout ll7 = (LinearLayout)findViewById(R.id.s7);
+        LinearLayout ll8 = (LinearLayout)findViewById(R.id.s8);
+        LinearLayout ll9 = (LinearLayout)findViewById(R.id.s9);
+
         LinearLayout bl = new LinearLayout(this);
 
         Button marks = new Button(this);
@@ -121,68 +131,78 @@ int i;
         TextView labvalue = new TextView(this);
         TextView descvalue = new TextView(this);
 
-        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        ll.setLayoutParams(ll_params);
-        ll.setOrientation(LinearLayout.VERTICAL);
+//        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT
+//        );
+//        ll.setLayoutParams(ll_params);
+//        ll.setOrientation(LinearLayout.VERTICAL);
 
 
-        sname.setText("Subject Name");
+        sname.setText("Subject Name : ");
+        sname.setTextColor(Color.BLACK);
         sname.setTypeface(null, Typeface.BOLD_ITALIC);
         sname.setTextSize(20);
         sname.setPadding(20,15,0,15);
-        sname.setTextColor(Color.parseColor("#FF4081"));
+
+//        sname.setTextColor(Color.parseColor("#FF4081"));
 
 
-        pname.setText("Professor's Name");
+        pname.setText("Professor Name : ");
+        pname.setTextColor(Color.BLACK);
         pname.setTypeface(null, Typeface.BOLD_ITALIC);
         pname.setTextSize(20);
         pname.setPadding(20,15,0,15);
-        pname.setTextColor(Color.parseColor("#FF4081"));
+//        pname.setTextColor(Color.parseColor("#FF4081"));
 
-        pemail.setText("Professor's Email");
+        pemail.setText("Professor Email : ");
+        pemail.setTextColor(Color.BLACK);
         pemail.setTypeface(null, Typeface.BOLD_ITALIC);
         pemail.setTextSize(20);
         pemail.setPadding(20,15,0,15);
-        pemail.setTextColor(Color.parseColor("#FF4081"));
+//        pemail.setTextColor(Color.parseColor("#FF4081"));
 
-        min_att.setText("Minimum Attendance");
+        min_att.setText("Minimum Attendance : ");
+        min_att.setTextColor(Color.BLACK);
         min_att.setTextSize(20);
         min_att.setTypeface(null, Typeface.BOLD_ITALIC);
         min_att.setPadding(20,15,0,15);
-        min_att.setTextColor(Color.parseColor("#FF4081"));
+//        min_att.setTextColor(Color.parseColor("#FF4081"));
 
-        status.setText("Status");
+        status.setText("Status : ");
+        status.setTextColor(Color.BLACK);
         status.setTextSize(20);
         status.setTypeface(null, Typeface.BOLD_ITALIC);
         status.setPadding(20,15,0,15);
-        status.setTextColor(Color.parseColor("#FF4081"));
+//        status.setTextColor(Color.parseColor("#FF4081"));
 
-        credits.setText("Credits");
+        credits.setText("Credits : ");
+        credits.setTextColor(Color.BLACK);
         credits.setTextSize(20);
         credits.setTypeface(null, Typeface.BOLD_ITALIC);
         credits.setPadding(20,15,0,15);
-        credits.setTextColor(Color.parseColor("#FF4081"));
+//        credits.setTextColor(Color.parseColor("#FF4081"));
 
-        grade.setText("Grade");
+        grade.setText("Grade : ");
+        grade.setTextColor(Color.BLACK);
         grade.setTextSize(20);
         grade.setTypeface(null, Typeface.BOLD_ITALIC);
         grade.setPadding(20,15,0,15);
-        grade.setTextColor(Color.parseColor("#FF4081"));
+//        grade.setTextColor(Color.parseColor("#FF4081"));
 
-        lab.setText("Lab");
+        lab.setText("Lab : ");
+        lab.setTextColor(Color.BLACK);
         lab.setTextSize(20);
         lab.setTypeface(null, Typeface.BOLD_ITALIC);
         lab.setPadding(20,15,0,15);
-        lab.setTextColor(Color.parseColor("#FF4081"));
+//        lab.setTextColor(Color.parseColor("#FF4081"));
 
-        desc.setText("Description");
+        desc.setText("Description : ");
+        desc.setTextColor(Color.BLACK);
         desc.setTextSize(20);
         desc.setTypeface(null, Typeface.BOLD_ITALIC);
         desc.setPadding(20,15,0,15);
-        desc.setTextColor(Color.parseColor("#FF4081"));
+
 
         Cursor res=myDB.getAllData("subject_details");
         String s=getIntent().getStringExtra("sub_id");
@@ -192,31 +212,48 @@ int i;
             {
                 snamevalue.setText(sub_name);
                 snamevalue.setTextSize(20);
+                snamevalue.setTextColor(Color.BLACK);
                 snamevalue.setPadding(20,5,0,5);
 //                snamevalue.setTypeface(null,Typeface.BOLD);
 
 
                 pnamevalue.setText(res.getString(2));
+                pnamevalue.setTextColor(Color.BLACK);
                 pnamevalue.setTextSize(20);
                 pnamevalue.setPadding(20,5,0,5);
 //                pnamevalue.setTypeface(null,Typeface.BOLD);
 
-                pemailvalue.setText(res.getString(3));
-                pemailvalue.setTextSize(20);
-                pemailvalue.setPadding(20,5,0,5);
+                if(res.getString(3).length()!=0)
+                {
+                    pemailvalue.setText(res.getString(3));
+                    pemailvalue.setTextColor(Color.BLACK);
+                    pemailvalue.setTextSize(20);
+                    pemailvalue.setPadding(20,5,0,5);
+                }
+                else
+                {
+                    pemailvalue.setText("none");
+                    pemailvalue.setTextColor(Color.BLACK);
+                    pemailvalue.setTextSize(20);
+                    pemailvalue.setPadding(20,5,0,5);
+                }
+
 //                pemailvalue.setTypeface(null,Typeface.BOLD);
 
                 min_attvalue.setText(res.getString(4));
+                min_attvalue.setTextColor(Color.BLACK);
                 min_attvalue.setTextSize(20);
                 min_attvalue.setPadding(20,5,0,5);
 //                min_attvalue.setTypeface(null,Typeface.BOLD);
 
                 statusvalue.setText(res.getString(5));
                 statusvalue.setTextSize(20);
+                statusvalue.setTextColor(Color.BLACK);
                 statusvalue.setPadding(20,5,0,5);
 //                statusvalue.setTypeface(null,Typeface.BOLD);
 
                 creditsvalue.setText(res.getString(6));
+                creditsvalue.setTextColor(Color.BLACK);
                 creditsvalue.setTextSize(20);
                 creditsvalue.setPadding(20,5,0,5);
 //                creditsvalue.setTypeface(null,Typeface.BOLD);
@@ -234,7 +271,7 @@ int i;
                     gradevalue.setPadding(20,5,0,5);
 //                    gradevalue.setTypeface(null,Typeface.BOLD);
                 }
-
+                gradevalue.setTextColor(Color.BLACK);
                 if(res.getInt(8)==1)
                 {
                     labvalue.setText("Yes");
@@ -249,33 +286,57 @@ int i;
                     labvalue.setPadding(20,5,0,5);
                    // labvalue.setTypeface(null,Typeface.NORMAL);
                 }
-
-                descvalue.setText(res.getString(9));
-                descvalue.setTextSize(20);
-                descvalue.setPadding(20,5,0,5);
+                labvalue.setTextColor(Color.BLACK);
+                if(res.getString(9).length()!=0)
+                {
+                    descvalue.setText(res.getString(9));
+                    descvalue.setTextSize(20);
+                    descvalue.setPadding(20,5,0,5);
+                }
+                else
+                {
+                    descvalue.setText("none");
+                    descvalue.setTextSize(20);
+                    descvalue.setPadding(20,5,0,5);
+                }
+                descvalue.setTextColor(Color.BLACK);
                 //descvalue.setTypeface(null,Typeface.NORMAL);
             }
         }
 
 
-        ll.addView(sname);
-        ll.addView(snamevalue);
-        ll.addView(pname);
-        ll.addView(pnamevalue);
-        ll.addView(pemail);
-        ll.addView(pemailvalue);
-        ll.addView(min_att);
-        ll.addView(min_attvalue);
-        ll.addView(status);
-        ll.addView(statusvalue);
-        ll.addView(credits);
-        ll.addView(creditsvalue);
-        ll.addView(grade);
-        ll.addView(gradevalue);
-        ll.addView(lab);
-        ll.addView(labvalue);
-        ll.addView(desc);
-        ll.addView(descvalue);
+        ll1.addView(sname);
+        ll1.addView(snamevalue);
+
+        ll2.addView(pname);
+        ll2.addView(pnamevalue);
+
+
+        ll3.addView(pemail);
+        ll3.addView(pemailvalue);
+
+        ll4.addView(min_att);
+        ll4.addView(min_attvalue);
+
+        ll5.addView(status);
+        ll5.addView(statusvalue);
+
+
+        ll6.addView(credits);
+        ll6.addView(creditsvalue);
+
+        ll7.addView(grade);
+        ll7.addView(gradevalue);
+
+
+        ll8.addView(lab);
+        ll8.addView(labvalue);
+
+
+        ll9.addView(desc);
+        ll9.addView(descvalue);
+
+
 
         LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -356,9 +417,8 @@ int i;
 
         bl.setOrientation(LinearLayout.HORIZONTAL);
 
-        ll.addView(bl);
+        subjectLL.addView(bl);
 
-        subjectLL.addView(ll);
     }
 
 

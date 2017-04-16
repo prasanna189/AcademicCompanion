@@ -3,10 +3,12 @@ package com.example.adavi.academiccompanion;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -78,7 +80,7 @@ public class ViewSubjectMarks extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
-        ll_params.setMargins(24, 24, 24, 24);
+        ll_params.setMargins(20, 20, 20, 20);
 
 
         LinearLayout.LayoutParams rb_params = new LinearLayout.LayoutParams(
@@ -91,21 +93,26 @@ public class ViewSubjectMarks extends AppCompatActivity {
 
         LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 4.0f
         );
 
-        tv_params.setMargins(24, 8, 8, 8);
+//        tv_params.setMargins(24, 8, 8, 8);
 
+        tv.setGravity(Gravity.CENTER);
         tv.setLayoutParams(tv_params);
+
         ll.setLayoutParams(ll_params);
+
         rowButton.setLayoutParams(rb_params);
 
         rowButton.setId(sub_id);
 
         rowButton.setText(examtype);
         rowButton.setTextSize(20);
-        rowButton.setBackgroundColor(Color.rgb(224, 242, 241));
+        rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
+        rowButton.setTextColor(Color.parseColor("#263238"));
+
         rowButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -124,7 +131,9 @@ public class ViewSubjectMarks extends AppCompatActivity {
 
 
         tv.setText(Integer.toString(marksob)+"/"+Integer.toString(totalmark));
-        tv.setTextSize(12);
+        tv.setTextSize(20);
+        tv.setBackgroundColor(Color.parseColor("#80CBC4"));
+
 
 
         ll.setBackgroundColor(Color.rgb(224, 242, 241));
@@ -139,17 +148,48 @@ public class ViewSubjectMarks extends AppCompatActivity {
     {
         LinearLayout subjectLLtotal = (LinearLayout) findViewById(R.id.viewsubjectmarks_linearlayout);
         LinearLayout abc =new LinearLayout(this);
-        abc.setPadding(5,50,0,0);
+
+        LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                4.0f
+        );
+
+        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        ll_params.setMargins(20, 20, 20, 20);
+
+
+        abc.setPadding(0,20,0,20);
+
+        abc.setLayoutParams(ll_params);
+
         abc.setOrientation(LinearLayout.HORIZONTAL);
+
+
         TextView total = new TextView(this);
         TextView totalvalue=new TextView(this);
-        total.setText("Total Marks");
-        total.setPadding(50,10,315,10);
+
+        total.setText("Total Marks                ");
+        total.setPadding(160,0,0,0);
         total.setTextSize(20);
+        total.setGravity(Gravity.CENTER);
+        total.setTypeface(null, Typeface.BOLD);
+
         totalvalue.setText(Integer.toString(totalmarks)+"/"+Integer.toString(totmaxmarks));
+        totalvalue.setGravity(Gravity.CENTER);
+        totalvalue.setTextSize(20);
+        totalvalue.setTypeface(null, Typeface.BOLD);
+
         abc.addView(total);
         abc.addView(totalvalue);
-        abc.setBackgroundColor(Color.parseColor("#f98da5"));
+        abc.setGravity(Gravity.CENTER);
+
+        abc.setBackgroundColor(Color.parseColor("#f28f2b"));
+
         subjectLLtotal.addView(abc);
     }
     public void viewMarksDetails(View v)
