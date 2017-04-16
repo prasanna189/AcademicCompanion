@@ -132,7 +132,7 @@ public class SetTimeTable extends AppCompatActivity {
             setTitle("Edit Timings");
             final int tid=Integer.parseInt(t_id);
             Cursor res= myDB.getAllData("timetable");
-            Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
+//            Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
             while(res.moveToNext())
             {
                 if(tid==res.getInt(0))
@@ -149,7 +149,7 @@ public class SetTimeTable extends AppCompatActivity {
                     editSubject.setSelection(adapter.getPosition(sub_name));
                     editStime.setText(res.getString(4));
                     editEtime.setText(res.getString(5));
-                    Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
                 }
             }
             LinearLayout ll = (LinearLayout) findViewById(R.id.buttons_ll);

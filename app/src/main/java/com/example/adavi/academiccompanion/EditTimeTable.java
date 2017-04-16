@@ -91,7 +91,7 @@ public class EditTimeTable extends AppCompatActivity {
             fridayButton.setId(res.getInt(0));
             saturdayButton.setId(res.getInt(0));
             sundayButton.setId(res.getInt(0));
-            Toast.makeText(EditTimeTable.this, ""+res.getInt(0)+"" , Toast.LENGTH_LONG).show();
+//            Toast.makeText(EditTimeTable.this, ""+res.getInt(0)+"" , Toast.LENGTH_LONG).show();
 
 
             mondayll.addView(mondayButton);
@@ -108,7 +108,7 @@ public class EditTimeTable extends AppCompatActivity {
                     Button pressed;
                     pressed=((Button)v);
                     int id_mon=pressed.getId();
-                    Toast.makeText(EditTimeTable.this, ""+id_mon+"" , Toast.LENGTH_LONG).show();
+//                    Toast.makeText(EditTimeTable.this, ""+id_mon+"" , Toast.LENGTH_LONG).show();
 
                     redirectSetTimeTable(id_mon,"Monday");
                 }
