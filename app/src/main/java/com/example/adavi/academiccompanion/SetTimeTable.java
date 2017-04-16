@@ -173,7 +173,7 @@ public class SetTimeTable extends AppCompatActivity {
                     AlertDialog.Builder alert = new AlertDialog.Builder(
                             SetTimeTable.this);
                     alert.setTitle("Confirmation!!");
-                    alert.setMessage("Are you sure to delete subject");
+                    alert.setMessage("Are you sure to Delete Time slot?");
                     alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
                         @Override

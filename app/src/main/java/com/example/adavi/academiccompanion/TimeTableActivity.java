@@ -151,7 +151,9 @@ public class TimeTableActivity extends AppCompatActivity {
         TextView tv_etime = new TextView(this);
         LinearLayout ll = new LinearLayout(this);
 
-
+        tv_sname.setTextColor(Color.BLACK);
+        tv_stime.setTextColor(Color.BLACK);
+        tv_etime.setTextColor(Color.BLACK);
 
         LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
