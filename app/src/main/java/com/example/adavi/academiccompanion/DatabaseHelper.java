@@ -641,6 +641,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+    public boolean deleteTimeTableonSubjectDelete(int sem,int sub_id)
+    {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result= db.delete("timetable","subject_id = "+sub_id+" and sem_id = "+sem+" ",null);
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
 
     public boolean deleteDataTimetable (int tid) {
         SQLiteDatabase db = this.getWritableDatabase();
