@@ -267,7 +267,9 @@
                     android:onClick="saveEvent"
                     android:text="Save"
                     android:textAllCaps="true"
-                    style="@style/ButtonTheme"/>
+                    android:background="@drawable/button_sample1"
+
+                    />
 
             </LinearLayout>
 

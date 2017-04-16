@@ -32,5 +32,9 @@
         <item name="colorControlHighlight">@color/CornflowerBlue</item>
         <item name="colorButtonNormal">@color/LightCoral</item>
     </style>
+    <style name="Button1" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlHighlight">@color/CornflowerBlue</item>
+        <item name="colorButtonNormal">@color/LightCoral</item>
+    </style>
 
 </resources>
