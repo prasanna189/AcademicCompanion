@@ -438,7 +438,7 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
                             intent1.putExtra("End_Time", event_etime);
                             intent1.putExtra("Remainder_Time", remTime);
                             intent1.putExtra("Remainder_date", remDate);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventFromScheduleActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventFromScheduleActivity.this, id,intent1, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am = (AlarmManager) AddEventFromScheduleActivity.this.getSystemService(AddEventFromScheduleActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 //
@@ -452,7 +452,8 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
 
                         if (id>0 && extraInsert) {
                             Toast.makeText(AddEventFromScheduleActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(this, DisplayEventActivity.class);
+                            Intent intent = new Intent(this, DisplayEventsOnADateActivity.class);
+                            intent.putExtra("date",event_date);
                             startActivity(intent);
                         } else {
                             Toast.makeText(AddEventFromScheduleActivity.this, "Event not Saved", Toast.LENGTH_LONG).show();
@@ -470,11 +471,44 @@ public class AddEventFromScheduleActivity extends AppCompatActivity{
 
                         if (isUpdated) {
                             Toast.makeText(AddEventFromScheduleActivity.this, "Event Updated", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
+                            Intent intent = new Intent(this, DisplayEventOnScheduleActivity.class);
                             intent.putExtra("button_event_id", s);
                             startActivity(intent);
                         } else {
                             Toast.makeText(AddEventFromScheduleActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
+                        }
+
+                        if(!remDate.equals("") && !remTime.equals("")) {
+                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+                            Date dt1 = format1.parse(remDate);
+                            Date dt2 = format2.parse(remTime);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(dt1);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
+                            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
+                            cal.setTime(dt2);
+                            calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+                            calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+                            calendar.set(Calendar.SECOND, 0);
+                            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
+                            Intent intent1 = new Intent(AddEventFromScheduleActivity.this, NotifyEventActivity.class);
+                            intent1.putExtra("Event_Name", event_name);
+                            intent1.putExtra("id", "" + s + "");
+                            intent1.putExtra("Event_Date", event_date);
+                            intent1.putExtra("Event_Type", event_type);
+                            intent1.putExtra("Subject", activity_sub_name);
+                            intent1.putExtra("Start_Time", event_stime);
+                            intent1.putExtra("End_Time", event_etime);
+                            intent1.putExtra("Remainder_Time", remTime);
+                            intent1.putExtra("Remainder_date", remDate);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventFromScheduleActivity.this, Integer.parseInt(s), intent1, PendingIntent.FLAG_ONE_SHOT);
+                            AlarmManager am = (AlarmManager) AddEventFromScheduleActivity.this.getSystemService(AddEventFromScheduleActivity.this.ALARM_SERVICE);
+                            am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+                            //
                         }
                     }
                 }

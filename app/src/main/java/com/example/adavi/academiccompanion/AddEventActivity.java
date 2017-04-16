@@ -445,7 +445,7 @@ public class AddEventActivity extends AppCompatActivity {
                             intent1.putExtra("End_Time", event_etime);
                             intent1.putExtra("Remainder_Time", remTime);
                             intent1.putExtra("Remainder_date", remDate);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, id,intent1, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 //
@@ -512,7 +512,7 @@ public class AddEventActivity extends AppCompatActivity {
                             intent1.putExtra("End_Time", event_etime);
                             intent1.putExtra("Remainder_Time", remTime);
                             intent1.putExtra("Remainder_date", remDate);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, 0,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, Integer.parseInt(s),intent1, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             //
