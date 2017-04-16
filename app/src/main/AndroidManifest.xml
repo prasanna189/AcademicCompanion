@@ -10,17 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- permission required to use Alarm Manager -->
-        <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-        <uses-permission android:name="android.permission.WAKE_LOCK" />
 
         <!-- Register the Alarm Receiver -->
         <receiver android:name=".NotifyTodaySubjectsActivity" />
         <receiver android:name=".NotifyTodayAttendanceActivity" />
+        <receiver android:name=".NotifyEventActivity" />
+
 
         <meta-data
             android:name="com.google.android.backup.api_key"
@@ -123,5 +119,12 @@
             android:label="Notification">
         </activity>
     </application>
+
+    <!-- permission required to use Alarm Manager -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

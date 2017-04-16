@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="intro_userinput_bg">#81C784</color>
+    <color name="intro_userinput_bg">#A5D6A7</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#F50057</color>
