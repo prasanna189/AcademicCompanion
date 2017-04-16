@@ -71,8 +71,10 @@
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
-        <activity android:name=".HelpActivity" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".HelpActivity"
+            android:label="Help"/>
+        <activity android:name=".AboutActivity"
+            android:label="About"/>
         <activity
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule"

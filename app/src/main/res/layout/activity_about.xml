@@ -4,31 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/AliceBlue"
+    android:background="#F5F5F5"
     tools:context="com.example.adavi.academiccompanion.AboutActivity">
 
 
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_margin="16dp">
+            android:layout_margin="16dp" >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Developed by : "
                 android:textAlignment="center"
-                android:textSize="32sp"
-                android:textColor="@color/White"
+                android:textSize="16sp"
+                android:textColor="@color/Black"
                 android:layout_margin="8dp"/>
 
 
@@ -37,16 +34,17 @@
                 android:layout_height="wrap_content"
                 android:text="Team Adavi"
                 android:textAlignment="center"
-                android:textSize="32sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_margin="8dp"/>
+                android:layout_margin="8dp"
+                android:textColor="@color/AliceBlue"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Akhil Sai Chandra"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_margin="8dp"/>
 
             <TextView
@@ -54,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="Akhilesh"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_margin="8dp"/>
 
             <TextView
@@ -62,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="Varun"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_margin="8dp"/>
 
             <TextView
@@ -70,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="Praveen"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_margin="8dp"/>
 
             <TextView
@@ -78,23 +76,21 @@
                 android:layout_height="wrap_content"
                 android:text="Prasanna Kumar"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="16sp"
                 android:layout_margin="8dp"/>
-
-
-
-
-
-
-
-
-
-
-
-
 
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/about_page_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Academic Companion  v1.0\n\nClick here to send feedback: academic.companion.adavi@gmail.com"
+            android:layout_alignParentBottom="true"
+            android:padding="32dp"
+            android:textAlignment="center"
+            android:onClick="sendFeedback"/>
 
     </RelativeLayout>
 
