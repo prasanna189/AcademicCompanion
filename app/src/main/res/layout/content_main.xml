@@ -174,14 +174,12 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/dbmanager_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="databasemanager"
-            android:text="DATABASE MANAGER" />
-
-
+        <!--<Button-->
+            <!--android:id="@+id/dbmanager_id"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="databasemanager"-->
+            <!--android:text="DATABASE MANAGER" />-->
 
 
     </LinearLayout>

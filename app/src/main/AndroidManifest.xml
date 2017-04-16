@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.adavi.academiccompanion">
 
+    <!-- permission required to use Alarm Manager -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,28 +17,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-
         <!-- Register the Alarm Receiver -->
         <receiver android:name=".NotifyTodaySubjectsActivity" />
         <receiver android:name=".NotifyTodayAttendanceActivity" />
         <receiver android:name=".NotifyEventActivity" />
-
 
         <meta-data
             android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIywMFxPZE8l7QQcq5xBtnQqkBJW_PTE_0qYHIFw" />
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="HOME"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:label="HOME"
@@ -71,37 +80,28 @@
         <activity
             android:name=".SettingsActivity"
             android:label="Settings" />
-        <activity android:name=".HelpActivity"
-            android:label="Help"/>
-        <activity android:name=".AboutActivity"
-            android:label="About"/>
+        <activity
+            android:name=".HelpActivity"
+            android:label="Help" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="About" />
         <activity
             android:name=".ScheduleActivity"
-            android:label="@string/title_activity_schedule"
+            android:label="Schedule"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".DisplayAttendance" />
-
         <activity android:name=".ViewAttendance" />
-
         <activity android:name=".View_Stats" />
-
         <activity android:name=".ViewSubjects" />
-
         <activity android:name=".ViewResults" />
-
         <activity android:name=".ViewFinalAttendance" />
-
         <activity android:name=".TimeTableActivity" />
-
         <activity android:name=".EditTimeTable" />
-
         <activity android:name=".SetTimeTable" />
-
         <activity android:name=".ViewSubjectMarks" />
-
-        <activity android:name=".ViewExamDetails"></activity>
-
+        <activity android:name=".ViewExamDetails" />
         <activity
             android:name=".DisplayEventsOnADateActivity"
             android:label="Events"
@@ -114,19 +114,10 @@
             android:label="Event Details" />
         <activity
             android:name=".AppSettingsActivity"
-            android:label="@string/title_activity_app_settings"></activity>
-
-
-        <activity android:name=".NotificationAttendance"
-            android:label="Notification">
-        </activity>
+            android:label="@string/title_activity_app_settings" />
+        <activity
+            android:name=".NotificationAttendance"
+            android:label="Notification"></activity>
     </application>
-
-    <!-- permission required to use Alarm Manager -->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

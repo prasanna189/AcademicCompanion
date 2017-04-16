@@ -305,10 +305,15 @@ public class MainActivity extends AppCompatActivity
             minutes=Integer.parseInt(part2);
         }
 
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hours);
         calendar.set(Calendar.MINUTE, minutes);
         calendar.set(Calendar.SECOND, 0);
+
+
+
+
         Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
