@@ -92,11 +92,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/proceed_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@null"
         android:onClick="submit"
-        android:text="PROCEED" />0`
+        android:text="PROCEED" />
+
 </RelativeLayout>

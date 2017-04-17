@@ -13,8 +13,7 @@
         android:id="@+id/event_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
-        >
+        android:padding="8dp">
 
 
         <LinearLayout
@@ -23,9 +22,9 @@
             android:textAlignment="center">
 
             <TextView
-                android:layout_width="368dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Event Details"
+                android:text="Details"
                 android:textAlignment="center"
                 android:textSize="30sp"
                 android:textColor="@color/Black"

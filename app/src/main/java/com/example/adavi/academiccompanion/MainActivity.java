@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +94,14 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+        LinearLayout app_layer = (LinearLayout) header.findViewById (R.id.navbar_user_profile);
+        app_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),DisplayUserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         //Semester spinner
@@ -110,6 +119,7 @@ public class MainActivity extends AppCompatActivity
 
         Spinner spinner = (Spinner) navigationView.getMenu().findItem(R.id.navbar_semester).getActionView();
         spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,sem_array));
+        spinner.setDropDownWidth(100);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -226,9 +236,11 @@ public class MainActivity extends AppCompatActivity
 
     public void openUserProfile(View view)
     {
-        Intent dbmanager = new Intent(this,DisplayUserProfileActivity.class);
-        startActivity(dbmanager);
+        Intent intent = new Intent(this,DisplayUserProfileActivity.class);
+        startActivity(intent);
     }
+
+
 
     public void openTimeTable(View view)
     {

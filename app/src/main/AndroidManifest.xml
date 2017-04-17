@@ -27,97 +27,202 @@
             android:value="AEdPqrEAAAAIywMFxPZE8l7QQcq5xBtnQqkBJW_PTE_0qYHIFw" />
 
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".WelcomeActivity"-->
-            <!--android:label="HOME"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="HOME"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".MainActivity"
             android:label="HOME"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".IntroUserInputActivity"
-            android:theme="@style/AppTheme.CustomStatusBar" />
+            android:theme="@style/AppTheme.CustomStatusBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplaySubjectsActivity"
             android:label="@string/title_activity_display_subjects"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddNewSubjectActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".AddNewSubjectActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".AndroidDatabaseManager"
-            android:label="database manager" />
+            android:label="database manager"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplayEventActivity"
             android:label="@string/title_activity_display_event"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddEventActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".AddEventActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplaySubjectDetails"
-            android:label="Subject Name" />
+            android:label="Subject Name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplayUserProfileActivity"
-            android:label="Profile" />
-        <activity android:name=".DisplayEventDetailsActivity" />
+            android:label="Profile"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".DisplayEventDetailsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".EditUserProfileActivity"
-            android:label="Edit Profile" />
+            android:label="Edit Profile"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".SubjectMarks"
             android:label="@string/title_activity_subject_marks"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddNewSubjectMarks" />
-        <activity android:name=".DisplayExamDetails" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".AddNewSubjectMarks"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".DisplayExamDetails"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".SettingsActivity"
-            android:label="Settings" />
+            android:label="Settings"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".HelpActivity"
-            android:label="Help" />
+            android:label="Help"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".AboutActivity"
-            android:label="About" />
+            android:label="About"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ScheduleActivity"
             android:label="Schedule"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".DisplayAttendance" />
-        <activity android:name=".ViewAttendance" />
-        <activity android:name=".View_Stats" />
-        <activity android:name=".ViewSubjects" />
-        <activity android:name=".ViewResults" />
-        <activity android:name=".ViewFinalAttendance" />
-        <activity android:name=".TimeTableActivity" />
-        <activity android:name=".EditTimeTable" />
-        <activity android:name=".SetTimeTable" />
-        <activity android:name=".ViewSubjectMarks" />
-        <activity android:name=".ViewExamDetails" />
+        <activity android:name=".DisplayAttendance"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewAttendance"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".View_Stats"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewSubjects"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewResults"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewFinalAttendance"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".TimeTableActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".EditTimeTable"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".SetTimeTable"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewSubjectMarks"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ViewExamDetails"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplayEventsOnADateActivity"
             android:label="Events"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".AddEventFromScheduleActivity"
-            android:label="Add Event" />
+            android:label="Add Event"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".DisplayEventOnScheduleActivity"
-            android:label="Event Details" />
+            android:label="Event Details"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".AppSettingsActivity"
-            android:label="@string/title_activity_app_settings" />
+            android:label="@string/title_activity_app_settings"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".NotificationAttendance"
-            android:label="Notification"></activity>
+            android:label="Notification"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
