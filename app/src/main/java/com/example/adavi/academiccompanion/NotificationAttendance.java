@@ -94,7 +94,7 @@ public class NotificationAttendance extends AppCompatActivity {
             }
             if(co==0)
             {
-                Toast.makeText(NotificationAttendance.this,"No subject added time table", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotificationAttendance.this,"No subject added to time table", Toast.LENGTH_SHORT).show();
 
             }
             else
