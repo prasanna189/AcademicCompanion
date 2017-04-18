@@ -239,8 +239,11 @@ public class SetTimeTable extends AppCompatActivity {
         }
         String stime = editStime.getText().toString();
         String etime = editEtime.getText().toString();
-
-        if(stime.equals(""))
+        if(subject_id==-1)
+        {
+            Toast.makeText(SetTimeTable.this, "Select a Subject", Toast.LENGTH_LONG).show();
+        }
+        else if(stime.equals(""))
         {
             Toast.makeText(SetTimeTable.this, "Enter Start Time", Toast.LENGTH_LONG).show();
         }

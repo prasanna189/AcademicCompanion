@@ -31,6 +31,7 @@ public class EditTimeTable extends AppCompatActivity {
         sem=myDB.getcurrentsem();
 
         Cursor res= myDB.getCurrentSemSubjects(sem);
+
         while(res.moveToNext())
         {
             TextView sub_tv = new TextView(this);
