@@ -568,8 +568,14 @@ public class AddEventActivity extends AppCompatActivity {
 
 
     public void reset(View view) {
-        Intent intent = new Intent(this, AddEventActivity.class);
-        startActivity(intent);
+        eventName.setText("");
+        eventDate.setText("");
+        eventStime.setText("");
+        eventEtime.setText("");
+        eventDescription.setText("");
+        eventRemainderDate.setText("");
+        eventRemainderTime.setText("");
+        eventSubject.setSelection(adapter.getPosition(""));
     }
 
     @Override

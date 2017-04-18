@@ -134,7 +134,10 @@
             android:layout_weight="1"
             android:onClick="saveTimeTable"
             android:text="Save"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:background="@drawable/button_sample1"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 
