@@ -3,6 +3,7 @@ package com.example.adavi.academiccompanion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.util.Date;
 
 public class DisplayEventDetailsActivity extends AppCompatActivity {
 
@@ -38,6 +42,11 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
         display_event_remainder_date=(TextView)findViewById(R.id.display_event_remainder_date);
         display_event_remainder_time=(TextView)findViewById(R.id.display_event_remainder_time);
 
+        SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format2=new SimpleDateFormat("dd MMM yyyy");
+        Date dt1= null;
+
+
         String s=getIntent().getStringExtra("button_event_id");
         int event_id=Integer.parseInt(s);
         Cursor res= myDB.getAllData("event");
@@ -47,7 +56,14 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
             {
                 display_event_name.setText(res.getString(1));
                 setTitle(res.getString(1));
-                display_event_date.setText(res.getString(2));
+
+                try {
+                    dt1 = format1.parse(res.getString(2));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                display_event_date.setText(format2.format(dt1));
                 display_event_start_time.setText(res.getString(3));
                 display_event_end_time.setText(res.getString(4));
 //                display_event_subject.setText(res.getString(5));
@@ -60,7 +76,19 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
                     display_event_subject.setText(myDB.getSubjectName(res.getInt(5)));
                 }
                 display_event_description.setText(res.getString(6));
-                display_event_remainder_date.setText(res.getString(9));
+
+                String rdate = res.getString(9);
+                if(!res.getString(9).equals(""))
+                {
+                    try {
+                        dt1 = format1.parse(res.getString(9));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    rdate = format2.format(dt1);
+                }
+                display_event_remainder_date.setText(rdate);
                 display_event_remainder_time.setText(res.getString(7));
                 display_event_type.setText(res.getString(8));
 
