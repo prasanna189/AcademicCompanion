@@ -263,7 +263,7 @@ public class SetTimeTable extends AppCompatActivity {
                 {
                     if(timetable_id==res.getInt(0))
                     {
-                        Toast.makeText(SetTimeTable.this, res.getInt(0)+"", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(SetTimeTable.this, res.getInt(0)+"", Toast.LENGTH_LONG).show();
                         boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0),res.getInt(1),subject_id,res.getString(3),editStime.getText().toString(),editEtime.getText().toString());
                         if(isUpdated)
                         {
