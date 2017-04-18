@@ -3,9 +3,9 @@ package com.example.adavi.academiccompanion;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,8 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Set;
 
 public class SetTimeTable extends AppCompatActivity {
 
@@ -263,8 +261,9 @@ public class SetTimeTable extends AppCompatActivity {
                 Cursor res = myDB.getAllData("timetable");
                 while(res.moveToNext())
                 {
-                    if(timetable_id==res.getInt(0));
+                    if(timetable_id==res.getInt(0))
                     {
+                        Toast.makeText(SetTimeTable.this, res.getInt(0)+"", Toast.LENGTH_LONG).show();
                         boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0),res.getInt(1),subject_id,res.getString(3),editStime.getText().toString(),editEtime.getText().toString());
                         if(isUpdated)
                         {

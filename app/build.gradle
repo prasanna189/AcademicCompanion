@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        AcadCompAdavi {
+            keyAlias 'Acad Comp Adavi Key'
+            keyPassword 'sprintf("adavi");'
+            storeFile file('C:/Users/pk/Android_app_keys/academic_companion_keys.jks')
+            storePassword 'sprintf("adavi");'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
