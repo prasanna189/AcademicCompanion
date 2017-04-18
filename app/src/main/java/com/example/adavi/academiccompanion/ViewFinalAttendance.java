@@ -3,13 +3,11 @@ package com.example.adavi.academiccompanion;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ViewFinalAttendance extends AppCompatActivity {
     DatabaseHelper myDB;
@@ -121,7 +119,7 @@ public class ViewFinalAttendance extends AppCompatActivity {
         TextView t4 = new TextView(this);
         t4.setText(""+a);
         t4.setTextSize(15);
-Cursor c = myDB.getAllData("subject_details");
+        Cursor c = myDB.getAllData("subject_details");
         while(c.moveToNext())
         {
             if(c.getInt(1)==subid)
@@ -137,7 +135,7 @@ Cursor c = myDB.getAllData("subject_details");
 
         t3.setPadding(5,10,0,20);
         t3.setGravity(Gravity.CENTER_VERTICAL);
-        Toast.makeText(ViewFinalAttendance.this,""+subid, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(ViewFinalAttendance.this,""+subid, Toast.LENGTH_SHORT).show();
         if(a<(float)minat)
         {
             t1.setTextColor(Color.RED);
