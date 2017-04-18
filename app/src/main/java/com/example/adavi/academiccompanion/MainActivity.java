@@ -359,6 +359,18 @@ public class MainActivity extends AppCompatActivity
         AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
 
+        // alarm manager for low attendance alerts
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.HOUR_OF_DAY, 19);
+        calendar2.set(Calendar.MINUTE, 30);
+        calendar2.set(Calendar.SECOND, 0);
+        Intent intent3 = new Intent(MainActivity.this, NotifyLowAttendance.class);
+        intent3.putExtra("Remainder_Time","19:30");
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(MainActivity.this, 1002,intent3, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am2 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
+        am2.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent2);
+
     }
 
 
