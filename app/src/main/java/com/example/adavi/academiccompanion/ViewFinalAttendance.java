@@ -70,27 +70,25 @@ public class ViewFinalAttendance extends AppCompatActivity {
 
         while(res.moveToNext())
         {
-            if(res.getInt(0)==myDB.getcurrentsem())
-            {
-                int present=0;
-                int absent=0;
-                Cursor c=myDB.getAllData("attendance");
-
-                    while(c.moveToNext())
-                    {
-                        if(res.getInt(1)==c.getInt(2))
-                        {
-
-                            if (c.getString(4).equals("Present")) {
-                                present++;
-                            } else if (c.getString(4).equals("Absent")) {
-                                absent++;
-                            }
+            if(res.getInt(0)==myDB.getcurrentsem()) {
+                int present = 0;
+                int absent = 0;
+                Cursor c = myDB.getAllData("attendance");
+                int k = 0;
+                while (c.moveToNext()) {
+                    if (res.getInt(1) == c.getInt(2)) {
+                        k = 1;
+                        if (c.getString(4).equals("Present")) {
+                            present++;
+                        } else if (c.getString(4).equals("Absent")) {
+                            absent++;
                         }
                     }
+                }
+                if (k == 1) {
 
-                    display(res.getInt(1),myDB.getSubjectName(res.getInt(1)),present,present+absent,(present*100/(present+absent)));
-
+                display(res.getInt(1), myDB.getSubjectName(res.getInt(1)), present, present + absent, (present * 100 / (present + absent)));
+            }
 
             }
 

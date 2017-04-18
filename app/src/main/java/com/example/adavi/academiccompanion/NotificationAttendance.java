@@ -2,6 +2,7 @@ package com.example.adavi.academiccompanion;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -46,9 +47,19 @@ public class NotificationAttendance extends AppCompatActivity {
     {
         LinearLayout pll=(LinearLayout) findViewById(R.id.notific_atten_layout);
         Button btn=new Button(this);
+//
+        LinearLayout.LayoutParams ll_params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
+        );
+       ll_params.setMargins(20, 20, 20, 20);
+//
+//        pll.setLayoutParams(ll_params);
 
         LinearLayout cll=new LinearLayout(this);
         cll.setOrientation(LinearLayout.VERTICAL);
+        cll.setLayoutParams(ll_params);
 
         String sdate=null;
         Cursor ssdate=myDB.getAllData("semester");
@@ -248,6 +259,9 @@ public class NotificationAttendance extends AppCompatActivity {
 
                             TextView tv=new TextView(this);
                             tv.setText(sname);
+                            tv.setTextSize(20);
+                            tv.setTextColor(Color.BLACK);
+
                             rg[p] = new RadioGroup(this);
                             rg[p].setOrientation(RadioGroup.VERTICAL);
                             rb[q] = new RadioButton(this);
