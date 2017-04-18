@@ -67,6 +67,10 @@ public class NotificationAttendance extends AppCompatActivity {
         }
         else
         {
+
+
+
+
             int co=0;
             Cursor time=myDB.getAllData("timetable");
             while(time.moveToNext() )
@@ -100,42 +104,29 @@ public class NotificationAttendance extends AppCompatActivity {
                 }
 
 
+
+
+
                 String currenDay=dayformat.format(x);
 
-                Cursor res=myDB.getAllData("timetable");
-                int count=0;
-                while(res.moveToNext())
-                {
-                    if(res.getString(3).equals(currenDay) && res.getInt(1)==myDB.getcurrentsem())
-                    {
-                        count++;
-                    }
-                }
-                // Toast.makeText(NotificationAttendance.this,Integer.toString(count), Toast.LENGTH_SHORT).show();
-                rg = new RadioGroup[count];
-                rb = new RadioButton[count*5];
-                len=count*5;
 
-                int p=0,q=0;
-                int flag=0;
-                res=myDB.getAllData("timetable");
+                Cursor res=myDB.getAllData("timetable");
                 while(res.moveToNext())
                 {
                     if(res.getString(3).equals(currenDay) && res.getInt(1)==myDB.getcurrentsem())
                     {
                         Cursor k=myDB.getAllData("attendance");
-                        flag=0;
-                        while(k.moveToNext()&& flag==0)
+                        int fflag=0;
+                        while(k.moveToNext()&& fflag==0)
                         {
                             if(res.getInt(2)==k.getInt(2) && k.getString(3).equals(currenDate) && !(k.getString(4).equals("Not Approved")))
                             {
-                                flag=1;
-
+                                fflag=1;
 
                             }
 
                         }
-                        if(flag==0)
+                        if(fflag==0)
                         {
                             int flag1=0;
                             k=myDB.getAllData("attendance");
@@ -146,21 +137,17 @@ public class NotificationAttendance extends AppCompatActivity {
                                     flag1=1;
                                 }
                             }
-                            if(flag1==0)
-                            {
-                                k=myDB.getAllData("attendance");
-                                String lastaddeddate=null;
-                                while(k.moveToNext())
-                                {
-                                    if(k.getInt(2)==res.getInt(2))
-                                    {
-                                        lastaddeddate=k.getString(3);
+                            if(flag1==0) {
+                                k = myDB.getAllData("attendance");
+                                String lastaddeddate = null;
+                                while (k.moveToNext()) {
+                                    if (k.getInt(2) == res.getInt(2)) {
+                                        lastaddeddate = k.getString(3);
                                     }
                                 }
 
-                                if(lastaddeddate==null)
-                                {
-                                    lastaddeddate=sdate;
+                                if (lastaddeddate == null) {
+                                    lastaddeddate = sdate;
                                 }
 
                                 List<Date> dates = getDates(lastaddeddate, currenDate);
@@ -186,7 +173,75 @@ public class NotificationAttendance extends AppCompatActivity {
 
                                 // boolean i= myDB.insertDataAttendance(res.getInt(1),res.getInt(2),currenDate,"Not Approved",-1);
                             }
+                        }
 
+
+                    }
+                }
+
+
+
+
+                 res=myDB.getAllData("timetable");
+                int count=0;
+                while(res.moveToNext())
+                {
+                    if(res.getString(3).equals(currenDay) && res.getInt(1)==myDB.getcurrentsem() )
+                    {
+                        Cursor k=myDB.getAllData("attendance");
+
+                        while(k.moveToNext())
+                        {
+                            if(res.getInt(2)==k.getInt(2) && k.getString(3).equals(currenDate) && (k.getString(4).equals("Not Approved")))
+                            {
+                               // Toast.makeText(NotificationAttendance.this,Integer.toString(count), Toast.LENGTH_SHORT).show();
+
+                                count++;
+
+                            }
+
+                        }
+
+                    }
+                }
+              //   Toast.makeText(NotificationAttendance.this,Integer.toString(count), Toast.LENGTH_SHORT).show();
+                rg = new RadioGroup[count];
+                rb = new RadioButton[count*5];
+                len=count*5;
+
+               // Toast.makeText(NotificationAttendance.this,Integer.toString(len), Toast.LENGTH_SHORT).show();
+
+
+                int p=0,q=0;
+                int flag=0;
+                res=myDB.getAllData("timetable");
+                while(res.moveToNext())
+                {
+                    if(res.getString(3).equals(currenDay) && res.getInt(1)==myDB.getcurrentsem())
+                    {
+                        Cursor k=myDB.getAllData("attendance");
+                        flag=0;
+                        while(k.moveToNext()&& flag==0)
+                        {
+                            if(res.getInt(2)==k.getInt(2) && k.getString(3).equals(currenDate) && !(k.getString(4).equals("Not Approved")))
+                            {
+                                flag=1;
+
+                            }
+
+                        }
+                        if(flag==0)
+                        {
+                            int flag1=0;
+                            k=myDB.getAllData("attendance");
+//                            while(k.moveToNext()&&flag1==0)
+//                            {
+//                                if(k.getInt(2)==res.getInt(2)  && k.getString(3).equals(currenDate))
+//                                {
+//                                    flag1=1;
+//                                }
+//                            }
+//
                             String sname=myDB.getSubjectName(res.getInt(2));
 
                             int id=myDB.getAttendanceId(myDB.getcurrentsem(),res.getInt(2),currenDate);
@@ -250,14 +305,11 @@ public class NotificationAttendance extends AppCompatActivity {
                         public void onClick(View v) {
                             int r;
                             String radioText="";
-
+//                            Toast.makeText(NotificationAttendance.this,Integer.toString(len), Toast.LENGTH_SHORT).show();
                             for (r = 0; r < len; r++)
                             {
                                 if (rb[r].isChecked()  && (r+1)%5!=0)
                                 {
-//                            Toast.makeText(ViewAttendance.this,"Nothing Is Checked", Toast.LENGTH_SHORT).show();
-
-
                                     RadioButton id = (RadioButton) findViewById(rb[r].getId());
                                     radioText = rb[r].getText().toString();
 
@@ -265,7 +317,6 @@ public class NotificationAttendance extends AppCompatActivity {
                                 else if((r+1)%5==0)
                                 {
                                     int id=rb[r].getId();
-//                            Toast.makeText(ViewAttendance.this,Integer.toString(id), Toast.LENGTH_SHORT).show();
                                     String date="";
                                     Cursor res=myDB.getAllData("attendance");
                                     while(res.moveToNext())
@@ -336,6 +387,13 @@ public class NotificationAttendance extends AppCompatActivity {
             cal1.add(Calendar.DATE, 1);
         }
         return dates;
+    }
+
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
     }
 
 
