@@ -433,7 +433,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getCurrentSemSubjects(int sem)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select s.subject_id,s.subject_name from subject s,subject_details sd where s.subject_id=sd.subject_id and sd.sem_id="+sem+"",null);
+        Cursor res = db.rawQuery("select s.subject_id,s.subject_name, sd.lab from subject s,subject_details sd where s.subject_id=sd.subject_id and sd.sem_id="+sem+"",null);
 
         return res;
     }
