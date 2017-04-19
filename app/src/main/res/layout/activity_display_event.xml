@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.adavi.academiccompanion.DisplayEventActivity">
+    tools:context="com.example.adavi.academiccompanion.DisplayEventActivity"
+    android:background="@color/White">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -28,10 +29,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:onClick="openAddEvent"
-        app:backgroundTint="@android:color/holo_blue_light"
+        android:onClick="showDialogListView"
+        app:backgroundTint="?attr/colorPrimary"
         app:fabSize="normal"
         app:rippleColor="?android:attr/detailsElementBackground"
-        app:srcCompat="@drawable/ic_action_name" />
+        app:srcCompat="@drawable/ic_action_plus" />
 
 </android.support.design.widget.CoordinatorLayout>

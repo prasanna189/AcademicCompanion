@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,52 +7,55 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.adavi.academiccompanion.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:layout_marginTop="100dp">
+    android:background="#FFFFFF">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
 
 
             <RelativeLayout
                 android:id="@+id/subjects_ll_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@android:drawable/btn_default"
+                android:backgroundTint="#FAFAFA"
+                android:backgroundTintMode="screen"
                 android:clickable="true"
-                android:onClick="subject"
-                android:layout_margin="16dp">
+                android:onClick="subject">
 
                 <ImageView
                     android:id="@+id/home_subjects_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/subjects_icon1"
-                    android:layout_centerHorizontal="true" />
+                    android:backgroundTint="#000000"
+                    android:src="@drawable/subs3"
+                    />
 
                 <TextView
                     android:id="@+id/home_subjects_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:text="Subjects"
                     android:layout_below="@id/home_subjects_iv"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_vertical"
+                    android:text="Subjects"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -61,30 +64,35 @@
                 android:id="@+id/events_ll_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+
                 android:layout_weight="1"
-                android:background="@android:drawable/btn_default"
+                android:background="#FFFFFF"
                 android:clickable="true"
-                android:onClick="openEvents"
-                android:layout_margin="16dp">
+                android:onClick="openEvents">
 
                 <ImageView
                     android:id="@+id/home_events_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/event3_icon"
-                    android:layout_centerHorizontal="true" />
+                    android:src="@drawable/events_orange"
+                    />
 
                 <TextView
                     android:id="@+id/home_events_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:text="Events"
+                    android:layout_below="@id/home_events_iv"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/home_events_iv" />
+                    android:layout_gravity="center_vertical"
+
+                    android:text="Events"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
         </LinearLayout>
@@ -103,9 +111,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:drawable/btn_default"
                 android:clickable="true"
-
+                android:onClick="openTimeTable"
                 android:layout_margin="16dp">
 
                 <ImageView
@@ -114,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/timetable1"
+                    android:src="@drawable/time_orange"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
@@ -122,10 +129,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
                     android:text="Time Table"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/home_timetable_iv" />
+                    android:layout_below="@id/home_timetable_iv"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </RelativeLayout>
 
 
@@ -134,9 +143,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:drawable/btn_default"
                 android:clickable="true"
-
+                android:onClick="openExamStats"
                 android:layout_margin="16dp">
 
                 <ImageView
@@ -145,18 +153,22 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/exam_stats1"
-                    android:layout_centerHorizontal="true" />
+                    android:src="@drawable/stats_green"
+                    android:layout_centerHorizontal="true"
+                    />
 
                 <TextView
                     android:id="@+id/home_examstats_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
+
                     android:text="Exam Stats"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/home_examstats_iv" />
+                    android:layout_below="@id/home_examstats_iv"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
             </RelativeLayout>
 
 
@@ -167,9 +179,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="databasemanager"
-            android:text="DATABASE MANAGER"/>
+            android:text="DATABASE MANAGER\n(for testing)"
+            android:textSize="12sp"
+            android:backgroundTint="#ecebeb"/>
+
 
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

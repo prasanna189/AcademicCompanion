@@ -11,14 +11,15 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
 @SuppressLint("ValidFragment")
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-    EditText txtdate;
+    Button txtdate;
     public DateDialog(View view){
-        txtdate=(EditText)view;
+        txtdate=(Button)view;
     }
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

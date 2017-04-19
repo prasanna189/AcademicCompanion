@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 
 public class PrefManager {
     SharedPreferences pref;
+    SharedPreferences profile_pic;
     SharedPreferences.Editor editor;
     Context _context;
 
@@ -19,6 +20,7 @@ public class PrefManager {
     private static final String PREF_NAME = "adavi";
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
+    private static final String IS_PROFILE_PIC_SET = "IsProfilePicSet";
 
     public PrefManager(Context context) {
         this._context = context;
@@ -33,6 +35,15 @@ public class PrefManager {
 
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    }
+
+    public void setProfilePic(boolean isPicSet){
+        editor.putBoolean(IS_PROFILE_PIC_SET, isPicSet);
+        editor.commit();
+    }
+
+    public boolean isProfilePicSet() {
+        return pref.getBoolean(IS_PROFILE_PIC_SET, false);
     }
 
 }

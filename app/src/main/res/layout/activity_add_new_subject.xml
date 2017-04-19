@@ -1,149 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.adavi.academiccompanion.AddNewSubjectActivity">
-    <ScrollView
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:text="Subject Name"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
 
-            <TextView
-                android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/sname_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Professor Name"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/pname_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Professor Email"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/pemail_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Optional"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="credits"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <EditText
+
+            android:id="@+id/credits_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Minimum Attendance"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/MinimumAttendance_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:hint="Enter Number (Eg 75 means 75%)"
+            android:imeOptions="actionNext"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="20sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/Description_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="Optional"
+            android:inputType="textNoSuggestions"
+            android:imeOptions="actionNext"
+            />
+
+        <CheckBox
+            android:id="@+id/lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lab"
+            android:textSize="20sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/reset_button"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Subject Name"
-                android:textColor="#000000"/>
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_orange_light"
+                android:onClick="reset"
+                android:text="Reset"
+                android:textAllCaps="true" />
 
-            <EditText
-                android:id="@+id/sname_edittext"
-                android:layout_width="match_parent"
+
+            <Button
+                android:id="@+id/savesubject_button"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Professor's Name"
-                android:textColor="#000000"/>
-
-            <EditText
-                android:id="@+id/pname_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Professor's Email"
-                android:textColor="#000000"/>
-
-            <EditText
-                android:id="@+id/pemail_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Optional"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="credits"
-                android:textColor="#000000"/>
-
-            <EditText
-                android:id="@+id/credits_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Minimum Attendance"
-                android:textColor="#000000"/>
-
-            <EditText
-                android:id="@+id/MinimumAttendance_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textColor="#000000"/>
-
-            <EditText
-                android:id="@+id/Description_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Optional"
-                android:inputType="textNoSuggestions"
-                android:imeOptions="actionNext"
-                />
-
-            <CheckBox
-                android:id="@+id/lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lab"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <Button
-                    android:id="@+id/reset_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@android:color/holo_orange_light"
-                    android:onClick="reset"
-                    android:text="Reset"
-                    android:textAllCaps="true" />
-
-
-                <Button
-                    android:id="@+id/savesubject_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:onClick="saveSubject"
-                    android:text="Save"
-                    android:textAllCaps="true"
-                    />
-
-            </LinearLayout>
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:onClick="saveSubject"
+                android:text="Save"
+                android:textAllCaps="true" />
 
         </LinearLayout>
-    </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
+
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

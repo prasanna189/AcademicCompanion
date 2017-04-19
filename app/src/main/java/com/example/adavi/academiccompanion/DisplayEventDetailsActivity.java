@@ -1,15 +1,28 @@
 package com.example.adavi.academiccompanion;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.util.Date;
 
 public class DisplayEventDetailsActivity extends AppCompatActivity {
 
+
+
+    TextView display_event_name, display_event_type, display_event_date, display_event_start_time,
+            display_event_end_time, display_event_subject, display_event_description,
+            display_event_remainder_time,display_event_remainder_date;
 
     DatabaseHelper myDB = null;
     @Override
@@ -18,6 +31,72 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_event_details);
 
         myDB = new DatabaseHelper(this);
+
+        display_event_name=(TextView)findViewById(R.id.display_event_name);
+        display_event_type=(TextView)findViewById(R.id.display_event_type);
+        display_event_date=(TextView)findViewById(R.id.display_event_date);
+        display_event_start_time=(TextView)findViewById(R.id.display_event_start_time);
+        display_event_end_time=(TextView)findViewById(R.id.display_event_end_time);
+        display_event_subject=(TextView)findViewById(R.id.display_event_subject);
+        display_event_description=(TextView)findViewById(R.id.display_event_description);
+        display_event_remainder_date=(TextView)findViewById(R.id.display_event_remainder_date);
+        display_event_remainder_time=(TextView)findViewById(R.id.display_event_remainder_time);
+
+        SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format2=new SimpleDateFormat("dd MMM yyyy");
+        Date dt1= null;
+
+
+        String s=getIntent().getStringExtra("button_event_id");
+        int event_id=Integer.parseInt(s);
+        Cursor res= myDB.getAllData("event");
+        while(res.moveToNext())
+        {
+            if(res.getInt(0)==event_id)
+            {
+                display_event_name.setText(res.getString(1));
+                setTitle(res.getString(1));
+
+                try {
+                    dt1 = format1.parse(res.getString(2));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                display_event_date.setText(format2.format(dt1));
+                display_event_start_time.setText(res.getString(3));
+                display_event_end_time.setText(res.getString(4));
+//                display_event_subject.setText(res.getString(5));
+                if(res.getString(5).equals("-1"))
+                {
+                    display_event_subject.setText("-none-");
+                }
+                else
+                {
+                    display_event_subject.setText(myDB.getSubjectName(res.getInt(5)));
+                }
+                display_event_description.setText(res.getString(6));
+
+                String rdate = res.getString(9);
+                if(!res.getString(9).equals(""))
+                {
+                    try {
+                        dt1 = format1.parse(res.getString(9));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    rdate = format2.format(dt1);
+                }
+                display_event_remainder_date.setText(rdate);
+                display_event_remainder_time.setText(res.getString(7));
+                display_event_type.setText(res.getString(8));
+
+            }
+
+        }
+
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,16 +145,53 @@ public class DisplayEventDetailsActivity extends AppCompatActivity {
     void deleteEvent()
     {
         String s=getIntent().getStringExtra("button_event_id");
-        int event_id=Integer.parseInt(s);
-        boolean deleteStatus = myDB.deleteDataAttendance(event_id);
-        if(deleteStatus )
-        {
-            Toast.makeText(DisplayEventDetailsActivity.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            Toast.makeText(DisplayEventDetailsActivity.this, "Delete Failed!", Toast.LENGTH_LONG).show();
-        }
+        final int event_id=Integer.parseInt(s);
+
+
+
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                DisplayEventDetailsActivity.this);
+        alert.setTitle("Confirmation!!");
+        alert.setMessage("Are you sure to delete Event ?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do your work here
+                dialog.dismiss();
+                boolean deleteStatus = myDB.deleteDataEvent(event_id);
+                if(deleteStatus )
+                {
+                    Toast.makeText(DisplayEventDetailsActivity.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(DisplayEventDetailsActivity.this, "Delete Failed!", Toast.LENGTH_LONG).show();
+                }
+                Intent intent = new Intent(DisplayEventDetailsActivity.this, DisplayEventActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
         Intent intent = new Intent(this, DisplayEventActivity.class);
         startActivity(intent);
     }

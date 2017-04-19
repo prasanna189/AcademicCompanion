@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,12 +17,14 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     DatabaseHelper myDB;
+    public static PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_user_input);
         myDB = new DatabaseHelper(this);
+        prefManager = new PrefManager(this);
 
         ImageView buttonLoadImage = (ImageView) findViewById(R.id.user_input_image);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
@@ -46,16 +49,21 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
             Uri uri = data.getData();
 
-            try {
+            try
+            {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
-
                 ImageView imageView = (ImageView) findViewById(R.id.user_input_image);
                 imageView.setImageBitmap(bitmap);
 
                 boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
+                //shared preference to indicate profile pic is set
+                prefManager.setProfilePic(true);
 
-            } catch (IOException e) {
+//                Toast.makeText(IntroUserInputActivity.this, "pic saved", Toast.LENGTH_SHORT).show();
+
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -76,10 +84,12 @@ public class IntroUserInputActivity extends AppCompatActivity {
             semId.setError("Please Enter Your Semester");
             flag = false;
         }
-        if (emailId.getText().toString().length() == 0) {
-            emailId.setError("Please Enter Your Email ID");
-            flag = false;
-        }
+
+        //email optional.
+//        if (emailId.getText().toString().length() == 0) {
+//            emailId.setError("Please Enter Your Email ID");
+//            flag = false;
+//        }
 
 
         if (flag)
@@ -89,15 +99,26 @@ public class IntroUserInputActivity extends AppCompatActivity {
             myDB.setCurrentSem( semId.getText().toString() );
 
             a = myDB.insertDataUserDetails(nameId.getText().toString(), emailId.getText().toString(), "", semId.getText().toString());
-            c = myDB.insertDataSemester( semId.getText().toString() );
+            c = myDB.insertDataSemester( semId.getText().toString(),"","" );
 
             com.example.adavi.academiccompanion.WelcomeActivity.prefManager.setFirstTimeLaunch(false);
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-
-            //setting firsttimelaunch as false, so from next time directly home screen is opened.
-
         }
+    }
+
+    //On clicking back button, it takes back to main acitivity..
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

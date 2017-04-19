@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context="com.example.adavi.academiccompanion.HelpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subjects"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="You can add a subject by clicking + button at the bottom right of the screen. After adding subjects, subjects will be shown in two types : Completed and Running. Running subjects are the subjects which are still going on and you have not added final grade for them. Completed subjects are the subjects for which you have added final grade. You can't further change your marks in that subject if you have already given final grade for that subject." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Events"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="There are different types of events which you can add: Return book, Assignment, Homework, Exam, Extra Class and any other general activity. For each event you can add date, start time and end time,Subject Name, Optional Description and Remainder Time. You can also edit existing events." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time Table"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="For the first time, when you click Time Table, you will be asked to enter a semester start date. This is required for correctly storing you attendance.You can click edit button at the top right and you will be shown a grid like screen with subjects as row headers and days as column headers. By clicking on a particular cell, you can add time for that row header class on column header day. After that you can view your time table whenever you need. "/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Exam Stats"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="You can find marks, results and attendance for all subjects here.Marks summary will be shown for all the subjects.Results will only be given when you have added final grade for all subjects. Attendance summary will be shown for each subject. For comprehensive details about attendance, you should go to Subjects tab and click on a subject and click Attendance." />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notifications"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="You can get 3 types of notifications from the app , One everyday notification for today's classes for which you can customize time, ringtone and vibrate properties in Settings. Similarly, one everyday notification for adding attendance on that day's classes which you can customize in Settings. Event notifications are set through remainder time field when creating or editing events."/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Schedule"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="Here you can view your today's events or you can view your events on a date by clicking on that date from Calendar tab. You can directly add events to a particular date by cliking on that date in Calendar" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Semesters"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="You can add a new semester or go to existing semesters by clicking on semester in navigation drawer."/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Today's Attendance"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="You can easily add attendance for today's classes here without going to every subject and adding attencdance for each individual subject." />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Missed Adding Attendance"
+                android:textSize="24sp"
+                android:layout_margin="4dp"
+                android:textColor="@color/Black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="If you have missed your notification to fill today's attendance, you can still add your attendance for today's classes by clicking Today's Attendance in navigation drawer. If you have failed to add yesterday's attendance, you can still go to individual subject and add attendance for that subject." />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textColor="@color/Red"
+                android:text="Couldn't find what you are looking for? \nClick here to send developers your query."
+                android:onClick="sendQuery"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
