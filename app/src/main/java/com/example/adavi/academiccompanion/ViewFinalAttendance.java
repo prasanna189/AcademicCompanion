@@ -85,7 +85,7 @@ public class ViewFinalAttendance extends AppCompatActivity {
                         }
                     }
                 }
-                if (k == 1) {
+                if (k == 1 && (present+absent)!=0) {
 
                 display(res.getInt(1), myDB.getSubjectName(res.getInt(1)), present, present + absent, (present * 100 / (present + absent)));
             }

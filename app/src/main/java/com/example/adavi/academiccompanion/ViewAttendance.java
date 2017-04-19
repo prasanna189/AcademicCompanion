@@ -195,6 +195,7 @@ public class ViewAttendance extends AppCompatActivity {
 
                     if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(s) && tt.getString(3).equals(day)) {
                         getcount++;
+                     //   Toast.makeText(ViewAttendance.this, ""+getcount, Toast.LENGTH_SHORT).show();
 
                     }
                 }
@@ -381,7 +382,18 @@ public class ViewAttendance extends AppCompatActivity {
                     }
                 }
             }
-            if(coun==0 || getcount==0)
+            if(coun==0 && !(filter.equals("All")))
+            {
+
+                TextView tv=new TextView(this);
+
+                tv.setText("No Data To Display!!!");
+                tv.setTextSize(20);
+                tv.setGravity(Gravity.CENTER);
+
+                ll.addView(tv);
+            }
+            else if(getcount==0)
             {
 
                 TextView tv=new TextView(this);

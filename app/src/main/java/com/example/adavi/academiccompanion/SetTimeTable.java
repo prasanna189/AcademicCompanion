@@ -247,6 +247,10 @@ public class SetTimeTable extends AppCompatActivity {
         {
             Toast.makeText(SetTimeTable.this, "Enter Start Time", Toast.LENGTH_LONG).show();
         }
+        else if(etime.equals(""))
+        {
+            Toast.makeText(SetTimeTable.this, "Enter End Time", Toast.LENGTH_LONG).show();
+        }
         else if(stime.compareTo(etime)>0 && !etime.equals(""))
         {
             Toast.makeText(SetTimeTable.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();

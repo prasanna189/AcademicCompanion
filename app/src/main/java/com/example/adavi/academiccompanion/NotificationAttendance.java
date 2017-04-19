@@ -159,25 +159,45 @@ public class NotificationAttendance extends AppCompatActivity {
 
                                 if (lastaddeddate == null) {
                                     lastaddeddate = sdate;
-                                }
+                                    List<Date> dates = getDates(lastaddeddate, currenDate);
+                                    for (Date date : dates) {
+                                            String day = dayformat.format(date);
+                                            Cursor tt = myDB.getAllData("timetable");
 
-                                List<Date> dates = getDates(lastaddeddate, currenDate);
-                                int count1 = 0;
-                                for (Date date : dates) {
-                                    count1 = count1 + 1;
-                                    if (count1 != 1) {
-                                        String day = dayformat.format(date);
-                                        Cursor tt = myDB.getAllData("timetable");
+                                            while (tt.moveToNext()) {
 
-                                        while (tt.moveToNext()) {
-
-                                            if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(res.getString(2)) && tt.getString(3).equals(day)) {
-                                                boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "Not Approved", -1);
+                                                if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(res.getString(2)) && tt.getString(3).equals(day)) {
+                                                    boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "Not Approved", -1);
+                                                }
                                             }
-                                        }
+
 
 
                                     }
+
+                                }
+                                else
+                                {
+                                    List<Date> dates = getDates(lastaddeddate, currenDate);
+                                    int count1 = 0;
+                                    for (Date date : dates) {
+                                        count1 = count1 + 1;
+                                        if (count1 != 1) {
+                                            String day = dayformat.format(date);
+                                            Cursor tt = myDB.getAllData("timetable");
+
+                                            while (tt.moveToNext()) {
+
+                                                if (myDB.getcurrentsem() == tt.getInt(1) && tt.getString(2).equals(res.getString(2)) && tt.getString(3).equals(day)) {
+                                                    boolean i = myDB.insertDataAttendance(tt.getInt(1), tt.getInt(2), df.format(date), "Not Approved", -1);
+                                                }
+                                            }
+
+
+                                        }
+
+                                    }
+
 
                                 }
 
@@ -349,7 +369,7 @@ public class NotificationAttendance extends AppCompatActivity {
                             }
                             if(j)
                             {
-                                Toast.makeText(NotificationAttendance.this,"Task Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NotificationAttendance.this,"Attendance Updated Successfully", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(NotificationAttendance.this, MainActivity.class);
                                 //finish();
                                 startActivity(intent);
@@ -358,7 +378,7 @@ public class NotificationAttendance extends AppCompatActivity {
                             }
                             else
                             {
-                                Toast.makeText(NotificationAttendance.this,"Task UnSuccessful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NotificationAttendance.this,"Attendance Update Failed", Toast.LENGTH_SHORT).show();
                             }
 
 
