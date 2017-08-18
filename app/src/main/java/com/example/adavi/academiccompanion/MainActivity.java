@@ -383,7 +383,6 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            finishAffinity();
                             System.exit(0);
                             break;
 
@@ -391,15 +390,7 @@ public class MainActivity extends AppCompatActivity
                             break;
 
                         case DialogInterface.BUTTON_NEUTRAL:
-
-                            Intent intent = new Intent(Intent.ACTION_SEND);
-                            String[] strTo = {"academic.companion.adavi@gmail.com" };
-                            intent.putExtra(Intent.EXTRA_EMAIL, strTo);
-                            intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Academic Companion App");
-                            intent.putExtra(Intent.EXTRA_TEXT, "");
-                            intent.setType("message/rfc822");
-                            intent.setPackage("com.google.android.gm");
-                            startActivity(intent);
+                            FeedbackHelper.sendFeedback(MainActivity.this);
                     }
                 }
             };
