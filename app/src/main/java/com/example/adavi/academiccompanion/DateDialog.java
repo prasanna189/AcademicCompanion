@@ -4,7 +4,6 @@ package com.example.adavi.academiccompanion;
  * Created by HP on 07-Apr-17.
  */
 
-import java.util.Calendar;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -13,14 +12,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
+
+import java.util.Calendar;
 
 @SuppressLint("ValidFragment")
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     Button txtdate;
-    public DateDialog(View view){
-        txtdate=(Button)view;
+
+    public DateDialog(View view) {
+        txtdate = (Button) view;
     }
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 
@@ -37,24 +39,19 @@ public class DateDialog extends DialogFragment implements DatePickerDialog.OnDat
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         //show to the selected date in the text box
-        String daystr=""+day+"";
-        if(day<=9)
-        {
-            daystr="0"+daystr;
+        String daystr = "" + day + "";
+        if (day <= 9) {
+            daystr = "0" + daystr;
         }
 
-        if(month<=9)
-        {
-            String date=year+"-0"+(month+1)+"-"+daystr;
+        if (month <= 9) {
+            String date = year + "-0" + (month + 1) + "-" + daystr;
             txtdate.setText(date);
-        }
-        else
-        {
-            String date=year+"-"+(month+1)+"-"+daystr;
+        } else {
+            String date = year + "-" + (month + 1) + "-" + daystr;
             txtdate.setText(date);
         }
     }
-
 
 
 }

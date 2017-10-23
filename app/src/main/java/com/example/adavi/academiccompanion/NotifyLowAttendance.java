@@ -30,15 +30,13 @@ public class NotifyLowAttendance extends BroadcastReceiver {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String Id = intent.getStringExtra("id");
-        int id=19999;
-        if(Id!=null)
-        {
+        int id = 19999;
+        if (Id != null) {
             id = Integer.parseInt(Id);
         }
         String rtime = intent.getStringExtra("Remainder_Time");
 
-        if(rtime == null)
-        {
+        if (rtime == null) {
             rtime = "20:00";
         }
 
@@ -51,30 +49,27 @@ public class NotifyLowAttendance extends BroadcastReceiver {
 
 //        Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
 
-        if(rtime.equals(ctime))
-        {
+        if (rtime.equals(ctime)) {
 
 //            Toast.makeText(context, "hello low attendance pk", Toast.LENGTH_SHORT).show();
             DatabaseHelper myDB = new DatabaseHelper(context);
 
             Cursor res = myDB.getAllData("subject_details");
             String subjects[] = new String[50];
-            int size=0;
-            int flag=0;
+            int size = 0;
+            int flag = 0;
             //***************************************************
 
 
-            while(res.moveToNext())
-            {
-                if(res.getInt(0)==myDB.getcurrentsem()) {
+            while (res.moveToNext()) {
+                if (res.getInt(0) == myDB.getcurrentsem()) {
                     int present = 0;
                     int absent = 0;
                     int min_percent = 0;
                     Cursor cur = myDB.getAllData("attendance");
                     int k = 0;
                     while (cur.moveToNext()) {
-                        if (res.getInt(1) == cur.getInt(2))
-                        {
+                        if (res.getInt(1) == cur.getInt(2)) {
                             k = 1;
                             min_percent = res.getInt(4);
                             if (cur.getString(4).equals("Present")) {
@@ -84,12 +79,10 @@ public class NotifyLowAttendance extends BroadcastReceiver {
                             }
                         }
                     }
-                    if (k == 1)
-                    {
-                        if((present * 100 / (present + absent)) < min_percent)
-                        {
-                            flag=1;
-                            subjects[size] =  myDB.getSubjectName(res.getInt(1))+"  "+ "Attendance : " +String.valueOf((present * 100 / (present + absent)))+"%"+"\n";
+                    if (k == 1) {
+                        if ((present * 100 / (present + absent)) < min_percent) {
+                            flag = 1;
+                            subjects[size] = myDB.getSubjectName(res.getInt(1)) + "  " + "Attendance : " + String.valueOf((present * 100 / (present + absent))) + "%" + "\n";
                             size++;
                         }
                     }
@@ -99,13 +92,9 @@ public class NotifyLowAttendance extends BroadcastReceiver {
             }
 
 
-
-
-
             //****************************************************
 
-            if(flag==1)
-            {
+            if (flag == 1) {
 
                 NotificationCompat.Builder mBuilder =
                         (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -118,10 +107,9 @@ public class NotifyLowAttendance extends BroadcastReceiver {
                 Uri uri = Uri.parse(ringtonePreference);
                 mBuilder.setSound(uri);
 
-                long[] pattern = {1000,1000,1000};
+                long[] pattern = {1000, 1000, 1000};
 
-                if(prefs.getBoolean("events_notification_vibrate",false))
-                {
+                if (prefs.getBoolean("events_notification_vibrate", false)) {
                     mBuilder.setVibrate(pattern);
                 }
 
@@ -142,8 +130,7 @@ public class NotifyLowAttendance extends BroadcastReceiver {
 
 //                inboxStyle.addLine(subjects);
 
-                for(int j=0;j<size;j++)
-                {
+                for (int j = 0; j < size; j++) {
                     inboxStyle.addLine(subjects[j]);
                 }
                 mBuilder.setStyle(inboxStyle);
@@ -167,16 +154,14 @@ public class NotifyLowAttendance extends BroadcastReceiver {
                         );
                 mBuilder.setContentIntent(resultPendingIntent);
 
-                NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 // mId allows you to update the notification later on.
                 mNotificationManager.notify(id, mBuilder.build());
 //            Toast.makeText(context, "Event Debug", Toast.LENGTH_SHORT).show();
 //
             }
-        }
-        else
-        {
+        } else {
 //            Toast.makeText(context, "Debug low attendance.", Toast.LENGTH_SHORT).show();
         }
 

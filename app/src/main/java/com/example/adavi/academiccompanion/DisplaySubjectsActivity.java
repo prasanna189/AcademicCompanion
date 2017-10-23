@@ -3,7 +3,6 @@ package com.example.adavi.academiccompanion;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +11,8 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DisplaySubjectsActivity extends AppCompatActivity {
 
@@ -23,6 +20,9 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
     DatabaseHelper myDB;
 
     int semid;
+    String s, sub_name;
+    int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,30 +31,27 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         myDB = new DatabaseHelper(this);
-        semid=myDB.getcurrentsem();
+        semid = myDB.getcurrentsem();
         displaySubjectsHelper();
     }
 
     public void displaySubjectsHelper() {
-        int flag=0;
+        int flag = 0;
         Cursor res = myDB.getAllData("subject_details");
         if (res.getCount() == 0) {
             subjectAlert("No Subjects", "Go and Add a subject!");
             return;
-        }
-        else
-        {
+        } else {
             StringBuffer buffer = new StringBuffer();
             while (res.moveToNext()) {
-                buffer.append("Subject: "+myDB.getSubjectName(res.getInt(1))+"\n");
-                buffer.append("Status: "+res.getString(5)+"\n");
+                buffer.append("Subject: " + myDB.getSubjectName(res.getInt(1)) + "\n");
+                buffer.append("Status: " + res.getString(5) + "\n");
                 //   buffer.append("Teacher's Email : "+res.getString(2)+"\n");
 
-                if(res.getInt(0)==(semid))
-                {
+                if (res.getInt(0) == (semid)) {
                     //Toast.makeText(DisplaySubjectsActivity.this,"faf0", Toast.LENGTH_LONG).show();
-                    flag=1;
-                    displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5),res.getInt(1));
+                    flag = 1;
+                    displaySubjects(myDB.getSubjectName(res.getInt(1)), res.getString(5), res.getInt(1));
                 }
 //            else
 //            {
@@ -63,19 +60,17 @@ public class DisplaySubjectsActivity extends AppCompatActivity {
 //               // Toast.makeText(DisplaySubjectsActivity.this, "No subjects added", Toast.LENGTH_LONG).show();
 //            }
 
-                buffer.replace(0,buffer.length(),"");
+                buffer.replace(0, buffer.length(), "");
             }
-            if(flag==0){
+            if (flag == 0) {
                 subjectAlert("No Subjects", "Go and Add a subject!");
                 return;
             }
         }
 
     }
-String s,sub_name;
 
-    int i;
-    public void displaySubjects(String sname, String status,int sub_id) {
+    public void displaySubjects(String sname, String status, int sub_id) {
 
         //layout to which children are added
         LinearLayout subjectLL = (LinearLayout) findViewById(R.id.subjects_linearlayout);
@@ -125,37 +120,31 @@ String s,sub_name;
         rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
         rowButton.setTextColor(Color.parseColor("#263238"));
 
-        rowButton.setOnClickListener( new View.OnClickListener() {
+        rowButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Button pressed;
-                pressed=((Button)v);
-                i=pressed.getId();
-                sub_name=pressed.getText().toString();
-                viewSubjectDetails( v);
+                pressed = ((Button) v);
+                i = pressed.getId();
+                sub_name = pressed.getText().toString();
+                viewSubjectDetails(v);
 
 
             }
         });
 
-        if(status.equals("Completed"))
-        {
+        if (status.equals("Completed")) {
             tv.setText(status);
             tv.setTextSize(12);
             tv.setBackgroundColor(Color.parseColor("#EF9A9A"));
 //            tv.setTextAlignment();
-        }
-        else
-        {
+        } else {
             tv.setText(status);
             tv.setTextSize(12);
             tv.setBackgroundColor(Color.parseColor("#80CBC4"));
         }
-
-
 
 
         ll.setBackgroundColor(Color.rgb(224, 242, 241));
@@ -164,11 +153,11 @@ String s,sub_name;
 
         subjectLL.addView(ll);
     }
-    public void viewSubjectDetails(View v)
-    {
+
+    public void viewSubjectDetails(View v) {
         Intent intent = new Intent(this, DisplaySubjectDetails.class);
-        s=Integer.toString(i);
-        intent.putExtra("sub_id",s);
+        s = Integer.toString(i);
+        intent.putExtra("sub_id", s);
         //intent.putExtra("xyz",sub_name);
         startActivity(intent);
     }
@@ -182,7 +171,7 @@ String s,sub_name;
     }
 
 
-    public void addSubject(View view){
+    public void addSubject(View view) {
         Intent intent = new Intent(this, AddNewSubjectActivity.class);
         startActivity(intent);
     }

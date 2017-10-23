@@ -29,7 +29,7 @@ import java.util.Date;
 
 public class AddEventActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
-//    TextView eventType;
+    //    TextView eventType;
     Spinner eventType;
     Button eventDate, eventStime, eventEtime, eventRemainderTime, eventRemainderDate;
     EditText eventName, eventDescription;
@@ -50,30 +50,27 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-        subject_name=null;
-        myDB= new DatabaseHelper(this);
+        subject_name = null;
+        myDB = new DatabaseHelper(this);
 
-        String s=getIntent().getStringExtra("button_event_id");
-        if(s==null)
-        {
+        String s = getIntent().getStringExtra("button_event_id");
+        if (s == null) {
             setTitle("Add Event");
-        }
-        else
-        {
+        } else {
             setTitle("Edit Event");
         }
 
 //        eventType=(TextView) findViewById(R.id.event_type_text_view);
-        eventType=(Spinner) findViewById(R.id.event_type_spinner);
-        eventName= (EditText)findViewById(R.id.event_name_edit_text);
-        eventDate=(Button) findViewById(R.id.event_date_button);
-        eventStime=(Button) findViewById(R.id.event_stime_button);
-        eventEtime=(Button) findViewById(R.id.event_etime_button);
+        eventType = (Spinner) findViewById(R.id.event_type_spinner);
+        eventName = (EditText) findViewById(R.id.event_name_edit_text);
+        eventDate = (Button) findViewById(R.id.event_date_button);
+        eventStime = (Button) findViewById(R.id.event_stime_button);
+        eventEtime = (Button) findViewById(R.id.event_etime_button);
 //        eventSubject=(EditText)findViewById(R.id.event_subject_edit_text);
-        eventDescription=(EditText)findViewById(R.id.event_description_edit_text);
-        eventRemainderTime=(Button) findViewById(R.id.event_remainder_time_button);
-        eventRemainderDate=(Button)findViewById(R.id.event_remainder_date_button);
-        saveEvent=(Button)findViewById(R.id.save_event_button);
+        eventDescription = (EditText) findViewById(R.id.event_description_edit_text);
+        eventRemainderTime = (Button) findViewById(R.id.event_remainder_time_button);
+        eventRemainderDate = (Button) findViewById(R.id.event_remainder_date_button);
+        saveEvent = (Button) findViewById(R.id.save_event_button);
 
 
         Calendar c = Calendar.getInstance();
@@ -85,55 +82,49 @@ public class AddEventActivity extends AppCompatActivity {
         formattedTime = tf.format(c.getTime());
 
 
-        event_type= getIntent().getStringExtra("activity_type");
+        event_type = getIntent().getStringExtra("activity_type");
 //        eventType.setText(event_type);
 
 
-       eventDate.setOnClickListener(new View.OnClickListener(){
-           public void onClick(View view)
-           {
-               DateDialog dialog=new DateDialog(view);
-               FragmentTransaction ft =getFragmentManager().beginTransaction();
-               dialog.show(ft, "DatePicker");
-           }
-       });
-
-        eventStime.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                TimeDialog dialog = TimeDialog.newInstance(view);
-                    android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    dialog.show(ft, "TimeDialog");
-            }
-        });
-
-        eventEtime.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                TimeDialog dialog = TimeDialog.newInstance(view);
-                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                dialog.show(ft, "TimeDialog");
-            }
-        });
-
-        eventRemainderDate.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                DateDialog dialog=new DateDialog(view);
-                FragmentTransaction ft =getFragmentManager().beginTransaction();
+        eventDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                DateDialog dialog = new DateDialog(view);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 dialog.show(ft, "DatePicker");
             }
         });
 
-        eventRemainderTime.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
+        eventStime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 TimeDialog dialog = TimeDialog.newInstance(view);
                 android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 dialog.show(ft, "TimeDialog");
             }
         });
 
+        eventEtime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                TimeDialog dialog = TimeDialog.newInstance(view);
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                dialog.show(ft, "TimeDialog");
+            }
+        });
+
+        eventRemainderDate.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                DateDialog dialog = new DateDialog(view);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                dialog.show(ft, "DatePicker");
+            }
+        });
+
+        eventRemainderTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                TimeDialog dialog = TimeDialog.newInstance(view);
+                android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                dialog.show(ft, "TimeDialog");
+            }
+        });
 
 
 //        eventDate.setOnFocusChangeListener(new View.OnFocusChangeListener(){
@@ -184,40 +175,38 @@ public class AddEventActivity extends AppCompatActivity {
 //
 //        });
 
-        eventSubject=(Spinner)findViewById(R.id.event_subject_spinner);
+        eventSubject = (Spinner) findViewById(R.id.event_subject_spinner);
 
 
 //          Subject Spinner
-        int sem=myDB.getcurrentsem();
+        int sem = myDB.getcurrentsem();
 
-        Cursor sub_res=myDB.getCurrentSemSubjects(sem);
-        String[] subject_array= new String[sub_res.getCount()+1];
-        subject_array[0]="";
+        Cursor sub_res = myDB.getCurrentSemSubjects(sem);
+        String[] subject_array = new String[sub_res.getCount() + 1];
+        subject_array[0] = "";
 
-        int i=1;
-        while(sub_res.moveToNext())
-        {
-            subject_array[i]=sub_res.getString(1);
-            i=i+1;
+        int i = 1;
+        while (sub_res.moveToNext()) {
+            subject_array[i] = sub_res.getString(1);
+            i = i + 1;
         }
 
-        adapter=new ArrayAdapter<String>(this,
-                R.layout.spinner_layout,R.id.textview, subject_array);
+        adapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_layout, R.id.textview, subject_array);
 
         eventSubject.setAdapter(adapter);
 
-        eventSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        eventSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
 
             public void onItemSelected(AdapterView<?> parent, View view, int
                     position, long id) {
 
-                ViewGroup vg=(ViewGroup)view;
+                ViewGroup vg = (ViewGroup) view;
 
-                TextView tv=(TextView)vg.findViewById(R.id.textview);
-                subject_name=tv.getText().toString();
+                TextView tv = (TextView) vg.findViewById(R.id.textview);
+                subject_name = tv.getText().toString();
 //                Toast.makeText(AddEventActivity.this, tv.getText().toString(),
 //                        Toast.LENGTH_LONG).show();
 
@@ -228,31 +217,30 @@ public class AddEventActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
 
-                subject_name=null;
+                subject_name = null;
             }
 
         });
 
 //          Event Type Spinner
 
-        String[] event_types={"Return Book","Assignment","Homework","Exam","Extra Class","Other Activity"};
-        adapter_event=new ArrayAdapter<String>(this,
-                R.layout.spinner_layout,R.id.textview, event_types);
+        String[] event_types = {"Return Book", "Assignment", "Homework", "Exam", "Extra Class", "Other Activity"};
+        adapter_event = new ArrayAdapter<String>(this,
+                R.layout.spinner_layout, R.id.textview, event_types);
 
         eventType.setAdapter(adapter_event);
 
-        eventType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        eventType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
 
             public void onItemSelected(AdapterView<?> parent, View view, int
                     position, long id) {
 
-                ViewGroup vg=(ViewGroup)view;
+                ViewGroup vg = (ViewGroup) view;
 
-                TextView tv=(TextView)vg.findViewById(R.id.textview);
-                event_type=tv.getText().toString();
+                TextView tv = (TextView) vg.findViewById(R.id.textview);
+                event_type = tv.getText().toString();
 //                Toast.makeText(AddEventActivity.this, tv.getText().toString(),
 //                        Toast.LENGTH_LONG).show();
 
@@ -273,24 +261,19 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
 
-    public void displayEventDetails()
-    {
+    public void displayEventDetails() {
         String date = getIntent().getStringExtra("date");
-        if(date!=null)
-        {
+        if (date != null) {
             eventDate.setText(date);
         }
 
-        String s=getIntent().getStringExtra("button_event_id");
-        if(s!=null)
-        {
-            Cursor res=myDB.getAllData("event");
-            Cursor res1=myDB.getAllData("subject");
-            String sub_name=null;
-            while(res.moveToNext())
-            {
-                if(s.equals(res.getString(0)))
-                {
+        String s = getIntent().getStringExtra("button_event_id");
+        if (s != null) {
+            Cursor res = myDB.getAllData("event");
+            Cursor res1 = myDB.getAllData("subject");
+            String sub_name = null;
+            while (res.moveToNext()) {
+                if (s.equals(res.getString(0))) {
                     eventType.setSelection(adapter_event.getPosition(res.getString(8)));
                     eventName.setText(res.getString(1));
                     eventDate.setText(res.getString(2));
@@ -301,11 +284,9 @@ public class AddEventActivity extends AppCompatActivity {
                     eventRemainderTime.setText(res.getString(7));
                     eventRemainderDate.setText(res.getString(9));
                     saveEvent.setText("Update");
-                    while(res1.moveToNext())
-                    {
-                        if(res1.getInt(0)==res.getInt(5))
-                        {
-                            sub_name=res1.getString(1);
+                    while (res1.moveToNext()) {
+                        if (res1.getInt(0) == res.getInt(5)) {
+                            sub_name = res1.getString(1);
                         }
                     }
 
@@ -321,69 +302,45 @@ public class AddEventActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     void saveEvent(View view) throws ParseException {
-        boolean flag=true;
-        String event_name=eventName.getText().toString();
-        String event_date=eventDate.getText().toString();
-        if(event_date.equals("Set Date"))
-        {
-            event_date="";
+        boolean flag = true;
+        String event_name = eventName.getText().toString();
+        String event_date = eventDate.getText().toString();
+        if (event_date.equals("Set Date")) {
+            event_date = "";
         }
-        String event_stime=eventStime.getText().toString();
-        if(event_stime.equals("Set Start Time"))
-        {
-            event_stime="";
+        String event_stime = eventStime.getText().toString();
+        if (event_stime.equals("Set Start Time")) {
+            event_stime = "";
         }
-        String event_etime=eventEtime.getText().toString();
-        if(event_etime.equals("Set End Time"))
-        {
-            event_etime="";
+        String event_etime = eventEtime.getText().toString();
+        if (event_etime.equals("Set End Time")) {
+            event_etime = "";
         }
 
-        String remTime=eventRemainderTime.getText().toString(), remDate=eventRemainderDate.getText().toString();
+        String remTime = eventRemainderTime.getText().toString(), remDate = eventRemainderDate.getText().toString();
 
 
-
-        if(event_name.equals(""))
-        {
+        if (event_name.equals("")) {
             Toast.makeText(AddEventActivity.this, "Enter Event Name", Toast.LENGTH_LONG).show();
-        }
-        else if(event_date.equals(""))
-        {
+        } else if (event_date.equals("")) {
             Toast.makeText(AddEventActivity.this, "Enter Event Date", Toast.LENGTH_LONG).show();
-        }
-        else if(event_date.compareTo(formattedDate)<0)
-        {
+        } else if (event_date.compareTo(formattedDate) < 0) {
             Toast.makeText(AddEventActivity.this, "Event Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
-        }
-        else if(event_date.compareTo(formattedDate)==0 && event_stime.compareTo(formattedTime)<0 && !event_stime.equals(""))
-        {
+        } else if (event_date.compareTo(formattedDate) == 0 && event_stime.compareTo(formattedTime) < 0 && !event_stime.equals("")) {
             Toast.makeText(AddEventActivity.this, "Event Start Time Should be greater than Current Time", Toast.LENGTH_LONG).show();
-        }
-        else if(!event_etime.equals("") && event_stime.equals(""))
-        {
+        } else if (!event_etime.equals("") && event_stime.equals("")) {
             Toast.makeText(AddEventActivity.this, "Start Time should be entered before entering End Time", Toast.LENGTH_LONG).show();
-        }
-        else if(event_etime.compareTo(event_stime)<0 && !event_etime.equals("")  )
-        {
+        } else if (event_etime.compareTo(event_stime) < 0 && !event_etime.equals("")) {
             Toast.makeText(AddEventActivity.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
-        }
-        else if((remDate.equals("") && !remTime.equals("")) || (!remDate.equals("") && remTime.equals("")))
-        {
+        } else if ((remDate.equals("") && !remTime.equals("")) || (!remDate.equals("") && remTime.equals(""))) {
             Toast.makeText(AddEventActivity.this, "Both Remainder Date and Time should be preasent", Toast.LENGTH_LONG).show();
-        }
-        else if( !remDate.equals("") && remDate.compareTo(formattedDate) < 0)
-        {
+        } else if (!remDate.equals("") && remDate.compareTo(formattedDate) < 0) {
             Toast.makeText(AddEventActivity.this, "Remainder Date Should be greater than Current Date", Toast.LENGTH_LONG).show();
-        }
-        else if(!remDate.equals("") && remDate.compareTo(event_date) > 0)
-        {
+        } else if (!remDate.equals("") && remDate.compareTo(event_date) > 0) {
             Toast.makeText(AddEventActivity.this, "Remainder Date Should be less than Event Date", Toast.LENGTH_LONG).show();
-        }
-        else if(!remDate.equals("") && remDate.compareTo(event_date)==0 && remTime.compareTo(event_stime)>0 && !event_stime.equals(""))
-        {
+        } else if (!remDate.equals("") && remDate.compareTo(event_date) == 0 && remTime.compareTo(event_stime) > 0 && !event_stime.equals("")) {
             Toast.makeText(AddEventActivity.this, "Remainder Time Should be less than Event Time", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
 
             String s = getIntent().getStringExtra("button_event_id");
             int subject_id = -1;
@@ -409,26 +366,24 @@ public class AddEventActivity extends AppCompatActivity {
 
                     if (subject_id == -1 && !activity_sub_name.equals("")) {
                         Toast.makeText(AddEventActivity.this, "Invalid Subject Name", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        boolean extraInsert=true;
+                    } else {
+                        boolean extraInsert = true;
                         int id;
                         id = myDB.insertDataEvent(event_name, event_date, event_stime, event_etime,
                                 subject_id, eventDescription.getText().toString(), eventRemainderTime.getText().toString(), event_type,
                                 eventRemainderDate.getText().toString());
 
-                        if(!remDate.equals("") && !remTime.equals(""))
-                        {
-                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
-                            Date dt1=format1.parse(remDate);
-                            Date dt2=format2.parse(remTime);
+                        if (!remDate.equals("") && !remTime.equals("")) {
+                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+                            Date dt1 = format1.parse(remDate);
+                            Date dt2 = format2.parse(remTime);
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(dt1);
                             Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
-                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
+                            calendar.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
 //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
                             cal.setTime(dt2);
                             calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
@@ -437,28 +392,27 @@ public class AddEventActivity extends AppCompatActivity {
 //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
                             Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
                             intent1.putExtra("Event_Name", event_name);
-                            intent1.putExtra("id",""+id+"");
-                            intent1.putExtra("Event_Date",event_date);
-                            intent1.putExtra("Event_Type",event_type);
-                            intent1.putExtra("Subject",activity_sub_name);
+                            intent1.putExtra("id", "" + id + "");
+                            intent1.putExtra("Event_Date", event_date);
+                            intent1.putExtra("Event_Type", event_type);
+                            intent1.putExtra("Subject", activity_sub_name);
                             intent1.putExtra("Start_Time", event_stime);
                             intent1.putExtra("End_Time", event_etime);
                             intent1.putExtra("Remainder_Time", remTime);
                             intent1.putExtra("Remainder_date", remDate);
                             intent1.putExtra("Description", eventDescription.getText().toString());
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, id,intent1, PendingIntent.FLAG_ONE_SHOT);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, id, intent1, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 //
                         }
 //            myDB.insertDataEvent(eventName.getText().toString(),eventDate.getText().toString(),eventStime.getText().toString(),eventEtime.getText().toString(),
 //                    subject_id,eventDescription.getText().toString(),eventRemainder.getText().toString());
-                        if(event_type.equals("Extra Class"))
-                        {
-                            extraInsert=myDB.insertDataAttendance(myDB.getcurrentsem(),subject_id,event_date,"Not Approved",1);
+                        if (event_type.equals("Extra Class")) {
+                            extraInsert = myDB.insertDataAttendance(myDB.getcurrentsem(), subject_id, event_date, "Not Approved", 1);
                         }
 
-                        if (id>0 && extraInsert) {
+                        if (id > 0 && extraInsert) {
                             Toast.makeText(AddEventActivity.this, "Event Saved", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(this, DisplayEventActivity.class);
                             startActivity(intent);
@@ -485,39 +439,38 @@ public class AddEventActivity extends AppCompatActivity {
 //                            Toast.makeText(AddEventActivity.this, "Event not Updated", Toast.LENGTH_LONG).show();
                         }
 
-                        if(!remDate.equals("") && !remTime.equals(""))
-                        {
-                            SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat format2=new SimpleDateFormat("HH:mm");
-                            Date dt1=format1.parse(remDate);
-                            Date dt2=format2.parse(remTime);
+                        if (!remDate.equals("") && !remTime.equals("")) {
+                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat format2 = new SimpleDateFormat("HH:mm");
+                            Date dt1 = format1.parse(remDate);
+                            Date dt2 = format2.parse(remTime);
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(dt1);
                             Calendar calendar = Calendar.getInstance();
-                            calendar.set(Calendar.YEAR,cal.get(Calendar.YEAR));
-                            calendar.set(Calendar.MONTH,cal.get(Calendar.MONTH));
-                            calendar.set(Calendar.DAY_OF_MONTH,cal.get(Calendar.DAY_OF_MONTH));
-            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
+                            calendar.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+                            calendar.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+                            calendar.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
+                            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.YEAR)+" "+cal.get(Calendar.MONTH)+" "+cal.get(Calendar.DAY_OF_MONTH) , Toast.LENGTH_LONG).show();
                             cal.setTime(dt2);
                             calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
                             calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
                             calendar.set(Calendar.SECOND, 0);
-            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
+                            //                            Toast.makeText(AddEventActivity.this,cal.get(Calendar.HOUR_OF_DAY)+" "+cal.get(Calendar.MINUTE)+" " , Toast.LENGTH_LONG).show();
                             Intent intent1 = new Intent(AddEventActivity.this, NotifyEventActivity.class);
                             intent1.putExtra("Event_Name", event_name);
-                            intent1.putExtra("id",""+s+"");
-                            intent1.putExtra("Event_Date",event_date);
-                            intent1.putExtra("Event_Type",event_type);
-                            intent1.putExtra("Subject",activity_sub_name);
+                            intent1.putExtra("id", "" + s + "");
+                            intent1.putExtra("Event_Date", event_date);
+                            intent1.putExtra("Event_Type", event_type);
+                            intent1.putExtra("Subject", activity_sub_name);
                             intent1.putExtra("Start_Time", event_stime);
                             intent1.putExtra("End_Time", event_etime);
                             intent1.putExtra("Remainder_Time", remTime);
                             intent1.putExtra("Remainder_date", remDate);
                             intent1.putExtra("Description", eventDescription.getText().toString());
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, Integer.parseInt(s),intent1, PendingIntent.FLAG_ONE_SHOT);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddEventActivity.this, Integer.parseInt(s), intent1, PendingIntent.FLAG_ONE_SHOT);
                             AlarmManager am = (AlarmManager) AddEventActivity.this.getSystemService(AddEventActivity.this.ALARM_SERVICE);
                             am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            //
+                            //
                         }
 
                     }
@@ -562,8 +515,6 @@ public class AddEventActivity extends AppCompatActivity {
         }
 
 
-
-
     }
 
 
@@ -590,20 +541,18 @@ public class AddEventActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if (id == R.id.cancel_add_event)
-        {
-            String s=getIntent().getStringExtra("button_event_id");
+        if (id == R.id.cancel_add_event) {
+            String s = getIntent().getStringExtra("button_event_id");
 
-            if(s==null)//while adding new event
+            if (s == null)//while adding new event
             {
-                Intent intent = new Intent(this,DisplayEventActivity.class);
+                Intent intent = new Intent(this, DisplayEventActivity.class);
                 startActivity(intent);
 
-            }
-            else//editing already existing event
+            } else//editing already existing event
             {
-                Intent intent = new Intent(this,DisplayEventDetailsActivity.class);
-                intent.putExtra("button_event_id",s);
+                Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
+                intent.putExtra("button_event_id", s);
                 startActivity(intent);
             }
 
@@ -613,21 +562,20 @@ public class AddEventActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public void onBackPressed()
-    {
-        String s=getIntent().getStringExtra("button_event_id");
 
-        if(s==null)//while adding new event
+    @Override
+    public void onBackPressed() {
+        String s = getIntent().getStringExtra("button_event_id");
+
+        if (s == null)//while adding new event
         {
-            Intent intent = new Intent(this,DisplayEventActivity.class);
+            Intent intent = new Intent(this, DisplayEventActivity.class);
             startActivity(intent);
 
-        }
-        else//editing already existing event
+        } else//editing already existing event
         {
-            Intent intent = new Intent(this,DisplayEventDetailsActivity.class);
-            intent.putExtra("button_event_id",s);
+            Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
+            intent.putExtra("button_event_id", s);
             startActivity(intent);
         }
     }

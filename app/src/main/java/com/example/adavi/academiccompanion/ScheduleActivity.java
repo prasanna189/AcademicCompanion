@@ -131,6 +131,19 @@ public class ScheduleActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -163,42 +176,39 @@ public class ScheduleActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
 
             View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
-            CalendarView calendarView = (CalendarView)rootView.findViewById(R.id.schedule_fragment_cv);
-            LinearLayout ll = (LinearLayout)rootView.findViewById(R.id.schedule_fragment_ll);
+            CalendarView calendarView = (CalendarView) rootView.findViewById(R.id.schedule_fragment_cv);
+            LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.schedule_fragment_ll);
 
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) // TODAY
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) // TODAY
             {
 //                Toast.makeText(getContext(), "TODAY", Toast.LENGTH_SHORT).show();
                 calendarView.setVisibility(View.GONE);
                 displayEventHelper(ll);
-            }
-            else // this MONTH
+            } else // this MONTH
             {
 //                Toast.makeText(getContext(), "THIS MONTH", Toast.LENGTH_SHORT).show();
 
                 calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
                     @Override
                     public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
-                        String day ;
+                        String day;
                         String month;
-                        month=String.valueOf(i1+1);
-                        day=String.valueOf(i2);
-                        if(i1<10)
-                        {
-                            month="0"+month;
+                        month = String.valueOf(i1 + 1);
+                        day = String.valueOf(i2);
+                        if (i1 < 10) {
+                            month = "0" + month;
                         }
-                        if(i2<10)
-                        {
-                            day="0"+day;
+                        if (i2 < 10) {
+                            day = "0" + day;
                         }
-                        String date = String.valueOf(i)+"-"+month+"-"+day;
+                        String date = String.valueOf(i) + "-" + month + "-" + day;
 //                        Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), DisplayEventsOnADateActivity.class);
-                        intent.putExtra("date",date);
+                        intent.putExtra("date", date);
                         startActivity(intent);
 
-                }
+                    }
                 });
 
 
@@ -224,10 +234,9 @@ public class ScheduleActivity extends AppCompatActivity {
         }
 
 
-
         //*******************************
 
-        public void  displayEventHelper(LinearLayout ll) {
+        public void displayEventHelper(LinearLayout ll) {
             Calendar c = Calendar.getInstance();
             formattedDate = df.format(c.getTime());
 
@@ -243,7 +252,7 @@ public class ScheduleActivity extends AppCompatActivity {
         }
 
 
-        public  void displayEvent(LinearLayout eventLL, int eventid, String ename, String date, String StartTime) {
+        public void displayEvent(LinearLayout eventLL, int eventid, String ename, String date, String StartTime) {
 
             //layout to which children are added
 //        View rootView = inflater.inflate(R.layout.fragment_schedule, container, false);
@@ -294,11 +303,10 @@ public class ScheduleActivity extends AppCompatActivity {
             rowButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     Button pressed;
-                    pressed=((Button)v);
-                    button_id=pressed.getId();
+                    pressed = ((Button) v);
+                    button_id = pressed.getId();
                     viewEventDetails(v);
                 }
             });
@@ -316,12 +324,11 @@ public class ScheduleActivity extends AppCompatActivity {
             eventLL.addView(ll);
         }
 
-        public void viewEventDetails(View v)
-        {
+        public void viewEventDetails(View v) {
             Intent intent = new Intent(getContext(), DisplayEventOnScheduleActivity.class);
             String s = Integer.toString(button_id);
-            intent.putExtra("button_event_id",s);
-            intent.putExtra("date",formattedDate);
+            intent.putExtra("button_event_id", s);
+            intent.putExtra("date", formattedDate);
             startActivity(intent);
 
         }
@@ -330,7 +337,7 @@ public class ScheduleActivity extends AppCompatActivity {
 
     }
 
-
+    //On clicking back button, it takes back to main acitivity..
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -366,22 +373,6 @@ public class ScheduleActivity extends AppCompatActivity {
             return null;
         }
     }
-
-    //On clicking back button, it takes back to main acitivity..
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
 
 
 }

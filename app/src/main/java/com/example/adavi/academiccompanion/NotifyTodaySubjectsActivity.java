@@ -27,39 +27,35 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
         myDB = new DatabaseHelper(context);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        String time = prefs.getString("notification_time",null);
+        String time = prefs.getString("notification_time", null);
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm");
         String t1 = df.format(c.getTime());
 
 
-        int hours = 7, minutes=0;
+        int hours = 7, minutes = 0;
         String[] parts;
-        String part1="", part2="";
-        String t="";
-        if(time != null)
-        {
+        String part1 = "", part2 = "";
+        String t = "";
+        if (time != null) {
             parts = time.split(":");
             part1 = parts[0];
             part2 = parts[1];
-            hours=Integer.parseInt(part1);
-            minutes=Integer.parseInt(part2);
-            if(hours<10)
-            {
-                part1 = "0"+String.valueOf(hours);
+            hours = Integer.parseInt(part1);
+            minutes = Integer.parseInt(part2);
+            if (hours < 10) {
+                part1 = "0" + String.valueOf(hours);
             }
 
-            if(minutes<10)
-            {
-                part2 = "0"+String.valueOf(minutes);
+            if (minutes < 10) {
+                part2 = "0" + String.valueOf(minutes);
             }
         }
 
-        t = part1+":"+part2;
+        t = part1 + ":" + part2;
 
-        if(prefs.getBoolean("notifications_new_message",false)  && t.equals(t1))
-        {
+        if (prefs.getBoolean("notifications_new_message", false) && t.equals(t1)) {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
@@ -71,10 +67,9 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
             Uri uri = Uri.parse(ringtonePreference);
             mBuilder.setSound(uri);
 
-            long[] pattern = {1000,1000,1000};
+            long[] pattern = {1000, 1000, 1000};
 
-            if(prefs.getBoolean("notifications_new_message_vibrate",false))
-            {
+            if (prefs.getBoolean("notifications_new_message_vibrate", false)) {
                 mBuilder.setVibrate(pattern);
             }
 
@@ -83,16 +78,13 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
 
             String[] events = myDB.getTodayClasses();
 
-            if(events.length != 0)
-            {
+            if (events.length != 0) {
                 inboxStyle.setBigContentTitle("Today's Classes are : ");
 
-                for (int i=0; i < events.length; i++) {
+                for (int i = 0; i < events.length; i++) {
                     inboxStyle.addLine(events[i]);
                 }
-            }
-            else
-            {
+            } else {
                 inboxStyle.setBigContentTitle("No Classes Today.");
                 inboxStyle.addLine("Take a break.");
             }
@@ -119,15 +111,13 @@ public class NotifyTodaySubjectsActivity extends BroadcastReceiver {
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 
-            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 // mId allows you to update the notification later on.
             mNotificationManager.notify(1000, mBuilder.build());
 //            Toast.makeText(context, "Debug: "+prefs.getString("notification_time", "what"), Toast.LENGTH_SHORT).show();
 
-        }
-        else
-        {
+        } else {
 //            Toast.makeText(context, "Debug: No notification", Toast.LENGTH_SHORT).show();
         }
 

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 //Created by pk on 8/1/2017.
 
-    class FeedbackHelper {
+class FeedbackHelper {
 
     private static final String EMAIL_ADDRESS = "academic.companion.adavi@gmail.com";
 
@@ -35,8 +35,7 @@ import java.io.IOException;
 
         if (!isExternalStorageWritable()) {
             Toast.makeText(context, "Unable to attach Debug Info", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
 
             debugFile = new File(context.getExternalFilesDir(filepath), filename);
 
@@ -44,8 +43,7 @@ import java.io.IOException;
                 FileOutputStream fos = new FileOutputStream(debugFile);
                 fos.write(getDeviceInfo(context).getBytes());
                 fos.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -62,7 +60,7 @@ import java.io.IOException;
     }
 
     private static String[] getFeedbackEmailAddress() {
-        return new String[] { EMAIL_ADDRESS };
+        return new String[]{EMAIL_ADDRESS};
     }
 
     private static String getFeedbackEmailSubject(Context context) {
@@ -82,26 +80,26 @@ import java.io.IOException;
     }
 
     private static String getEmailText(Context context) {
-        String emailMessage="";
-        emailMessage+="Your feedback or issue here : \n\n\n _____________ \n\n Debug file helps with app issues.\n";
+        String emailMessage = "";
+        emailMessage += "Your feedback or issue here : \n\n\n _____________ \n\n Debug file helps with app issues.\n";
         return emailMessage;
     }
 
     //returns info about the device as a string
     private static String getDeviceInfo(Context context) {
-        String deviceInfo="";
-        deviceInfo+="Bootloader: "+Build.BOOTLOADER
-                +"\nBrand: " +Build.BRAND
-                +"\nDevice: "+Build.DEVICE
-                +"\nBuild: "+Build.DISPLAY
-                +"\nHardware: "+Build.HARDWARE
-                +"\nManufacturer, Model: "+Build.MANUFACTURER+" "+ Build.MODEL
-                +"\nScreen Density: "+getDeviceDensity(context)
-                +"\nVersion, SDK:"+Build.VERSION.RELEASE+" , "+ Build.VERSION.SDK_INT
-                +"\nCodename, Incremental: "+Build.VERSION.CODENAME+" , "+ Build.VERSION.INCREMENTAL
-                +"\nProduct: "+Build.PRODUCT
-                +"\nBoard: "+Build.BOARD
-                +"\nRadio Version: "+Build.getRadioVersion();
+        String deviceInfo = "";
+        deviceInfo += "Bootloader: " + Build.BOOTLOADER
+                + "\nBrand: " + Build.BRAND
+                + "\nDevice: " + Build.DEVICE
+                + "\nBuild: " + Build.DISPLAY
+                + "\nHardware: " + Build.HARDWARE
+                + "\nManufacturer, Model: " + Build.MANUFACTURER + " " + Build.MODEL
+                + "\nScreen Density: " + getDeviceDensity(context)
+                + "\nVersion, SDK:" + Build.VERSION.RELEASE + " , " + Build.VERSION.SDK_INT
+                + "\nCodename, Incremental: " + Build.VERSION.CODENAME + " , " + Build.VERSION.INCREMENTAL
+                + "\nProduct: " + Build.PRODUCT
+                + "\nBoard: " + Build.BOARD
+                + "\nRadio Version: " + Build.getRadioVersion();
         return deviceInfo;
     }
 

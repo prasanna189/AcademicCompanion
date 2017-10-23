@@ -30,17 +30,16 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-//just testing
+//just for testing
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static PrefManager prefManager;
     DatabaseHelper myDB;
     ArrayAdapter<Integer> adapter;
-    private String m_Text = "";
-    public static PrefManager prefManager;
     SharedPreferences prefs;
-
+    private String m_Text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -70,35 +68,30 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header=navigationView.getHeaderView(0);
-        ImageView imageView = (ImageView)header.findViewById(R.id.userImageView);
-        username = (TextView)header.findViewById(R.id.navbar_username_tv);
-        useremail = (TextView)header.findViewById(R.id.navbar_useremail_tv);
+        View header = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView) header.findViewById(R.id.userImageView);
+        username = (TextView) header.findViewById(R.id.navbar_username_tv);
+        useremail = (TextView) header.findViewById(R.id.navbar_useremail_tv);
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
 
-        if(prefManager.isProfilePicSet())
-        {
-            try
-            {
+        if (prefManager.isProfilePicSet()) {
+            try {
                 imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else //profile pic not set
+        } else //profile pic not set
         {
 
         }
 
 
-        LinearLayout app_layer = (LinearLayout) header.findViewById (R.id.navbar_user_profile);
+        LinearLayout app_layer = (LinearLayout) header.findViewById(R.id.navbar_user_profile);
         app_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),DisplayUserProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), DisplayUserProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,36 +100,33 @@ public class MainActivity extends AppCompatActivity
         //Semester spinner
 
         final Cursor sem_res = myDB.getAllData("Semester");
-        final String[] sem_array= new String[sem_res.getCount()+2];
-        sem_array[0]=String.valueOf(myDB.getcurrentsem());
-        int i=1;
-        while(sem_res.moveToNext())
-        {
-            sem_array[i]=String.valueOf(sem_res.getInt(0));
-            i=i+1;
+        final String[] sem_array = new String[sem_res.getCount() + 2];
+        sem_array[0] = String.valueOf(myDB.getcurrentsem());
+        int i = 1;
+        while (sem_res.moveToNext()) {
+            sem_array[i] = String.valueOf(sem_res.getInt(0));
+            i = i + 1;
         }
-        sem_array[i]="+";
+        sem_array[i] = "+";
 
         Spinner spinner = (Spinner) navigationView.getMenu().findItem(R.id.navbar_semester).getActionView();
-        spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,sem_array));
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, sem_array));
         spinner.setDropDownWidth(100);
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 //Add a new semester.
-                if(position==sem_res.getCount()+1){
-
+                if (position == sem_res.getCount() + 1) {
 
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("Enter Semester ");
 
                     final EditText input = new EditText(MainActivity.this);
-                    input.setInputType(InputType.TYPE_CLASS_TEXT );
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
 
 
                     builder.setView(input);
@@ -145,8 +135,8 @@ public class MainActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which) {
                             m_Text = input.getText().toString();
                             myDB.setCurrentSem(m_Text);
-                            myDB.insertDataSemester(m_Text,"","");
-                            sem_array[0]=String.valueOf(myDB.getcurrentsem());
+                            myDB.insertDataSemester(m_Text, "", "");
+                            sem_array[0] = String.valueOf(myDB.getcurrentsem());
                             Intent intent = new Intent(MainActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
@@ -159,17 +149,16 @@ public class MainActivity extends AppCompatActivity
                     });
                     builder.show();
 
-                    sem_array[0]=String.valueOf(myDB.getcurrentsem());
-                }
-                else{
+                    sem_array[0] = String.valueOf(myDB.getcurrentsem());
+                } else {
                     myDB.setCurrentSem(sem_array[position]);
-                    sem_array[0]=String.valueOf(myDB.getcurrentsem());
+                    sem_array[0] = String.valueOf(myDB.getcurrentsem());
                 }
 
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
+            public void onNothingSelected(AdapterView<?> parent) {
 //                Toast.makeText(MainActivity.this,"hi",Toast.LENGTH_SHORT).show();
             }
         });
@@ -228,28 +217,23 @@ public class MainActivity extends AppCompatActivity
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    public void databasemanager(View view)
-    {
-        Intent dbmanager = new Intent(this,AndroidDatabaseManager.class);
+    public void databasemanager(View view) {
+        Intent dbmanager = new Intent(this, AndroidDatabaseManager.class);
         startActivity(dbmanager);
     }
 
-    public void openUserProfile(View view)
-    {
-        Intent intent = new Intent(this,DisplayUserProfileActivity.class);
+    public void openUserProfile(View view) {
+        Intent intent = new Intent(this, DisplayUserProfileActivity.class);
         startActivity(intent);
     }
 
 
-
-    public void openTimeTable(View view)
-    {
+    public void openTimeTable(View view) {
         Intent dbmanager = new Intent(this, TimeTableActivity.class);
         startActivity(dbmanager);
     }
 
-    public void openExamStats(View view)
-    {
+    public void openExamStats(View view) {
         Intent intent = new Intent(this, View_Stats.class);
         startActivity(intent);
     }
@@ -260,32 +244,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navbar_schedule)
-        {
-            Intent intent = new Intent(this,ScheduleActivity.class);
+        if (id == R.id.navbar_schedule) {
+            Intent intent = new Intent(this, ScheduleActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.navbar_settings) {
+        } else if (id == R.id.navbar_settings) {
 //            Toast.makeText(MainActivity.this, "Settings", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this,AppSettingsActivity.class);
+            Intent intent = new Intent(this, AppSettingsActivity.class);
             startActivity(intent);
 
-        }
-        else if (id == R.id.navbar_help)
-        {
+        } else if (id == R.id.navbar_help) {
 //            Toast.makeText(MainActivity.this, "Help", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this,HelpActivity.class);
+            Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.navbar_notifications)
-        {
+        } else if (id == R.id.navbar_notifications) {
 //            Toast.makeText(MainActivity.this, "Notifications", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this,NotificationAttendance.class);
+            Intent intent = new Intent(this, NotificationAttendance.class);
             startActivity(intent);
-        }
-        else if (id == R.id.navbar_about)
-        {
+        } else if (id == R.id.navbar_about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
@@ -299,22 +275,20 @@ public class MainActivity extends AppCompatActivity
 
     ////**************** NOTIFICATIONS
 
-    public void notifyTodaysClasses()
-    {
+    public void notifyTodaysClasses() {
 
         //alarm manager for today's classes
 
-        String time = prefs.getString("notification_time",null);
-        int hours = 7, minutes=0;
+        String time = prefs.getString("notification_time", null);
+        int hours = 7, minutes = 0;
 
 
-        if(time != null)
-        {
+        if (time != null) {
             String[] parts = time.split(":");
             String part1 = parts[0];
             String part2 = parts[1];
-            hours=Integer.parseInt(part1);
-            minutes=Integer.parseInt(part2);
+            hours = Integer.parseInt(part1);
+            minutes = Integer.parseInt(part2);
         }
 
 
@@ -324,28 +298,24 @@ public class MainActivity extends AppCompatActivity
         calendar.set(Calendar.SECOND, 0);
 
 
-
-
         Intent intent1 = new Intent(MainActivity.this, NotifyTodaySubjectsActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000,intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 1000, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
-
 //        alarm manager for today's attendance
 
-        time = prefs.getString("todays_attendance_notification_time",null);
+        time = prefs.getString("todays_attendance_notification_time", null);
         hours = 19;
-        minutes=9;
+        minutes = 9;
 
-        if(time != null)
-        {
+        if (time != null) {
             String[] parts = time.split(":");
             String part1 = parts[0];
             String part2 = parts[1];
-            hours=Integer.parseInt(part1);
-            minutes=Integer.parseInt(part2);
+            hours = Integer.parseInt(part1);
+            minutes = Integer.parseInt(part2);
         }
 
 //        Toast.makeText(this,prefs.getString("todays_attendance_notification_time",null), Toast.LENGTH_SHORT ).show();
@@ -355,7 +325,7 @@ public class MainActivity extends AppCompatActivity
         calendar1.set(Calendar.MINUTE, minutes);
         calendar1.set(Calendar.SECOND, 0);
         Intent intent2 = new Intent(MainActivity.this, NotifyTodayAttendanceActivity.class);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1001,intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(MainActivity.this, 1001, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am1 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent1);
 
@@ -366,8 +336,8 @@ public class MainActivity extends AppCompatActivity
         calendar2.set(Calendar.MINUTE, 30);
         calendar2.set(Calendar.SECOND, 0);
         Intent intent3 = new Intent(MainActivity.this, NotifyLowAttendance.class);
-        intent3.putExtra("Remainder_Time","19:30");
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(MainActivity.this, 1002,intent3, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent3.putExtra("Remainder_Time", "19:30");
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(MainActivity.this, 1002, intent3, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am2 = (AlarmManager) MainActivity.this.getSystemService(MainActivity.this.ALARM_SERVICE);
         am2.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent2);
 
@@ -399,7 +369,7 @@ public class MainActivity extends AppCompatActivity
             builder.setMessage("Exit the app?").setPositiveButton("EXIT", dialogClickListener)
                     .setNegativeButton("CANCEL", dialogClickListener).setNeutralButton("SEND FEEDBACK", dialogClickListener).show();
 
-            Toast.makeText(MainActivity.this,"We would love to get your feedback!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "We would love to get your feedback!", Toast.LENGTH_SHORT).show();
 
             return true;
         }

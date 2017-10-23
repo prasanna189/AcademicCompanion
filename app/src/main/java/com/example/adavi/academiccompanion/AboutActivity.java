@@ -27,10 +27,9 @@ public class AboutActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void sendFeedback(View view)
-    {
+    public void sendFeedback(View view) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        String[] strTo = {"academic.companion.adavi@gmail.com" };
+        String[] strTo = {"academic.companion.adavi@gmail.com"};
         intent.putExtra(Intent.EXTRA_EMAIL, strTo);
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback for Academic Companion App");
         intent.putExtra(Intent.EXTRA_TEXT, "");

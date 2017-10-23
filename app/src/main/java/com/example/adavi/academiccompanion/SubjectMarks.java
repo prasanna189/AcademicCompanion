@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,49 +18,45 @@ import android.widget.Toast;
 public class SubjectMarks extends AppCompatActivity {
     DatabaseHelper myDB;
     String str;
-    int totalmarks=0;
-    int totmaxmarks=0;
+    int totalmarks = 0;
+    int totmaxmarks = 0;
+    String s, type;
+    int i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_marks);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        myDB= new DatabaseHelper(this);
-         str=getIntent().getStringExtra("sub_id");
+        myDB = new DatabaseHelper(this);
+        str = getIntent().getStringExtra("sub_id");
 
         setTitle("Subject Marks");
 
 
-        int flag=0;
+        int flag = 0;
         Cursor res = myDB.getAllData("marks");
 
         while (res.moveToNext()) {
 
-            if(res.getString(1).equals(str))
-            {
-                displayMarks(res.getString(2), res.getInt(3), res.getInt(4),res.getInt(1));
-                flag=1;
-                totalmarks=totalmarks+res.getInt(3);
-                totmaxmarks=totmaxmarks+res.getInt(4);
+            if (res.getString(1).equals(str)) {
+                displayMarks(res.getString(2), res.getInt(3), res.getInt(4), res.getInt(1));
+                flag = 1;
+                totalmarks = totalmarks + res.getInt(3);
+                totmaxmarks = totmaxmarks + res.getInt(4);
             }
         }
-        if(flag==0)
-        {
+        if (flag == 0) {
             marksAlert("No Subject Marks", "Go and Add Marks!");
             return;
-        }
-        else
-        {
+        } else {
             displaytotal();
         }
 
-   }
+    }
 
-    String s,type;
-
-    int i;
-    public void displayMarks(String examtype,int marksob,int totalmark,int sub_id) {
+    public void displayMarks(String examtype, int marksob, int totalmark, int sub_id) {
 
         //layout to which children are added
         LinearLayout subjectLL = (LinearLayout) findViewById(R.id.subjectmarks_linearlayout);
@@ -113,24 +107,23 @@ public class SubjectMarks extends AppCompatActivity {
         rowButton.setBackgroundColor(Color.parseColor("#CFD8DC"));
         rowButton.setTextColor(Color.parseColor("#263238"));
 
-        rowButton.setOnClickListener( new View.OnClickListener() {
+        rowButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Button pressed;
-                pressed=((Button)v);
-                i=pressed.getId();
-                type=pressed.getText().toString();
-                viewMarksDetails( v);
+                pressed = ((Button) v);
+                i = pressed.getId();
+                type = pressed.getText().toString();
+                viewMarksDetails(v);
 
 
             }
         });
 
 
-        tv.setText(Integer.toString(marksob)+"/"+Integer.toString(totalmark));
+        tv.setText(Integer.toString(marksob) + "/" + Integer.toString(totalmark));
         tv.setTextSize(20);
         tv.setBackgroundColor(Color.parseColor("#80CBC4"));
 
@@ -139,13 +132,12 @@ public class SubjectMarks extends AppCompatActivity {
         ll.addView(tv);
 
 
-
         subjectLL.addView(ll);
     }
-    public void displaytotal()
-    {
+
+    public void displaytotal() {
         LinearLayout subjectLLtotal = (LinearLayout) findViewById(R.id.subjectmarks_linearlayout);
-        LinearLayout abc =new LinearLayout(this);
+        LinearLayout abc = new LinearLayout(this);
 
         LinearLayout.LayoutParams tv_params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -161,22 +153,22 @@ public class SubjectMarks extends AppCompatActivity {
         ll_params.setMargins(20, 20, 20, 20);
 
 
-        abc.setPadding(0,20,0,20);
+        abc.setPadding(0, 20, 0, 20);
 
         abc.setLayoutParams(ll_params);
 
         abc.setOrientation(LinearLayout.HORIZONTAL);
 
         TextView total = new TextView(this);
-        TextView totalvalue=new TextView(this);
+        TextView totalvalue = new TextView(this);
 
         total.setText("Total Marks                ");
-        total.setPadding(160,0,0,0);
+        total.setPadding(160, 0, 0, 0);
         total.setTextSize(20);
         total.setGravity(Gravity.CENTER);
-        total.setTypeface(null,Typeface.BOLD);
+        total.setTypeface(null, Typeface.BOLD);
 
-        totalvalue.setText(Integer.toString(totalmarks)+"/"+Integer.toString(totmaxmarks));
+        totalvalue.setText(Integer.toString(totalmarks) + "/" + Integer.toString(totmaxmarks));
         totalvalue.setGravity(Gravity.CENTER);
         totalvalue.setTextSize(20);
         totalvalue.setTypeface(null, Typeface.BOLD);
@@ -190,12 +182,11 @@ public class SubjectMarks extends AppCompatActivity {
         subjectLLtotal.addView(abc);
     }
 
-    public void viewMarksDetails(View v)
-    {
+    public void viewMarksDetails(View v) {
         Intent intent = new Intent(this, DisplayExamDetails.class);
-        s=Integer.toString(i);
-        intent.putExtra("subid",s);
-        intent.putExtra("examtype",type);
+        s = Integer.toString(i);
+        intent.putExtra("subid", s);
+        intent.putExtra("examtype", type);
         startActivity(intent);
     }
 
@@ -206,30 +197,29 @@ public class SubjectMarks extends AppCompatActivity {
         builder.setMessage(message);
         builder.show();
     }
-    public void addSubjectMarks(View view){
-        int flag=0;
-        Cursor res=myDB.getAllData("subject_details");
-        while(res.moveToNext())
-        {
-            if(res.getString(1).equals(str) && (res.getString(7).equals("0")))
-            {
+
+    public void addSubjectMarks(View view) {
+        int flag = 0;
+        Cursor res = myDB.getAllData("subject_details");
+        while (res.moveToNext()) {
+            if (res.getString(1).equals(str) && (res.getString(7).equals("0"))) {
                 Intent intent = new Intent(this, AddNewSubjectMarks.class);
-                intent.putExtra("subject_id",str);
+                intent.putExtra("subject_id", str);
                 startActivity(intent);
-                flag=1;
+                flag = 1;
             }
 
         }
-        if(flag==0)
-        {
+        if (flag == 0) {
             Toast.makeText(SubjectMarks.this, "Grade is Finalised, Cannot Add New Exam", Toast.LENGTH_SHORT).show();
         }
 
     }
+
     public void onBackPressed() {
 
         Intent intent = new Intent(this, DisplaySubjectDetails.class);
-        intent.putExtra("sub_id",str);
+        intent.putExtra("sub_id", str);
         startActivity(intent);
         super.onBackPressed();
     }

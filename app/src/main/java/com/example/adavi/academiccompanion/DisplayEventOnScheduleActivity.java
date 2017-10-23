@@ -16,13 +16,14 @@ import android.widget.Toast;
  * Created by pk on 4/12/2017.
  */
 
-public class DisplayEventOnScheduleActivity extends AppCompatActivity{
+public class DisplayEventOnScheduleActivity extends AppCompatActivity {
 
     TextView display_event_name, display_event_type, display_event_date, display_event_start_time,
             display_event_end_time, display_event_subject, display_event_description,
             display_event_remainder_time;
 
     DatabaseHelper myDB = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,33 +31,28 @@ public class DisplayEventOnScheduleActivity extends AppCompatActivity{
 
         myDB = new DatabaseHelper(this);
 
-        display_event_name=(TextView)findViewById(R.id.display_event_name);
-        display_event_type=(TextView)findViewById(R.id.display_event_type);
-        display_event_date=(TextView)findViewById(R.id.display_event_date);
-        display_event_start_time=(TextView)findViewById(R.id.display_event_start_time);
-        display_event_end_time=(TextView)findViewById(R.id.display_event_end_time);
-        display_event_subject=(TextView)findViewById(R.id.display_event_subject);
-        display_event_description=(TextView)findViewById(R.id.display_event_description);
-        display_event_remainder_time=(TextView)findViewById(R.id.display_event_remainder_time);
+        display_event_name = (TextView) findViewById(R.id.display_event_name);
+        display_event_type = (TextView) findViewById(R.id.display_event_type);
+        display_event_date = (TextView) findViewById(R.id.display_event_date);
+        display_event_start_time = (TextView) findViewById(R.id.display_event_start_time);
+        display_event_end_time = (TextView) findViewById(R.id.display_event_end_time);
+        display_event_subject = (TextView) findViewById(R.id.display_event_subject);
+        display_event_description = (TextView) findViewById(R.id.display_event_description);
+        display_event_remainder_time = (TextView) findViewById(R.id.display_event_remainder_time);
 
-        String s=getIntent().getStringExtra("button_event_id");
-        int event_id=Integer.parseInt(s);
-        Cursor res= myDB.getAllData("event");
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)==event_id)
-            {
+        String s = getIntent().getStringExtra("button_event_id");
+        int event_id = Integer.parseInt(s);
+        Cursor res = myDB.getAllData("event");
+        while (res.moveToNext()) {
+            if (res.getInt(0) == event_id) {
                 display_event_name.setText(res.getString(1));
                 display_event_date.setText(res.getString(2));
                 display_event_start_time.setText(res.getString(3));
                 display_event_end_time.setText(res.getString(4));
 //                display_event_subject.setText(res.getString(5));
-                if(res.getString(5).equals("-1"))
-                {
+                if (res.getString(5).equals("-1")) {
                     display_event_subject.setText("No Subject");
-                }
-                else
-                {
+                } else {
                     display_event_subject.setText(myDB.getSubjectName(res.getInt(5)));
                 }
                 display_event_description.setText(res.getString(6));
@@ -89,8 +85,8 @@ public class DisplayEventOnScheduleActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void editEvent()
-    {
+
+    public void editEvent() {
 //        boolean extra=getIntent().hasCategory("button_event_id");
 //        if(extra)
 //        {
@@ -110,19 +106,16 @@ public class DisplayEventOnScheduleActivity extends AppCompatActivity{
 //        intent.putExtra("date",getIntent().getStringExtra("date"));
 //        startActivity(intent);
 
-        String s=getIntent().getStringExtra("button_event_id");
+        String s = getIntent().getStringExtra("button_event_id");
         Intent intent = new Intent(this, AddEventFromScheduleActivity.class);
-        intent.putExtra("date",getIntent().getStringExtra("date"));
-        intent.putExtra("button_event_id",s);
+        intent.putExtra("date", getIntent().getStringExtra("date"));
+        intent.putExtra("button_event_id", s);
         startActivity(intent);
     }
 
-    void deleteEvent()
-    {
-        String s=getIntent().getStringExtra("button_event_id");
-        final int event_id=Integer.parseInt(s);
-
-
+    void deleteEvent() {
+        String s = getIntent().getStringExtra("button_event_id");
+        final int event_id = Integer.parseInt(s);
 
 
         AlertDialog.Builder alert = new AlertDialog.Builder(
@@ -136,16 +129,13 @@ public class DisplayEventOnScheduleActivity extends AppCompatActivity{
                 //do your work here
                 dialog.dismiss();
                 boolean deleteStatus = myDB.deleteDataEvent(event_id);
-                if(deleteStatus )
-                {
+                if (deleteStatus) {
                     Toast.makeText(DisplayEventOnScheduleActivity.this, "Successfully Deleted", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(DisplayEventOnScheduleActivity.this, "Delete Failed!", Toast.LENGTH_LONG).show();
                 }
                 Intent intent = new Intent(DisplayEventOnScheduleActivity.this, DisplayEventsOnADateActivity.class);
-                intent.putExtra("date",getIntent().getStringExtra("date"));
+                intent.putExtra("date", getIntent().getStringExtra("date"));
                 startActivity(intent);
 
 
@@ -166,10 +156,9 @@ public class DisplayEventOnScheduleActivity extends AppCompatActivity{
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Intent intent = new Intent(this, DisplayEventsOnADateActivity.class);
-        intent.putExtra("date",getIntent().getStringExtra("date"));
+        intent.putExtra("date", getIntent().getStringExtra("date"));
         startActivity(intent);
     }
 }

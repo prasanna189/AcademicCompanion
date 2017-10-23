@@ -23,53 +23,52 @@ public class SetTimeTable extends AppCompatActivity {
 
     Spinner editSubject;
     String subject_name;
-    Button editStime,editEtime;
+    Button editStime, editEtime;
     int sem;
 
     DatabaseHelper myDB;
     ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_time_table);
 
-        myDB=new DatabaseHelper(this);
+        myDB = new DatabaseHelper(this);
 
-        subject_name="";
-        editSubject=(Spinner)findViewById(R.id.time_table_subject_spinner);
-        editEtime=(Button)findViewById( R.id.time_table_etime_button);
-        editStime=(Button)findViewById(R.id.time_table_stime_button);
+        subject_name = "";
+        editSubject = (Spinner) findViewById(R.id.time_table_subject_spinner);
+        editEtime = (Button) findViewById(R.id.time_table_etime_button);
+        editStime = (Button) findViewById(R.id.time_table_stime_button);
 //          Subject Spinner
-        sem=myDB.getcurrentsem();
+        sem = myDB.getcurrentsem();
 
-        Cursor sub_res=myDB.getCurrentSemSubjects(sem);
-        String[] subject_array= new String[sub_res.getCount()+1];
-        subject_array[0]="";
+        Cursor sub_res = myDB.getCurrentSemSubjects(sem);
+        String[] subject_array = new String[sub_res.getCount() + 1];
+        subject_array[0] = "";
 
-        int i=1;
-        while(sub_res.moveToNext())
-        {
-            subject_array[i]=sub_res.getString(1);
-            i=i+1;
+        int i = 1;
+        while (sub_res.moveToNext()) {
+            subject_array[i] = sub_res.getString(1);
+            i = i + 1;
         }
 
-        adapter=new ArrayAdapter<String>(this,
-                R.layout.spinner_layout,R.id.textview, subject_array);
+        adapter = new ArrayAdapter<String>(this,
+                R.layout.spinner_layout, R.id.textview, subject_array);
 
         editSubject.setAdapter(adapter);
 
-        editSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        editSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
 
             public void onItemSelected(AdapterView<?> parent, View view, int
                     position, long id) {
 
-                ViewGroup vg=(ViewGroup)view;
+                ViewGroup vg = (ViewGroup) view;
 
-                TextView tv=(TextView)vg.findViewById(R.id.textview);
-                subject_name=tv.getText().toString();
+                TextView tv = (TextView) vg.findViewById(R.id.textview);
+                subject_name = tv.getText().toString();
 //                Toast.makeText(AddEventActivity.this, tv.getText().toString(),
 //                        Toast.LENGTH_LONG).show();
 
@@ -78,24 +77,22 @@ public class SetTimeTable extends AppCompatActivity {
             @Override
 
             public void onNothingSelected(AdapterView<?> parent) {
-                subject_name="";
+                subject_name = "";
             }
 
         });
 
 
-        editStime.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
+        editStime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 TimeDialog dialog = TimeDialog.newInstance(view);
                 android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 dialog.show(ft, "TimeDialog");
             }
         });
 
-        editEtime.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
+        editEtime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 TimeDialog dialog = TimeDialog.newInstance(view);
                 android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 dialog.show(ft, "TimeDialog");
@@ -106,41 +103,35 @@ public class SetTimeTable extends AppCompatActivity {
     }
 
 
-    void displayDetails()
-    {
-        String t_id=getIntent().getStringExtra("timetable_id");
-        if(t_id==null)
-        {
+    void displayDetails() {
+        String t_id = getIntent().getStringExtra("timetable_id");
+        if (t_id == null) {
             setTitle("Set Timings");
-            String id=getIntent().getStringExtra("subject_id");
-            int subject_id=Integer.parseInt(id);
+            String id = getIntent().getStringExtra("subject_id");
+            int subject_id = Integer.parseInt(id);
             Cursor c = myDB.getAllData("subject");
-            String sub_name="";
+            String sub_name = "";
             while (c.moveToNext()) {
 
-                if (c.getInt(0)==subject_id) {
+                if (c.getInt(0) == subject_id) {
                     sub_name = c.getString(1);
                 }
             }
             editSubject.setSelection(adapter.getPosition(sub_name));
 
-        }
-        else
-        {
+        } else {
             setTitle("Edit Timings");
-            final int tid=Integer.parseInt(t_id);
-            Cursor res= myDB.getAllData("timetable");
+            final int tid = Integer.parseInt(t_id);
+            Cursor res = myDB.getAllData("timetable");
 //            Toast.makeText(SetTimeTable.this, ""+tid, Toast.LENGTH_LONG).show();
-            while(res.moveToNext())
-            {
-                if(tid==res.getInt(0))
-                {
+            while (res.moveToNext()) {
+                if (tid == res.getInt(0)) {
 //                    String sub_name=getSubjectName(res.getInt(2));
                     Cursor c = myDB.getAllData("subject");
-                    String sub_name="";
+                    String sub_name = "";
                     while (c.moveToNext()) {
 
-                        if (c.getInt(0)==res.getInt(2)) {
+                        if (c.getInt(0) == res.getInt(2)) {
                             sub_name = c.getString(1);
                         }
                     }
@@ -180,15 +171,12 @@ public class SetTimeTable extends AppCompatActivity {
                             dialog.dismiss();
 
                             boolean isDeleted = myDB.deleteDataTimetable(tid);
-                            if(isDeleted)
-                            {
-                                Toast.makeText(SetTimeTable.this,"Delete Successful",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(SetTimeTable.this,TimeTableActivity.class);
+                            if (isDeleted) {
+                                Toast.makeText(SetTimeTable.this, "Delete Successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SetTimeTable.this, TimeTableActivity.class);
                                 startActivity(intent);
-                            }
-                            else
-                            {
-                                Toast.makeText(SetTimeTable.this,"Delete Unsuccessful",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(SetTimeTable.this, "Delete Unsuccessful", Toast.LENGTH_LONG).show();
                             }
 
 
@@ -222,13 +210,12 @@ public class SetTimeTable extends AppCompatActivity {
 //        return sub;
 //    }
 
-    void saveTimeTable(View view)
-    {
+    void saveTimeTable(View view) {
 //        String id=getIntent().getStringExtra("subject_id");
-        String day=getIntent().getStringExtra("day");
-        String t_id=getIntent().getStringExtra("timetable_id");
+        String day = getIntent().getStringExtra("day");
+        String t_id = getIntent().getStringExtra("timetable_id");
 
-        int subject_id=-1;
+        int subject_id = -1;
         String sub_name;
         Cursor c = myDB.getAllData("subject");
         while (c.moveToNext()) {
@@ -239,64 +226,42 @@ public class SetTimeTable extends AppCompatActivity {
         }
         String stime = editStime.getText().toString();
         String etime = editEtime.getText().toString();
-        if(subject_id==-1)
-        {
+        if (subject_id == -1) {
             Toast.makeText(SetTimeTable.this, "Select a Subject", Toast.LENGTH_LONG).show();
-        }
-        else if(stime.equals(""))
-        {
+        } else if (stime.equals("")) {
             Toast.makeText(SetTimeTable.this, "Enter Start Time", Toast.LENGTH_LONG).show();
-        }
-        else if(etime.equals(""))
-        {
+        } else if (etime.equals("")) {
             Toast.makeText(SetTimeTable.this, "Enter End Time", Toast.LENGTH_LONG).show();
-        }
-        else if(stime.compareTo(etime)>0 && !etime.equals(""))
-        {
+        } else if (stime.compareTo(etime) > 0 && !etime.equals("")) {
             Toast.makeText(SetTimeTable.this, "Start Time should be less than End Time", Toast.LENGTH_LONG).show();
-        }
-        else if(!checkTimings(stime,etime,day))
-        {
+        } else if (!checkTimings(stime, etime, day)) {
             Toast.makeText(SetTimeTable.this, "Timings already exists", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
+        } else {
 
-            if(t_id!=null)
-            {
+            if (t_id != null) {
                 int timetable_id = Integer.parseInt(t_id);
                 Cursor res = myDB.getAllData("timetable");
-                while(res.moveToNext())
-                {
-                    if(timetable_id==res.getInt(0))
-                    {
+                while (res.moveToNext()) {
+                    if (timetable_id == res.getInt(0)) {
                         //Toast.makeText(SetTimeTable.this, res.getInt(0)+"", Toast.LENGTH_LONG).show();
-                        boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0),res.getInt(1),subject_id,res.getString(3),editStime.getText().toString(),editEtime.getText().toString());
-                        if(isUpdated)
-                        {
-                            Toast.makeText(SetTimeTable.this,"TimeTable Updated",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(this,TimeTableActivity.class);
+                        boolean isUpdated = myDB.updatetDataTimeTable(res.getInt(0), res.getInt(1), subject_id, res.getString(3), editStime.getText().toString(), editEtime.getText().toString());
+                        if (isUpdated) {
+                            Toast.makeText(SetTimeTable.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(this, TimeTableActivity.class);
                             startActivity(intent);
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
 
-                boolean isInserted = myDB.insertDataTimeTable(sem,subject_id,day,editStime.getText().toString(),editEtime.getText().toString());
-                if(isInserted)
-                {
+                boolean isInserted = myDB.insertDataTimeTable(sem, subject_id, day, editStime.getText().toString(), editEtime.getText().toString());
+                if (isInserted) {
                     Toast.makeText(SetTimeTable.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, TimeTableActivity.class);
                     startActivity(intent);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(SetTimeTable.this, "TimeTable Updation Failed", Toast.LENGTH_LONG).show();
                 }
             }
@@ -304,42 +269,30 @@ public class SetTimeTable extends AppCompatActivity {
 
     }
 
-    boolean checkTimings(String stime,String etime,String day)
-    {
-        boolean flag=true;
-        Cursor c_tt=myDB.getAllData("timetable");
-        while(c_tt.moveToNext())
-        {
-            if(c_tt.getInt(1)==sem && c_tt.getString(3).equals(day))
-            {
-                if(c_tt.getString(5)==null)
-                {
-                    if(c_tt.getString(4).equals(stime))
-                    {
-                        flag =false;
+    boolean checkTimings(String stime, String etime, String day) {
+        boolean flag = true;
+        Cursor c_tt = myDB.getAllData("timetable");
+        while (c_tt.moveToNext()) {
+            if (c_tt.getInt(1) == sem && c_tt.getString(3).equals(day)) {
+                if (c_tt.getString(5) == null) {
+                    if (c_tt.getString(4).equals(stime)) {
+                        flag = false;
                     }
-                    if(stime.compareTo(c_tt.getString(4))<0 && etime.compareTo(c_tt.getString(4))>0 && !etime.equals(""))
-                    {
-                        flag=false;
+                    if (stime.compareTo(c_tt.getString(4)) < 0 && etime.compareTo(c_tt.getString(4)) > 0 && !etime.equals("")) {
+                        flag = false;
                     }
-                }
-                else
-                {
-                    if(c_tt.getString(4).compareTo(stime)<0 && c_tt.getString(5).compareTo(stime)>0)
-                    {
-                        flag=false;
+                } else {
+                    if (c_tt.getString(4).compareTo(stime) < 0 && c_tt.getString(5).compareTo(stime) > 0) {
+                        flag = false;
                     }
-                    if(c_tt.getString(4).compareTo(stime)<0 && c_tt.getString(5).compareTo(stime)>0 && !etime.equals(""))
-                    {
-                        flag=false;
+                    if (c_tt.getString(4).compareTo(stime) < 0 && c_tt.getString(5).compareTo(stime) > 0 && !etime.equals("")) {
+                        flag = false;
                     }
-                    if(stime.compareTo(c_tt.getString(4))<0 && etime.compareTo(c_tt.getString(4))>0 && !etime.equals(""))
-                    {
-                        flag=false;
+                    if (stime.compareTo(c_tt.getString(4)) < 0 && etime.compareTo(c_tt.getString(4)) > 0 && !etime.equals("")) {
+                        flag = false;
                     }
-                    if(stime.compareTo(c_tt.getString(5))<0 && etime.compareTo(c_tt.getString(5))>0 && !etime.equals(""))
-                    {
-                        flag=false;
+                    if (stime.compareTo(c_tt.getString(5)) < 0 && etime.compareTo(c_tt.getString(5)) > 0 && !etime.equals("")) {
+                        flag = false;
                     }
                 }
             }
@@ -348,23 +301,18 @@ public class SetTimeTable extends AppCompatActivity {
     }
 
 
-
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        if (id == R.id.cancel_edit_timetable)
-        {
+        if (id == R.id.cancel_edit_timetable) {
 
-            String t_id=getIntent().getStringExtra("timetable_id");
-            if(t_id==null)
-            {
-                Intent intent = new Intent(this,EditTimeTable.class);
+            String t_id = getIntent().getStringExtra("timetable_id");
+            if (t_id == null) {
+                Intent intent = new Intent(this, EditTimeTable.class);
                 startActivity(intent);
-            }
-            else
-            {
-                Intent intent = new Intent(this,TimeTableActivity.class);
+            } else {
+                Intent intent = new Intent(this, TimeTableActivity.class);
                 startActivity(intent);
             }
 
@@ -381,17 +329,13 @@ public class SetTimeTable extends AppCompatActivity {
         return true;
     }
 
-    public void onBackPressed()
-    {
-        String t_id=getIntent().getStringExtra("timetable_id");
-        if(t_id==null)
-        {
-            Intent intent = new Intent(this,EditTimeTable.class);
+    public void onBackPressed() {
+        String t_id = getIntent().getStringExtra("timetable_id");
+        if (t_id == null) {
+            Intent intent = new Intent(this, EditTimeTable.class);
             startActivity(intent);
-        }
-        else
-        {
-            Intent intent = new Intent(this,TimeTableActivity.class);
+        } else {
+            Intent intent = new Intent(this, TimeTableActivity.class);
             startActivity(intent);
         }
     }

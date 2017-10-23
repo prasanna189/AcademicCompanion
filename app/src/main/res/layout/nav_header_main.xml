@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:background="@drawable/side_nav_bar"
@@ -12,11 +13,13 @@
 
     <LinearLayout
         android:id="@+id/navbar_user_profile"
-        android:layout_width="match_parent"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:clickable="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/userImageView"

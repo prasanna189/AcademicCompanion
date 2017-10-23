@@ -56,7 +56,7 @@
                     android:text="Subjects"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                     />
 
             </RelativeLayout>
 
@@ -93,7 +93,7 @@
                     android:text="Events"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                     />
             </RelativeLayout>
 
         </LinearLayout>
@@ -136,7 +136,7 @@
                     android:layout_below="@id/home_timetable_iv"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    />
             </RelativeLayout>
 
 
@@ -170,7 +170,7 @@
                     android:layout_below="@id/home_examstats_iv"
                     android:textColor="#000000"
                     android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    />
             </RelativeLayout>
 
 

@@ -15,9 +15,9 @@ import java.io.IOException;
 
 public class IntroUserInputActivity extends AppCompatActivity {
 
-    private int PICK_IMAGE_REQUEST = 1;
-    DatabaseHelper myDB;
     public static PrefManager prefManager;
+    DatabaseHelper myDB;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
             Uri uri = data.getData();
 
-            try
-            {
+            try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
                 ImageView imageView = (ImageView) findViewById(R.id.user_input_image);
@@ -62,8 +61,7 @@ public class IntroUserInputActivity extends AppCompatActivity {
 
 //                Toast.makeText(IntroUserInputActivity.this, "pic saved", Toast.LENGTH_SHORT).show();
 
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -92,14 +90,13 @@ public class IntroUserInputActivity extends AppCompatActivity {
 //        }
 
 
-        if (flag)
-        {
-            boolean a,b,c;
+        if (flag) {
+            boolean a, b, c;
 
-            myDB.setCurrentSem( semId.getText().toString() );
+            myDB.setCurrentSem(semId.getText().toString());
 
             a = myDB.insertDataUserDetails(nameId.getText().toString(), emailId.getText().toString(), "", semId.getText().toString());
-            c = myDB.insertDataSemester( semId.getText().toString(),"","" );
+            c = myDB.insertDataSemester(semId.getText().toString(), "", "");
 
             com.example.adavi.academiccompanion.WelcomeActivity.prefManager.setFirstTimeLaunch(false);
             Intent intent = new Intent(IntroUserInputActivity.this, MainActivity.class);

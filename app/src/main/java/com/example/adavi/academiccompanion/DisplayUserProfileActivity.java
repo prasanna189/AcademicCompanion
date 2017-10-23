@@ -25,19 +25,15 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.display_username_tv);
         TextView useremail = (TextView) findViewById(R.id.display_useremail_tv);
         TextView userphone = (TextView) findViewById(R.id.display_userphone_tv);
-        ImageView imageView = (ImageView)findViewById(R.id.display_profile_icon);
+        ImageView imageView = (ImageView) findViewById(R.id.display_profile_icon);
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
         userphone.setText(myDB.getUserPhone());
 
-        if(prefM.isProfilePicSet())
-        {
-            try
-            {
+        if (prefM.isProfilePicSet()) {
+            try {
                 imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -59,11 +55,10 @@ public class DisplayUserProfileActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.edit_user_profile)
-        {
+        if (id == R.id.edit_user_profile) {
 
 
-            Intent intent = new Intent(this,EditUserProfileActivity.class);
+            Intent intent = new Intent(this, EditUserProfileActivity.class);
             startActivity(intent);
 
             return true;

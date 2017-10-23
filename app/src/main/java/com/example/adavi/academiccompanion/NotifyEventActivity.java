@@ -21,7 +21,6 @@ import java.util.Calendar;
 public class NotifyEventActivity extends BroadcastReceiver {
 
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -31,9 +30,8 @@ public class NotifyEventActivity extends BroadcastReceiver {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String Id = intent.getStringExtra("id");
-        int id=9999;
-        if(Id!=null)
-        {
+        int id = 9999;
+        if (Id != null) {
             id = Integer.parseInt(Id);
         }
 //
@@ -50,8 +48,7 @@ public class NotifyEventActivity extends BroadcastReceiver {
 //        Toast.makeText(context, rdate+rtime+" = "+cdate+ctime, Toast.LENGTH_LONG).show();
 
 //
-        if(prefs.getBoolean("events_notification",false) && rdate.equals(cdate) && rtime.equals(ctime) )
-        {
+        if (prefs.getBoolean("events_notification", false) && rdate.equals(cdate) && rtime.equals(ctime)) {
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.main_app_icon_big)
@@ -63,10 +60,9 @@ public class NotifyEventActivity extends BroadcastReceiver {
             Uri uri = Uri.parse(ringtonePreference);
             mBuilder.setSound(uri);
 
-            long[] pattern = {1000,1000,1000};
+            long[] pattern = {1000, 1000, 1000};
 
-            if(prefs.getBoolean("events_notification_vibrate",false))
-            {
+            if (prefs.getBoolean("events_notification_vibrate", false)) {
                 mBuilder.setVibrate(pattern);
             }
 
@@ -74,20 +70,19 @@ public class NotifyEventActivity extends BroadcastReceiver {
 
 
             inboxStyle.setBigContentTitle(intent.getStringExtra("Event_Type"));
-            if(intent.getStringExtra("Event_Type").equals(""))
-            {
+            if (intent.getStringExtra("Event_Type").equals("")) {
                 inboxStyle.addLine(intent.getStringExtra("Subject"));
             }
             inboxStyle.addLine(intent.getStringExtra("Event_Name"));
             inboxStyle.addLine(intent.getStringExtra("Event_Date"));
-            inboxStyle.addLine("Time : "+intent.getStringExtra("Start_Time")+" - "+intent.getStringExtra("End_Time"));
+            inboxStyle.addLine("Time : " + intent.getStringExtra("Start_Time") + " - " + intent.getStringExtra("End_Time"));
             inboxStyle.addLine(intent.getStringExtra("Description"));
 
             mBuilder.setStyle(inboxStyle);
 
 // Creates an explicit intent for an Activity in your app
             Intent resultIntent = new Intent(context, DisplayEventDetailsActivity.class);
-            resultIntent.putExtra("button_event_id",intent.getStringExtra("id"));
+            resultIntent.putExtra("button_event_id", intent.getStringExtra("id"));
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.
@@ -105,15 +100,13 @@ public class NotifyEventActivity extends BroadcastReceiver {
                     );
             mBuilder.setContentIntent(resultPendingIntent);
 
-            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 // mId allows you to update the notification later on.
             mNotificationManager.notify(id, mBuilder.build());
 //            Toast.makeText(context, "Event Debug", Toast.LENGTH_SHORT).show();
 //
-        }
-        else
-        {
+        } else {
 //            Toast.makeText(context, "else", Toast.LENGTH_SHORT).show();
         }
 

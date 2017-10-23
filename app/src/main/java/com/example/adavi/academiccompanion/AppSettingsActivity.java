@@ -167,6 +167,29 @@ public class AppSettingsActivity extends AppCompatPreferenceActivity {
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            startActivity(new Intent(this, MainActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
@@ -226,8 +249,6 @@ public class AppSettingsActivity extends AppCompatPreferenceActivity {
             }
 
 
-
-
             return super.onOptionsItemSelected(item);
         }
     }
@@ -260,31 +281,6 @@ public class AppSettingsActivity extends AppCompatPreferenceActivity {
             }
             return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            startActivity(new Intent(this, MainActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

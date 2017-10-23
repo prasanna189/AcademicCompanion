@@ -20,13 +20,41 @@ import android.widget.TextView;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    public static PrefManager prefManager;
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    public static PrefManager prefManager;
+    //  viewpager change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            addBottomDots(position);
+
+            // changing the next button text 'NEXT' / 'GOT IT'
+            if (position == layouts.length) {
+                // last page. make button text to GOT IT
+                btnNext.setText("NEXT");
+            } else {
+                // still pages are left
+                btnNext.setText(getString(R.string.next));
+                btnSkip.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +88,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_screen3,
                 R.layout.activity_screen4,
                 R.layout.activity_screen5,
-                R.layout.activity_screen6 };
+                R.layout.activity_screen6};
 
         // adding bottom dots
         addBottomDots(0);
@@ -130,35 +158,6 @@ public class WelcomeActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(int position) {
-            addBottomDots(position);
-
-            // changing the next button text 'NEXT' / 'GOT IT'
-            if (position == layouts.length) {
-                // last page. make button text to GOT IT
-                btnNext.setText("NEXT");
-            } else {
-                // still pages are left
-                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
 
     /**
      * Making notification bar transparent

@@ -11,6 +11,7 @@
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">PROCEED</string>
+    <string name="database_manager">Database Manager</string>
 
     <string name="slide_1_title">Welcome to </string>
     <string name="slide_1_desc">Academic Companion</string>

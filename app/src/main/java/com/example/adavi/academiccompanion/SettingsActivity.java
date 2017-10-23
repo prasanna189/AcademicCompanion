@@ -25,20 +25,17 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    public void backupNow(View view)
-    {
+    public void backupNow(View view) {
         exportDB();
         Toast.makeText(getApplicationContext(), "Backup Successful",
                 Toast.LENGTH_SHORT).show();
     }
 
-    public void restoreNow(View view)
-    {
+    public void restoreNow(View view) {
         importDB();
         Toast.makeText(getApplicationContext(), "Restore Successful",
                 Toast.LENGTH_SHORT).show();
     }
-
 
 
     private void importDB() {

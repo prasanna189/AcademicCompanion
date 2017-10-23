@@ -9,12 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import static android.R.attr.id;
 
 
 /**
@@ -57,44 +54,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public String[] getTodayClasses(){
+    public String[] getTodayClasses() {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] subject_times;
-        int i=0;
+        int i = 0;
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         String day = sdf.format(c.getTime());
 
-        Cursor res = db.rawQuery("select * from timetable where day='"+day+"' order by startTime ASC",null);
+        Cursor res = db.rawQuery("select * from timetable where day='" + day + "' order by startTime ASC", null);
         int size = res.getCount();
         subject_times = new String[size];
         Cursor res1;
-        while(res.moveToNext())
-        {
-            res1 = db.rawQuery("select * from subject where subject_id="+res.getString(2), null);
+        while (res.moveToNext()) {
+            res1 = db.rawQuery("select * from subject where subject_id=" + res.getString(2), null);
             res1.moveToNext();
-            subject_times[i] = res1.getString(1)+"  "+res.getString(4)+" - "+res.getString(5);
+            subject_times[i] = res1.getString(1) + "  " + res.getString(4) + " - " + res.getString(5);
             i++;
         }
         return subject_times;
     }
 
-    public String getDBName()
-    {
+    public String getDBName() {
         return DATABASE_NAME;
     }
 
-    public boolean insertDataUserDetails(String name,String email, String phone, String semester) {
+    public boolean insertDataUserDetails(String name, String email, String phone, String semester) {
         SQLiteDatabase db = this.getWritableDatabase();
         int current_sem = Integer.parseInt(semester);
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name",name);
-        contentValues.put("email",email);
-        contentValues.put("phone",phone);
-        contentValues.put("current_sem",current_sem);
-        long result = db.insert("user_details",null ,contentValues);
-        if(result == -1)
+        contentValues.put("name", name);
+        contentValues.put("email", email);
+        contentValues.put("phone", phone);
+        contentValues.put("current_sem", current_sem);
+        long result = db.insert("user_details", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
@@ -105,9 +100,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int sem = Integer.parseInt(semester);
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem);
-        long result = db.insert("semester",null ,contentValues);
-        if(result == -1)
+        contentValues.put("sem_id", sem);
+        long result = db.insert("semester", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
@@ -116,22 +111,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int insertDataSubject(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int maxid=-1;
-        Cursor res = db.rawQuery("select * from subject",null);
+        int maxid = -1;
+        Cursor res = db.rawQuery("select * from subject", null);
         while (res.moveToNext()) {
-            if(res.getInt(0)>maxid)
-            {
-                maxid=res.getInt(0);
+            if (res.getInt(0) > maxid) {
+                maxid = res.getInt(0);
             }
         }
-        maxid=maxid+1;
+        maxid = maxid + 1;
 //        int subject_id = Integer.parseInt( res.getString(0) );
 //        subject_id = subject_id + 1;
         ContentValues contentValues = new ContentValues();
-        contentValues.put("subject_id",maxid);
-        contentValues.put("subject_name",name);
-        long result = db.insert("subject",null ,contentValues);
-        if(result == -1)
+        contentValues.put("subject_id", maxid);
+        contentValues.put("subject_name", name);
+        long result = db.insert("subject", null, contentValues);
+        if (result == -1)
             return -1;
         else
             return maxid;
@@ -141,277 +135,246 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return  subject_id;
     }
 
-    public boolean insertDataSubjectDetails(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status, int credits, String grade, int lab,String description ) {
+    public boolean insertDataSubjectDetails(int sem_id, int subject_id, String prof_name, String prof_email, int min_attendance, String status, int credits, String grade, int lab, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("prof_name",prof_name);
-        contentValues.put("prof_email",prof_email);
-        contentValues.put("min_attendance",min_attendance);
-        contentValues.put("status",status);
-        contentValues.put("credits",credits);
-        contentValues.put("grade",grade);
-        contentValues.put("lab",lab);
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("prof_name", prof_name);
+        contentValues.put("prof_email", prof_email);
+        contentValues.put("min_attendance", min_attendance);
+        contentValues.put("status", status);
+        contentValues.put("credits", credits);
+        contentValues.put("grade", grade);
+        contentValues.put("lab", lab);
         contentValues.put("description", description);
-        long result = db.insert("subject_details",null ,contentValues);
-        if(result == -1)
+        long result = db.insert("subject_details", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-    public boolean insertDataAttendance(int sem_id,int subject_id,String date,String status,int is_extra_class) {
+    public boolean insertDataAttendance(int sem_id, int subject_id, String date, String status, int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        Cursor res = db.rawQuery("select * from attendance",null);
+        Cursor res = db.rawQuery("select * from attendance", null);
         int maxattendance_id = 0;
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)>maxattendance_id)
-            {
-                maxattendance_id=res.getInt(0);
+        while (res.moveToNext()) {
+            if (res.getInt(0) > maxattendance_id) {
+                maxattendance_id = res.getInt(0);
             }
         }
         maxattendance_id = maxattendance_id + 1;
 
-        contentValues.put("attendance_id",maxattendance_id);
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("date",date);
-        contentValues.put("status",status);
-        contentValues.put("isExtraClass",is_extra_class);
-        long result = db.insert("attendance",null ,contentValues);
-        if(result == -1)
+        contentValues.put("attendance_id", maxattendance_id);
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("date", date);
+        contentValues.put("status", status);
+        contentValues.put("isExtraClass", is_extra_class);
+        long result = db.insert("attendance", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean insertDataTimeTable(int sem_id,int subject_id,String day,String startTime,String endTime) {
+    public boolean insertDataTimeTable(int sem_id, int subject_id, String day, String startTime, String endTime) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        int id=0;
+        int id = 0;
         Cursor res = db.rawQuery("select * from timetable", null);
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)>id)
-            {
-                id=res.getInt(0);
+        while (res.moveToNext()) {
+            if (res.getInt(0) > id) {
+                id = res.getInt(0);
             }
         }
-        id=id+1;
+        id = id + 1;
         ContentValues contentValues = new ContentValues();
-        contentValues.put("timetable_id",id);
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("day",day);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        long result = db.insert("timetable",null ,contentValues);
-        if(result == -1)
+        contentValues.put("timetable_id", id);
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("day", day);
+        contentValues.put("startTime", startTime);
+        contentValues.put("endTime", endTime);
+        long result = db.insert("timetable", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public int insertDataEvent(String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime, String eventType, String remainderDate) {
+    public int insertDataEvent(String event_name, String date, String startTime, String endTime, int subject_id, String description, String remainderTime, String eventType, String remainderDate) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int event_id=0;
+        int event_id = 0;
         Cursor res = db.rawQuery("SELECT ifnull(max(event_id),0) FROM event", null);
 //        Cursor res = db.query("event","event_id",null,null,null,null,null)
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)> event_id)
-            {
-                event_id=res.getInt(0);
+        while (res.moveToNext()) {
+            if (res.getInt(0) > event_id) {
+                event_id = res.getInt(0);
             }
         }
 //        event_id=res.getInt(0);
         event_id = event_id + 1;
         ContentValues contentValues = new ContentValues();
-        contentValues.put("event_id",event_id);
-        contentValues.put("event_name",event_name);
-        contentValues.put("date",date);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("description",description);
-        contentValues.put("remainderTime",remainderTime);
-        contentValues.put("eventType",eventType);
-        contentValues.put("remainderDate",remainderDate);
-        long result = db.insert("event",null ,contentValues);
-        if(result == -1)
+        contentValues.put("event_id", event_id);
+        contentValues.put("event_name", event_name);
+        contentValues.put("date", date);
+        contentValues.put("startTime", startTime);
+        contentValues.put("endTime", endTime);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("description", description);
+        contentValues.put("remainderTime", remainderTime);
+        contentValues.put("eventType", eventType);
+        contentValues.put("remainderDate", remainderDate);
+        long result = db.insert("event", null, contentValues);
+        if (result == -1)
             return -1;
         else
             return event_id;
     }
 
 
-
-
-    public boolean insertDataMarks(int semid,int subid,String exam_type,int marks,int max_marks) {
+    public boolean insertDataMarks(int semid, int subid, String exam_type, int marks, int max_marks) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",semid);
-        contentValues.put("subject_id",subid);
-        contentValues.put("exam_type",exam_type);
-        contentValues.put("marks",marks);
-        contentValues.put("max_marks",max_marks);
+        contentValues.put("sem_id", semid);
+        contentValues.put("subject_id", subid);
+        contentValues.put("exam_type", exam_type);
+        contentValues.put("marks", marks);
+        contentValues.put("max_marks", max_marks);
 
-        long result = db.insert("marks",null ,contentValues);
-        if(result == -1)
+        long result = db.insert("marks", null, contentValues);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public void setCurrentSem(String semester)
-    {
+    public void setCurrentSem(String semester) {
         int sem = Integer.parseInt(semester);
         SQLiteDatabase db = this.getWritableDatabase();
 //        ContentValues contentValues = new ContentValues();
 //        contentValues.put("sem_id",sem);
 //        long result=db.update("user",contentValues,"",null);
 
-        db.execSQL("update user_details set current_sem = "+semester);
+        db.execSQL("update user_details set current_sem = " + semester);
 
-        System.out.println("pk");
 
     }
-
 
 
     public Cursor getAllData(String TABLE_NAME) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_NAME, null);
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
         return res;
 
     }
 
-    public String getSubjectName(int sub_id)
-    {
+    public String getSubjectName(int sub_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from subject",null);
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)==sub_id)
-            {
+        Cursor res = db.rawQuery("select * from subject", null);
+        while (res.moveToNext()) {
+            if (res.getInt(0) == sub_id) {
                 return res.getString(1);
             }
         }
         return null;
     }
 
-    public String getUserPhone()
-    {
+    public String getUserPhone() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from user_details",null);
-        boolean i=res.moveToNext();
-        if(i)
-        {
+        Cursor res = db.rawQuery("select * from user_details", null);
+        boolean i = res.moveToNext();
+        if (i) {
             return res.getString(2);
-        }
-        else
+        } else
             return null;
 
 
     }
-    public String getUserName()
-    {
+
+    public String getUserName() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from user_details",null);
-        boolean i=res.moveToNext();
-        if(i)
-        {
+        Cursor res = db.rawQuery("select * from user_details", null);
+        boolean i = res.moveToNext();
+        if (i) {
             return res.getString(0);
-        }
-        else
+        } else
             return null;
 
 
     }
 
-    public String getUserEmail()
-    {
+    public String getUserEmail() {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from user_details",null);
-        boolean i=res.moveToNext();
-        if(i)
-        {
+        Cursor res = db.rawQuery("select * from user_details", null);
+        boolean i = res.moveToNext();
+        if (i) {
             return res.getString(1);
-        }
-        else
+        } else
             return null;
 
 
     }
 
-    public int getcurrentsem()
-    {
+    public int getcurrentsem() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from user_details",null);
-        boolean i=res.moveToNext();
-        if(i)
-        {
+        Cursor res = db.rawQuery("select * from user_details", null);
+        boolean i = res.moveToNext();
+        if (i) {
             return res.getInt(3);
-        }
-        else
+        } else
             return -1;
 
 
     }
 
-    public int gettotalmarks(int sem_id,int sub_id)
-    {
-        int totalmarks=0;
+    public int gettotalmarks(int sem_id, int sub_id) {
+        int totalmarks = 0;
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res=db.rawQuery("select * from marks where sem_id = "+sem_id+" and subject_id = "+sub_id,null);
-        while(res.moveToNext()){
+        Cursor res = db.rawQuery("select * from marks where sem_id = " + sem_id + " and subject_id = " + sub_id, null);
+        while (res.moveToNext()) {
 
-            totalmarks=totalmarks+res.getInt(3);
+            totalmarks = totalmarks + res.getInt(3);
         }
 
         return totalmarks;
 
     }
-    public int getAttendanceId(int sem_id,int sub_id,String date)
-    {
+
+    public int getAttendanceId(int sem_id, int sub_id, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res= db.rawQuery("select * from attendance where sem_id ="+sem_id+" and subject_id = "+sub_id+" and date = '"+date+"'",null );
-        if(res.moveToNext())
-        {
+        Cursor res = db.rawQuery("select * from attendance where sem_id =" + sem_id + " and subject_id = " + sub_id + " and date = '" + date + "'", null);
+        if (res.moveToNext()) {
             return res.getInt(0);
-        }
-        else
-        {
+        } else {
             return -1;
         }
     }
 
-    public Cursor getTimeTableAsc()
-    {
+    public Cursor getTimeTableAsc() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from timetable order by startTime ASC",null);
+        Cursor res = db.rawQuery("select * from timetable order by startTime ASC", null);
         return res;
     }
 
     public Cursor getRecentEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from event order by date DESC , startTime DESC , endTime DESC",null);
+        Cursor res = db.rawQuery("select * from event order by date DESC , startTime DESC , endTime DESC", null);
         return res;
     }
 
     public Cursor getEventsAsc() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from event order by date , startTime , endTime Asc",null);
+        Cursor res = db.rawQuery("select * from event order by date , startTime , endTime Asc", null);
         return res;
     }
-
 
 
     public Cursor getTodayEvents() {
@@ -421,19 +384,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm:ss");
         String formattedDate = df.format(c.getTime());
         String formattedTime = tf.format(c.getTime());
-        Cursor res = db.rawQuery("select * from event where date= '"+formattedDate+"' order by startTime ASC",null);
-        return res;
-    }
-    public Cursor getEvents(String date) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from event where date= '"+date+"' order by startTime ASC",null);
+        Cursor res = db.rawQuery("select * from event where date= '" + formattedDate + "' order by startTime ASC", null);
         return res;
     }
 
-    public Cursor getCurrentSemSubjects(int sem)
-    {
+    public Cursor getEvents(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select s.subject_id,s.subject_name, sd.lab from subject s,subject_details sd where s.subject_id=sd.subject_id and sd.sem_id="+sem+"",null);
+        Cursor res = db.rawQuery("select * from event where date= '" + date + "' order by startTime ASC", null);
+        return res;
+    }
+
+    public Cursor getCurrentSemSubjects(int sem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select s.subject_id,s.subject_name, sd.lab from subject s,subject_details sd where s.subject_id=sd.subject_id and sd.sem_id=" + sem + "", null);
 
         return res;
     }
@@ -441,130 +404,130 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updateDataSemester(int sem, String start_date, String end_date) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem);
-        contentValues.put("start_date",start_date);
-        contentValues.put("end_date",end_date);
-        long result=db.update("semester",contentValues,"sem_id="+sem,null);
-        if(result == -1)
+        contentValues.put("sem_id", sem);
+        contentValues.put("start_date", start_date);
+        contentValues.put("end_date", end_date);
+        long result = db.update("semester", contentValues, "sem_id=" + sem, null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-    public boolean updateDataUserDetails(String name,String email, String phone) {
+    public boolean updateDataUserDetails(String name, String email, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name",name);
-        contentValues.put("email",email);
-        contentValues.put("phone",phone);
-        contentValues.put("current_sem",getcurrentsem());
-        long result=db.update("user_details",contentValues,null,null);
-        if(result == -1)
+        contentValues.put("name", name);
+        contentValues.put("email", email);
+        contentValues.put("phone", phone);
+        contentValues.put("current_sem", getcurrentsem());
+        long result = db.update("user_details", contentValues, null, null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-    public boolean updateDataSubject(String name,int id) {
+    public boolean updateDataSubject(String name, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("subject_name",name);
+        contentValues.put("subject_name", name);
 
-        long result = db.update("subject",contentValues,"subject_id="+Integer.toString(id),null);
-        if(result == -1)
+        long result = db.update("subject", contentValues, "subject_id=" + Integer.toString(id), null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-    public boolean updateDataSubject_details(int sem_id,int subject_id,String prof_name,String prof_email,int min_attendance,String status,int credits,String grade,int lab,String description) {
+    public boolean updateDataSubject_details(int sem_id, int subject_id, String prof_name, String prof_email, int min_attendance, String status, int credits, String grade, int lab, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("prof_name",prof_name);
-        contentValues.put("prof_email",prof_email);
-        contentValues.put("min_attendance",min_attendance);
-        contentValues.put("status",status);
-        contentValues.put("credits",credits);
-        contentValues.put("grade",grade);
-        contentValues.put("lab",lab);
-        contentValues.put("description",description);
-        long result=db.update("subject_details",contentValues,"subject_id="+Integer.toString(subject_id)+" and sem_id="+Integer.toString(sem_id),null);
-        if(result == -1)
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("prof_name", prof_name);
+        contentValues.put("prof_email", prof_email);
+        contentValues.put("min_attendance", min_attendance);
+        contentValues.put("status", status);
+        contentValues.put("credits", credits);
+        contentValues.put("grade", grade);
+        contentValues.put("lab", lab);
+        contentValues.put("description", description);
+        long result = db.update("subject_details", contentValues, "subject_id=" + Integer.toString(subject_id) + " and sem_id=" + Integer.toString(sem_id), null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean updateDataEvent(int event_id,String event_name,String date,String startTime,String endTime,int subject_id,String description,String remainderTime,String eventType, String remainderDate) {
+    public boolean updateDataEvent(int event_id, String event_name, String date, String startTime, String endTime, int subject_id, String description, String remainderTime, String eventType, String remainderDate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("event_id",event_id);
-        contentValues.put("event_name",event_name);
-        contentValues.put("date",date);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("description",description);
-        contentValues.put("remainderTime",remainderTime);
-        contentValues.put("eventType",eventType);
-        contentValues.put("remainderDate",remainderDate);
-        long result=db.update("event", contentValues, "event_id = "+event_id+"",null);
-        if(result == -1)
+        contentValues.put("event_id", event_id);
+        contentValues.put("event_name", event_name);
+        contentValues.put("date", date);
+        contentValues.put("startTime", startTime);
+        contentValues.put("endTime", endTime);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("description", description);
+        contentValues.put("remainderTime", remainderTime);
+        contentValues.put("eventType", eventType);
+        contentValues.put("remainderDate", remainderDate);
+        long result = db.update("event", contentValues, "event_id = " + event_id + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean updatetDataTimeTable(int id, int sem_id,int subject_id,String day,String startTime,String endTime) {
+    public boolean updatetDataTimeTable(int id, int sem_id, int subject_id, String day, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("day",day);
-        contentValues.put("startTime",startTime);
-        contentValues.put("endTime",endTime);
-        long result=db.update("timetable", contentValues, "timetable_id = "+id+" ",null);
-        if(result == -1)
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("day", day);
+        contentValues.put("startTime", startTime);
+        contentValues.put("endTime", endTime);
+        long result = db.update("timetable", contentValues, "timetable_id = " + id + " ", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-    public boolean updateDataMarks(int semid,int subid,String exam_type,int marks,int max_marks,String new_examtype) {
+    public boolean updateDataMarks(int semid, int subid, String exam_type, int marks, int max_marks, String new_examtype) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("sem_id",semid);
-        contentValues.put("subject_id",subid);
-        contentValues.put("exam_type",new_examtype);
-        contentValues.put("marks",marks);
-        contentValues.put("max_marks",max_marks);
-        long result=db.update("marks", contentValues, "sem_id="+semid+" and subject_id="+subid+" and exam_type='"+exam_type+"'" ,null);
+        contentValues.put("sem_id", semid);
+        contentValues.put("subject_id", subid);
+        contentValues.put("exam_type", new_examtype);
+        contentValues.put("marks", marks);
+        contentValues.put("max_marks", max_marks);
+        long result = db.update("marks", contentValues, "sem_id=" + semid + " and subject_id=" + subid + " and exam_type='" + exam_type + "'", null);
 
-        if(result == -1)
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean updatetDataAttendance(int attendance_id,int sem_id,int subject_id,String date,String status,int is_extra_class) {
+    public boolean updatetDataAttendance(int attendance_id, int sem_id, int subject_id, String date, String status, int is_extra_class) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("attendance_id",attendance_id);
-        contentValues.put("sem_id",sem_id);
-        contentValues.put("subject_id",subject_id);
-        contentValues.put("date",date);
-        contentValues.put("status",status);
-        contentValues.put("isExtraClass",is_extra_class);
-       long result= db.update("attendance", contentValues, "attendance_id="+attendance_id+"" ,null);
+        contentValues.put("attendance_id", attendance_id);
+        contentValues.put("sem_id", sem_id);
+        contentValues.put("subject_id", subject_id);
+        contentValues.put("date", date);
+        contentValues.put("status", status);
+        contentValues.put("isExtraClass", is_extra_class);
+        long result = db.update("attendance", contentValues, "attendance_id=" + attendance_id + "", null);
 
-        if(result == -1)
+        if (result == -1)
             return false;
         else
             return true;
@@ -576,142 +539,136 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
 //    }
 
-    public boolean deleteDataSemester (int id) {
+    public boolean deleteDataSemester(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("semester", "sem_id = "+id+"",null);
-        if(result == -1)
+        long result = db.delete("semester", "sem_id = " + id + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteDataSubject (String id) {
+    public boolean deleteDataSubject(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("subject", "subject_id = "+id+"",null);
-        if(result == -1)
+        long result = db.delete("subject", "subject_id = " + id + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteDataSubjectDetails (int sub_id,int sem_id) {
+    public boolean deleteDataSubjectDetails(int sub_id, int sem_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("subject_details", "subject_id = "+sub_id+" and sem_id = "+sem_id+"",null);
-        if(result == -1)
+        long result = db.delete("subject_details", "subject_id = " + sub_id + " and sem_id = " + sem_id + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteDataMarks (int sub_id,int sem_id,String type) {
+    public boolean deleteDataMarks(int sub_id, int sem_id, String type) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("marks", "subject_id = "+sub_id+" and sem_id = "+sem_id+" and exam_type = '"+type+"'",null);
-        if(result == -1)
+        long result = db.delete("marks", "subject_id = " + sub_id + " and sem_id = " + sem_id + " and exam_type = '" + type + "'", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteMarksOnSubDelete (int sub_id,int sem_id) {
+    public boolean deleteMarksOnSubDelete(int sub_id, int sem_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("marks", "subject_id = "+sub_id+" and sem_id = "+sem_id,null);
-        if(result == -1)
+        long result = db.delete("marks", "subject_id = " + sub_id + " and sem_id = " + sem_id, null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
 
-
-
-    public boolean deleteDataAttendance (int id) {
+    public boolean deleteDataAttendance(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("attendance", "attendance_id = "+id+"",null);
-        if(result == -1)
-            return false;
-        else
-            return true;
-    }
-    public boolean deleteDataAttendanceonsubdelete (int semid,int subid) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("attendance", "sem_id = "+semid+" and subject_id ="+subid,null);
-        if(result == -1)
+        long result = db.delete("attendance", "attendance_id = " + id + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteTimeTableonSubjectDelete(int sem,int sub_id)
-    {
-
+    public boolean deleteDataAttendanceonsubdelete(int semid, int subid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("timetable","subject_id = "+sub_id+" and sem_id = "+sem+" ",null);
-        if(result == -1)
+        long result = db.delete("attendance", "sem_id = " + semid + " and subject_id =" + subid, null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteDataTimetable (int tid) {
+    public boolean deleteTimeTableonSubjectDelete(int sem, int sub_id) {
+
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("timetable","timetable_id = "+tid+"",null);
-        if(result == -1)
+        long result = db.delete("timetable", "subject_id = " + sub_id + " and sem_id = " + sem + " ", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean deleteDataEvent (int id) {
+    public boolean deleteDataTimetable(int tid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long result= db.delete("event", "event_id = "+id+"",null);
-        if(result == -1)
+        long result = db.delete("timetable", "timetable_id = " + tid + "", null);
+        if (result == -1)
             return false;
         else
             return true;
     }
-    public boolean insertDataImages( String name, byte[] image){
+
+    public boolean deleteDataEvent(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete("event", "event_id = " + id + "", null);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean insertDataImages(String name, byte[] image) {
         SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues cv = new  ContentValues();
-        cv.put("image_name",    name);
-        cv.put("image_data",   image);
-        long result = database.insert( "ac_images", null, cv );
+        ContentValues cv = new ContentValues();
+        cv.put("image_name", name);
+        cv.put("image_data", image);
+        long result = database.insert("ac_images", null, cv);
 
-        if(result == -1)
-        {
+        if (result == -1) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
 
-    public void updategrade(String grad,int subid)
-    {
+    public void updategrade(String grad, int subid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res=db.rawQuery("update subject_details set grade='"+grad+"' where subject_id="+subid+";",null);
+        Cursor res = db.rawQuery("update subject_details set grade='" + grad + "' where subject_id=" + subid + ";", null);
 
     }
+
     public boolean updateImage(String name, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new  ContentValues();
-        cv.put("image_name",    name);
-        cv.put("image_data",   image);
-        long result = db.update("ac_images",cv,null,null);
-        if(result == -1)
+        ContentValues cv = new ContentValues();
+        cv.put("image_name", name);
+        cv.put("image_data", image);
+        long result = db.update("ac_images", cv, null, null);
+        if (result == -1)
             return false;
         else
             return true;
     }
-    public byte[] getImage(String image_name)
-    {
+
+    public byte[] getImage(String image_name) {
         SQLiteDatabase db = this.getWritableDatabase();
         byte[] image = null;
-        Cursor res = db.rawQuery("select * from ac_images",null);
-        while(res.moveToNext())
-        {
-            if(res.getString(0).equals(image_name))
-            {
+        Cursor res = db.rawQuery("select * from ac_images", null);
+        while (res.moveToNext()) {
+            if (res.getString(0).equals(image_name)) {
                 image = res.getBlob(1);
             }
         }
@@ -721,50 +678,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     ////////////////  CODE FOR ANDROID DATABASE MANAGER
 
-    public ArrayList<Cursor> getData(String Query){
+    public ArrayList<Cursor> getData(String Query) {
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();
-        String[] columns = new String[] { "mesage" };
+        String[] columns = new String[]{"mesage"};
         //an array list of cursor to save two cursors one has results from the query
         //other cursor stores error message if any errors are triggered
         ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
-        MatrixCursor Cursor2= new MatrixCursor(columns);
+        MatrixCursor Cursor2 = new MatrixCursor(columns);
         alc.add(null);
         alc.add(null);
 
 
-        try{
-            String maxQuery = Query ;
+        try {
+            String maxQuery = Query;
             //execute the query results will be save in Cursor c
             Cursor c = sqlDB.rawQuery(maxQuery, null);
 
 
             //add value to cursor2
-            Cursor2.addRow(new Object[] { "Success" });
+            Cursor2.addRow(new Object[]{"Success"});
 
-            alc.set(1,Cursor2);
+            alc.set(1, Cursor2);
             if (null != c && c.getCount() > 0) {
 
 
-                alc.set(0,c);
+                alc.set(0, c);
                 c.moveToFirst();
 
-                return alc ;
+                return alc;
             }
             return alc;
-        } catch(SQLException sqlEx){
+        } catch (SQLException sqlEx) {
             Log.d("printing exception", sqlEx.getMessage());
             //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + sqlEx.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
-        } catch(Exception ex){
+        } catch (Exception ex) {
 
             Log.d("printing exception", ex.getMessage());
 
             //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
-            alc.set(1,Cursor2);
+            Cursor2.addRow(new Object[]{"" + ex.getMessage()});
+            alc.set(1, Cursor2);
             return alc;
         }
 

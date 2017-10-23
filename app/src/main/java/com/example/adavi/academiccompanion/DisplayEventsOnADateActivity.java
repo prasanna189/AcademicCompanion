@@ -53,7 +53,7 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DisplayEventsOnADateActivity.this, AddEventFromScheduleActivity.class);
-                intent.putExtra("activity_type",activity_type);
+                intent.putExtra("activity_type", activity_type);
                 intent.putExtra("date", getIntent().getStringExtra("date"));
                 startActivity(intent);
 
@@ -96,11 +96,10 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
     }
 
 
-    public void openAddEvent()
-    {
+    public void openAddEvent() {
         Intent intent = new Intent(DisplayEventsOnADateActivity.this, AddEventActivity.class);
-        intent.putExtra("activity_type",activity_type);
-        intent.putExtra("date",getIntent().getStringExtra("date"));
+        intent.putExtra("activity_type", activity_type);
+        intent.putExtra("date", getIntent().getStringExtra("date"));
         startActivity(intent);
     }
 
@@ -111,14 +110,13 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
             eventAlert("No Events Today", "Go and Add a Event!");
             return;
         }
-        while (res.moveToNext())
-        {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2), res.getString(3));
+        while (res.moveToNext()) {
+            displayEvent(res.getInt(0), res.getString(1), res.getString(2), res.getString(3));
         }
     }
 
 
-    public void displayEvent(int eventid, String ename, String date,String StartTime) {
+    public void displayEvent(int eventid, String ename, String date, String StartTime) {
 
         //layout to which children are added
         LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_on_a_date_ll);
@@ -168,12 +166,11 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
         rowButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 Button pressed;
-                pressed=((Button)v);
-                button_id=pressed.getId();
+                pressed = ((Button) v);
+                button_id = pressed.getId();
                 viewEventDetails(v);
 
 
@@ -200,7 +197,6 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
         builder.setMessage(message);
         builder.show();
     }
-
 
 
 //    public void showDialogListView(View view){
@@ -233,12 +229,11 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
 //
 //    }
 
-    public void viewEventDetails(View v)
-    {
+    public void viewEventDetails(View v) {
         Intent intent = new Intent(this, DisplayEventOnScheduleActivity.class);
         String s = Integer.toString(button_id);
-        intent.putExtra("button_event_id",s);
-        intent.putExtra("date",getIntent().getStringExtra("date"));
+        intent.putExtra("button_event_id", s);
+        intent.putExtra("date", getIntent().getStringExtra("date"));
         startActivity(intent);
 
     }
@@ -255,7 +250,6 @@ public class DisplayEventsOnADateActivity extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
 
 
 }

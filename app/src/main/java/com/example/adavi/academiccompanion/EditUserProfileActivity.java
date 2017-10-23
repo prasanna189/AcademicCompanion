@@ -16,9 +16,9 @@ import java.io.IOException;
 
 public class EditUserProfileActivity extends AppCompatActivity {
 
+    public static PrefManager prefManager;
     DatabaseHelper myDB;
     private int PICK_IMAGE_REQUEST = 1;
-    public static PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +30,16 @@ public class EditUserProfileActivity extends AppCompatActivity {
         EditText username = (EditText) findViewById(R.id.edit_username_et);
         EditText useremail = (EditText) findViewById(R.id.edit_useremail_et);
         EditText userphone = (EditText) findViewById(R.id.edit_userphone_et);
-        ImageView imageView = (ImageView)findViewById(R.id.edit_profile_icon);
+        ImageView imageView = (ImageView) findViewById(R.id.edit_profile_icon);
 
         username.setText(myDB.getUserName());
         useremail.setText(myDB.getUserEmail());
         userphone.setText(myDB.getUserPhone());
 
-        if(prefManager.isProfilePicSet())
-        {
-            try
-            {
+        if (prefManager.isProfilePicSet()) {
+            try {
                 imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
 //                Toast.makeText(EditUserProfileActivity.this,"Profile pic not set", Toast.LENGTH_SHORT).show();
             }
@@ -64,25 +60,21 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
     }
 
-    public void saveUserProfile(View view)
-    {
+    public void saveUserProfile(View view) {
         boolean flag;
         EditText username = (EditText) findViewById(R.id.edit_username_et);
         EditText useremail = (EditText) findViewById(R.id.edit_useremail_et);
         EditText userphone = (EditText) findViewById(R.id.edit_userphone_et);
 
 
+        flag = myDB.updateDataUserDetails(username.getText().toString(), useremail.getText().toString(), userphone.getText().toString());
 
-        flag = myDB.updateDataUserDetails( username.getText().toString(), useremail.getText().toString(), userphone.getText().toString() );
-
-        if(flag == true)//insertion successful
+        if (flag == true)//insertion successful
         {
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
             startActivity(intent);
-        }
-        else
-        {
+        } else {
 //            Toast.makeText(EditUserProfileActivity.this, "Update not successful.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -99,15 +91,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                if(prefManager.isProfilePicSet())
-                {
+                if (prefManager.isProfilePicSet()) {
                     boolean flag = myDB.updateImage("profile_pic", DbBitmapUtility.getBytes(bitmap));
-                }
-                else
-                {
+                } else {
                     boolean flag = myDB.insertDataImages("profile_pic", DbBitmapUtility.getBytes(bitmap));
                 }
-                ImageView imageView = (ImageView)findViewById(R.id.edit_profile_icon);
+                ImageView imageView = (ImageView) findViewById(R.id.edit_profile_icon);
                 imageView.setImageBitmap(DbBitmapUtility.getImage(myDB.getImage("profile_pic")));
                 prefManager.setProfilePic(true);
 

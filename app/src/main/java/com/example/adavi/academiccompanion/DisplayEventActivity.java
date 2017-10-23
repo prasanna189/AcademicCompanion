@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -19,16 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.Date;
-
-import static com.example.adavi.academiccompanion.R.id.center_vertical;
 
 public class DisplayEventActivity extends AppCompatActivity {
 
@@ -51,8 +46,8 @@ public class DisplayEventActivity extends AppCompatActivity {
         setTitle("Events");
         setSupportActionBar(toolbar);
         myDB = new DatabaseHelper(this);
-        activity_type=null;
-        listView=new ListView(this);
+        activity_type = null;
+        listView = new ListView(this);
         Calendar c = Calendar.getInstance();
 //        System.out.println("Current time => "+c.getTime());
 //        Toast.makeText(this, toString(c.getTime()), Toast.LENGTH_SHORT).show();
@@ -67,10 +62,10 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         // Add data to the ListView
 
-        String[] items={"Return Book","Assignment","Homework","Exam","Extra Class","Other Activity"};
+        String[] items = {"Return Book", "Assignment", "Homework", "Exam", "Extra Class", "Other Activity"};
 
-        adapter=new ArrayAdapter<String>(this,
-                R.layout.list_item, R.id.txtitem,items);
+        adapter = new ArrayAdapter<String>(this,
+                R.layout.list_item, R.id.txtitem, items);
 
         listView.setAdapter(adapter);
 
@@ -83,10 +78,10 @@ public class DisplayEventActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int
                     position, long id) {
 
-                ViewGroup vg=(ViewGroup)view;
+                ViewGroup vg = (ViewGroup) view;
 
-                TextView txt=(TextView)vg.findViewById(R.id.txtitem);
-                activity_type=txt.getText().toString();
+                TextView txt = (TextView) vg.findViewById(R.id.txtitem);
+                activity_type = txt.getText().toString();
 //                Toast.makeText(DisplayEventActivity.this,txt.getText().toString(),Toast.LENGTH_LONG).show();
                 dialog.dismiss();
 //                dialog.cancel();
@@ -117,25 +112,20 @@ public class DisplayEventActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT
 
         );
-        tv_params.setMargins(16,16,16,16);
+        tv_params.setMargins(16, 16, 16, 16);
         tv.setLayoutParams(tv_params);
-        tv.setPadding(8,8,8,8);
+        tv.setPadding(8, 8, 8, 8);
         tv.setTextSize(15);
         tv.setBackgroundColor(Color.LTGRAY);
         tv.setTextColor(Color.BLACK);
         eventLL.addView(tv);
 
-        while(res1.moveToNext())
-        {
-            if(res1.getString(2).compareTo(formattedDate)>0)
-            {
-                displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8),res1.getString(3));
-            }
-            else if(res1.getString(2).compareTo(formattedDate)==0)
-            {
-                if((res1.getString(3)!=null && res1.getString(3).compareTo(formattedTime)>=0) || res1.getString(3).equals(""))
-                {
-                    displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2),1,res1.getString(8),res1.getString(3));
+        while (res1.moveToNext()) {
+            if (res1.getString(2).compareTo(formattedDate) > 0) {
+                displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2), 1, res1.getString(8), res1.getString(3));
+            } else if (res1.getString(2).compareTo(formattedDate) == 0) {
+                if ((res1.getString(3) != null && res1.getString(3).compareTo(formattedTime) >= 0) || res1.getString(3).equals("")) {
+                    displayEvent(res1.getInt(0), res1.getString(1), res1.getString(2), 1, res1.getString(8), res1.getString(3));
                 }
             }
 
@@ -144,9 +134,9 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         TextView tv1 = new TextView(this);
         tv1.setText("Completed Events");
-        tv_params.setMargins(16,32,16,16);
+        tv_params.setMargins(16, 32, 16, 16);
         tv1.setLayoutParams(tv_params);
-        tv1.setPadding(8,8,8,8);
+        tv1.setPadding(8, 8, 8, 8);
         tv1.setTextSize(15);
         tv1.setBackgroundColor(Color.LTGRAY);
         tv1.setTextColor(Color.BLACK);
@@ -176,15 +166,11 @@ public class DisplayEventActivity extends AppCompatActivity {
 //                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0);
 //            }
 
-            if(res.getString(2).compareTo(formattedDate)<0)
-            {
-                displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8),res.getString(3));
-            }
-            else if(res.getString(2).compareTo(formattedDate)==0)
-            {
-                if(res.getString(3)!=null && res.getString(3).compareTo(formattedTime)<0 && !res.getString(3).equals(""))
-                {
-                    displayEvent(res.getInt(0), res.getString(1), res.getString(2),0,res.getString(8),res.getString(3));
+            if (res.getString(2).compareTo(formattedDate) < 0) {
+                displayEvent(res.getInt(0), res.getString(1), res.getString(2), 0, res.getString(8), res.getString(3));
+            } else if (res.getString(2).compareTo(formattedDate) == 0) {
+                if (res.getString(3) != null && res.getString(3).compareTo(formattedTime) < 0 && !res.getString(3).equals("")) {
+                    displayEvent(res.getInt(0), res.getString(1), res.getString(2), 0, res.getString(8), res.getString(3));
                 }
             }
 
@@ -193,7 +179,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void displayEvent(int eventid, String ename, String date, int status,String etype,String time) {
+    public void displayEvent(int eventid, String ename, String date, int status, String etype, String time) {
 
         //layout to which children are added
         LinearLayout eventLL = (LinearLayout) findViewById(R.id.event_display_ll);
@@ -323,15 +309,14 @@ public class DisplayEventActivity extends AppCompatActivity {
 //        }
 //        eventLL.addView(ll);
 
-        SimpleDateFormat format1=new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat format2=new SimpleDateFormat("MMM dd");
-        Date dt1= null;
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format2 = new SimpleDateFormat("MMM dd");
+        Date dt1 = null;
         try {
             dt1 = format1.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
 
 
 //        Toast.makeText(DisplayEventActivity.this,format21.format(dt2) , Toast.LENGTH_LONG).show();
@@ -365,8 +350,8 @@ public class DisplayEventActivity extends AppCompatActivity {
         tv2.setLayoutParams(tv2_params);
         tv3.setLayoutParams(tv2_params);
 
-        ll.setPadding(8,8,8,0);
-        ll_params.setMargins(16,16,16,0);
+        ll.setPadding(8, 8, 8, 0);
+        ll_params.setMargins(16, 16, 16, 0);
         ll.setOrientation(LinearLayout.VERTICAL);
         ll1.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -375,9 +360,9 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.setBackgroundResource(R.drawable.button_sample2);
 //        tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         tv3.setGravity(Gravity.RIGHT);
-        tv1.setPadding(32,16,16,16);
-        tv2.setPadding(16,16,16,16);
-        tv3.setPadding(16,16,16,16);
+        tv1.setPadding(32, 16, 16, 16);
+        tv2.setPadding(16, 16, 16, 16);
+        tv3.setPadding(16, 16, 16, 16);
 
         tv1.setTextColor(Color.BLACK);
         tv1.setTextSize(20);
@@ -387,12 +372,11 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
                 LinearLayout pressed;
-                pressed=((LinearLayout)v);
-                button_id=pressed.getId();
+                pressed = ((LinearLayout) v);
+                button_id = pressed.getId();
                 viewEventDetails(v);
 
 
@@ -401,13 +385,10 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         tv1.setText(ename);
         tv2.setText(etype);
-        if(time!=null)
-        {
+        if (time != null) {
 
-            tv3.setText(time+"       "+format2.format(dt1));
-        }
-        else
-        {
+            tv3.setText(time + "       " + format2.format(dt1));
+        } else {
             tv3.setText(format2.format(dt1));
         }
 
@@ -418,8 +399,7 @@ public class DisplayEventActivity extends AppCompatActivity {
         ll.addView(tv1);
         ll.addView(ll1);
 
-        if(status==0)
-        {
+        if (status == 0) {
             ll.setBackgroundResource(R.drawable.button_sample3);
         }
 //        eventLL.setPadding(8,8,8,8);
@@ -451,17 +431,17 @@ public class DisplayEventActivity extends AppCompatActivity {
 //        //Output will be 10:23 PM
 //    }
 
-    public void openAddEvent(){
+    public void openAddEvent() {
 
 
         Intent intent = new Intent(this, AddEventActivity.class);
-        intent.putExtra("activity_type",activity_type);
+        intent.putExtra("activity_type", activity_type);
         startActivity(intent);
     }
 
-    public void showDialogListView(View view){
+    public void showDialogListView(View view) {
 
-        AlertDialog.Builder builder=new
+        AlertDialog.Builder builder = new
                 AlertDialog.Builder(DisplayEventActivity.this);
 
         builder.setCancelable(true);
@@ -470,7 +450,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         builder.setView(listView);
 
-        dialog=builder.create();
+        dialog = builder.create();
         dialog.setTitle("Select Your Activity");
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -487,14 +467,12 @@ public class DisplayEventActivity extends AppCompatActivity {
         dialog.show();
 
 
-
     }
 
-    public void viewEventDetails(View v)
-    {
+    public void viewEventDetails(View v) {
         Intent intent = new Intent(this, DisplayEventDetailsActivity.class);
         String s = Integer.toString(button_id);
-        intent.putExtra("button_event_id",s);
+        intent.putExtra("button_event_id", s);
         startActivity(intent);
 
     }
@@ -514,8 +492,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

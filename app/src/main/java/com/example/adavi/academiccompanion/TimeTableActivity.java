@@ -8,12 +8,10 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +27,7 @@ public class TimeTableActivity extends AppCompatActivity {
     DatabaseHelper myDB = null;
     int sem;
     Button StartDatePicker;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +36,21 @@ public class TimeTableActivity extends AppCompatActivity {
 
         setTitle("Timetable");
         StartDatePicker = new Button(this);
-        StartDatePicker.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-                DateDialog dialog=new DateDialog(view);
-                FragmentTransaction ft =getFragmentManager().beginTransaction();
+        StartDatePicker.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                DateDialog dialog = new DateDialog(view);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
                 dialog.show(ft, "DatePicker");
             }
         });
 
         boolean flag = false;
-        myDB= new DatabaseHelper(this);
+        myDB = new DatabaseHelper(this);
         sem = myDB.getcurrentsem();
         Cursor r = myDB.getAllData("semester");
-        while(r.moveToNext())
-        {
-            if(r.getInt(0)==sem)
-            {
-                if(r.getString(1)==null)
-                {
+        while (r.moveToNext()) {
+            if (r.getInt(0) == sem) {
+                if (r.getString(1) == null) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
                     builder.setTitle("Enter Semester Start Date:");
@@ -74,15 +69,12 @@ public class TimeTableActivity extends AppCompatActivity {
                             String start_date = StartDatePicker.getText().toString();
 
 
-                                Boolean isUpdated = myDB.updateDataSemester(sem,start_date,"");
-                                if(isUpdated)
-                                {
-                                    Toast.makeText(TimeTableActivity.this, "Start Date Updated", Toast.LENGTH_LONG).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(TimeTableActivity.this,"Start Date Update Failed",Toast.LENGTH_LONG).show();
-                                }
+                            Boolean isUpdated = myDB.updateDataSemester(sem, start_date, "");
+                            if (isUpdated) {
+                                Toast.makeText(TimeTableActivity.this, "Start Date Updated", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(TimeTableActivity.this, "Start Date Update Failed", Toast.LENGTH_LONG).show();
+                            }
 
 
                         }
@@ -90,9 +82,8 @@ public class TimeTableActivity extends AppCompatActivity {
 
                     StartDatePicker.setText(formattedDate);
 
-                        builder.show();
+                    builder.show();
                 }
-
 
 
             }
@@ -100,49 +91,33 @@ public class TimeTableActivity extends AppCompatActivity {
 
         Cursor res = myDB.getTimeTableAsc();
 
-        while(res.moveToNext())
-        {
-            if(res.getInt(1)==sem)
-            {
+        while (res.moveToNext()) {
+            if (res.getInt(1) == sem) {
 //                Toast.makeText(TimeTableActivity.this, "TimeTable Updated", Toast.LENGTH_LONG).show();
-                addToTimetable(res.getInt(0),res.getInt(2),res.getString(3),res.getString(4),res.getString(5));
+                addToTimetable(res.getInt(0), res.getInt(2), res.getString(3), res.getString(4), res.getString(5));
             }
         }
 
 
     }
 
-    void addToTimetable(int id, int sub_id, String day, String stime, String etime)
-    {
-        String sub_name=subjectName(sub_id);
-        LinearLayout dayll=null;
-        if(day.equals("Monday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.monday_ll);
-        }
-        else if(day.equals("Tuesday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.tuesday_ll);
-        }
-        else if(day.equals("Wednesday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.wednesday_ll);
-        }
-        else if(day.equals("Thursday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.thursday_ll);
-        }
-        else if(day.equals("Friday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.friday_ll);
-        }
-        else if(day.equals("Saturday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.saturday_ll);
-        }
-        else if(day.equals("Sunday"))
-        {
-            dayll=(LinearLayout) findViewById(R.id.sunday_ll);
+    void addToTimetable(int id, int sub_id, String day, String stime, String etime) {
+        String sub_name = subjectName(sub_id);
+        LinearLayout dayll = null;
+        if (day.equals("Monday")) {
+            dayll = (LinearLayout) findViewById(R.id.monday_ll);
+        } else if (day.equals("Tuesday")) {
+            dayll = (LinearLayout) findViewById(R.id.tuesday_ll);
+        } else if (day.equals("Wednesday")) {
+            dayll = (LinearLayout) findViewById(R.id.wednesday_ll);
+        } else if (day.equals("Thursday")) {
+            dayll = (LinearLayout) findViewById(R.id.thursday_ll);
+        } else if (day.equals("Friday")) {
+            dayll = (LinearLayout) findViewById(R.id.friday_ll);
+        } else if (day.equals("Saturday")) {
+            dayll = (LinearLayout) findViewById(R.id.saturday_ll);
+        } else if (day.equals("Sunday")) {
+            dayll = (LinearLayout) findViewById(R.id.sunday_ll);
         }
 
 
@@ -172,7 +147,6 @@ public class TimeTableActivity extends AppCompatActivity {
         );
 
 
-
         tv_sname.setLayoutParams(tv_params);
         tv_stime.setLayoutParams(tv_params);
         tv_etime.setLayoutParams(tv_params);
@@ -186,13 +160,12 @@ public class TimeTableActivity extends AppCompatActivity {
         ll.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 LinearLayout pressed;
-                pressed=((LinearLayout) v);
-                int id=pressed.getId();
-                Intent intent = new Intent(TimeTableActivity.this,SetTimeTable.class);
-                intent.putExtra("timetable_id",""+id+"");
+                pressed = ((LinearLayout) v);
+                int id = pressed.getId();
+                Intent intent = new Intent(TimeTableActivity.this, SetTimeTable.class);
+                intent.putExtra("timetable_id", "" + id + "");
                 startActivity(intent);
 
 
@@ -214,23 +187,18 @@ public class TimeTableActivity extends AppCompatActivity {
         dayll.addView(ll);
 
 
-
     }
 
-    String subjectName(int sub_id)
-    {
+    String subjectName(int sub_id) {
         Cursor res = myDB.getCurrentSemSubjects(sem);
-        String sub_name="";
-        while(res.moveToNext())
-        {
-            if(res.getInt(0)==sub_id)
-            {
-                sub_name=res.getString(1);
+        String sub_name = "";
+        while (res.moveToNext()) {
+            if (res.getInt(0) == sub_id) {
+                sub_name = res.getString(1);
             }
         }
         return sub_name;
     }
-
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -251,16 +219,14 @@ public class TimeTableActivity extends AppCompatActivity {
         }
     }
 
-    void  editTimeTable()
-    {
-        Intent intent = new Intent(this,EditTimeTable.class);
+    void editTimeTable() {
+        Intent intent = new Intent(this, EditTimeTable.class);
         startActivity(intent);
     }
 
 
-    public void onBackPressed()
-    {
-        Intent intent = new Intent(this,MainActivity.class);
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
